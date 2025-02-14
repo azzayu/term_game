@@ -1,8 +1,14 @@
-#include "stdlib.h"
-#include "stdio.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
 
 
-char PRINTING_BLOCK[] = "█";
+
+char FULL_BLOCK[] = "██";
+char THREE_QUART_BLOCK[] = "▓▓";
+char HALF_BLOCK[] = "▒▒";
+char QUART_BLOCK[] = "░░";
+
 
 char BLACK[] = "\033[0;30m";
 char RED[] = "\033[0;31m";
@@ -25,25 +31,29 @@ char BRIGHT_WHITE[] = "\033[0;97m";
 
 
 int main(){
-
-
-	printf("%s %s \n", BLACK, PRINTING_BLOCK);
-	printf("%s %s \n", RED, PRINTING_BLOCK);
-	printf("%s %s \n", GREEN, PRINTING_BLOCK);
-	printf("%s %s \n", YELLOW, PRINTING_BLOCK);
-	printf("%s %s \n", BLUE, PRINTING_BLOCK);
-	printf("%s %s \n", MAGENTA, PRINTING_BLOCK);
-	printf("%s %s \n", CYAN, PRINTING_BLOCK);
-	printf("%s %s \n", WHITE, PRINTING_BLOCK);
-	printf("%s %s \n", BRIGHT_BLACK, PRINTING_BLOCK);
-	printf("%s %s \n", BRIGHT_RED, PRINTING_BLOCK);
-	printf("%s %s \n", BRIGHT_GREEN, PRINTING_BLOCK);
-	printf("%s %s \n", BRIGHT_YELLOW, PRINTING_BLOCK);
-	printf("%s %s \n", BRIGHT_BLUE, PRINTING_BLOCK);
-	printf("%s %s \n", BRIGHT_MAGENTA, PRINTING_BLOCK);
-	printf("%s %s \n", BRIGHT_CYAN, PRINTING_BLOCK);
-	printf("%s %s \n", BRIGHT_WHITE, PRINTING_BLOCK);
-	
-
+ 
+	while (1) 
+	{
+		system("clear");
+		printf("%s %s %s %s %s\n", BLACK, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", RED, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", GREEN, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", YELLOW, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", BLUE, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", MAGENTA, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", CYAN, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", WHITE, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", BRIGHT_BLACK, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", BRIGHT_RED, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", BRIGHT_GREEN, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", BRIGHT_YELLOW, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", BRIGHT_BLUE, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", BRIGHT_MAGENTA, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", BRIGHT_CYAN, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		printf("%s %s %s %s %s\n", BRIGHT_WHITE, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+		
+		fflush(stdout);
+		sleep(1);
+	}
 	return EXIT_SUCCESS;
 }
