@@ -28,6 +28,10 @@ char BRIGHT_CYAN[] = "\033[0;96m";
 char BRIGHT_WHITE[] = "\033[0;97m";
 
 
+struct struct_pixel_s {
+	int layer[50];
+} pixel;
+
 
 
 int main(){

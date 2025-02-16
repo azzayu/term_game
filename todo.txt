@@ -1,0 +1,17 @@
+TODO LIST OF NEEDED FEATURES:
+
+make pixel screen with the proper structures in place (use a layer system and priority on first layer)
+
+make proper first display
+
+make input reading with updates on input
+
+make character struct
+
+make basic attacks to dodge
+
+make first gameplay loop
+
+seperate files and make a makefile for compilation
+
+
