@@ -1,6 +1,6 @@
 TODO LIST OF NEEDED FEATURES:
 
-make pixel screen with the proper structures in place (use a layer system and priority on first layer)
+make pixel screen with the proper structures in place (use a layer system and priority on first layer) => done for now, refining and information top half to add later
 
 make proper first display
 
