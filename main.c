@@ -4,35 +4,35 @@
 
 
 
-char FULL_BLOCK[] = "██"; 
-char THREE_QUART_BLOCK[] = "▓▓";
-char HALF_BLOCK[] = "▒▒";
-char QUART_BLOCK[] = "░░";
-char VERT_WALL_LEFT[] = "║ ";
-char VERT_WALL_RIGHT[] = " ║";
-char HORI_WALL[] = "══";
-char TOP_LEFT_CORNER[] = " ╔";
-char TOP_RIGHT_CORNER[] = "╗ ";
-char BOTTOM_LEFT_CORNER[] = " ╚";
-char BOTTOM_RIGHT_CORNER[] = "╝ ";
+const char FULL_BLOCK[] = "██"; 
+const char THREE_QUART_BLOCK[] = "▓▓";
+const char HALF_BLOCK[] = "▒▒";
+const char QUART_BLOCK[] = "░░";
+const char VERT_WALL_LEFT[] = "║ ";
+const char VERT_WALL_RIGHT[] = " ║";
+const char HORI_WALL[] = "══";
+const char TOP_LEFT_CORNER[] = " ╔";
+const char TOP_RIGHT_CORNER[] = "╗ ";
+const char BOTTOM_LEFT_CORNER[] = " ╚";
+const char BOTTOM_RIGHT_CORNER[] = "╝ ";
 
 
-char BLACK[] = "\033[0;30m";
-char RED[] = "\033[0;31m";
-char GREEN[] = "\033[0;32m";
-char YELLOW[] = "\033[0;33m";
-char BLUE[] = "\033[0;34m";
-char MAGENTA[] = "\033[0;35m";
-char CYAN[] = "\033[0;36m";
-char WHITE[] = "\033[0;37m";
-char BRIGHT_BLACK[] = "\033[0;90m";
-char BRIGHT_RED[] = "\033[0;91m";
-char BRIGHT_GREEN[] = "\033[0;92m";
-char BRIGHT_YELLOW[] = "\033[0;93m";
-char BRIGHT_BLUE[] = "\033[0;94m";
-char BRIGHT_MAGENTA[] = "\033[0;95m";
-char BRIGHT_CYAN[] = "\033[0;96m";
-char BRIGHT_WHITE[] = "\033[0;97m";
+const char BLACK[] = "\033[0;30m";
+const char RED[] = "\033[0;31m";
+const char GREEN[] = "\033[0;32m";
+const char YELLOW[] = "\033[0;33m";
+const char BLUE[] = "\033[0;34m";
+const char MAGENTA[] = "\033[0;35m";
+const char CYAN[] = "\033[0;36m";
+const char WHITE[] = "\033[0;37m";
+const char BRIGHT_BLACK[] = "\033[0;90m";
+const char BRIGHT_RED[] = "\033[0;91m";
+const char BRIGHT_GREEN[] = "\033[0;92m";
+const char BRIGHT_YELLOW[] = "\033[0;93m";
+const char BRIGHT_BLUE[] = "\033[0;94m";
+const char BRIGHT_MAGENTA[] = "\033[0;95m";
+const char BRIGHT_CYAN[] = "\033[0;96m";
+const char BRIGHT_WHITE[] = "\033[0;97m";
 
 
 typedef struct pixel_s {
@@ -50,6 +50,7 @@ void print_screen(pixel **pixel_mat, int width, int height){
 	50 => background of play area
 	none to 1 => general black background (normal terminal screen)
 	*/
+	system("clear");
 	for (int y = 0; y < height; y++){
 		for (int x = 0; x < width; x++){
 			if (pixel_mat[y][x].layer[0] == 1) {
@@ -140,13 +141,18 @@ void free_screen(pixel **pixel_mat, int width, int height){
 
 int main(){
 
-	int width = 50;
-	int height = 30;
+	int width = 30;
+	int height = 20;
  
 	pixel **screen = init_screen(width, height);
 	screen[10][15].layer[0] = 1;
-	print_screen(screen, width, height);
 
+	while (1){
+		print_screen(screen, width, height);
+		char input[100];
+		scanf("%s",&input);
+	}
 	free_screen(screen, width, height);
+
 	return EXIT_SUCCESS;
 }
