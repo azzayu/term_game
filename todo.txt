@@ -4,9 +4,9 @@ make pixel screen with the proper structures in place (use a layer system and pr
 
 make proper first display
 
-make input reading with updates on input
+make input reading with updates on input => done but it can take a chain of inputs, accepted when the player presses enter (this could allow the player to predo their inputs)
 
-make character struct
+make character struct => being worked on
 
 make basic attacks to dodge
 

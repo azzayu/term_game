@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <curses.h>
 
 
 
@@ -39,6 +40,11 @@ typedef struct pixel_s {
 	int layer[100];
 } pixel;
 
+
+typedef struct player_s{
+	int x;
+	int y;
+} player;
 
 void print_screen(pixel **pixel_mat, int width, int height){
 	/*
@@ -139,20 +145,45 @@ void free_screen(pixel **pixel_mat, int width, int height){
 }
 
 
+void move_player(pixel **screen, player prota, char input, int width, int height){
+	if (input == 'z' && prota.y < height){
+		screen[prota.y][prota.x].layer[0] = 0;
+		prota.y -= 1;
+		screen[prota.y][prota.x].layer[0] = 1;
+	}else if (input == 's' && prota.y > 0){
+		screen[prota.y][prota.x].layer[0] = 0;
+		prota.y += 1;
+		screen[prota.y][prota.x].layer[0] = 1;
+	}else if (input == 'd' && prota.x < width){
+		screen[prota.y][prota.x].layer[0] = 0;
+		prota.x += 1;
+		screen[prota.y][prota.x].layer[0] = 1;
+	}else if (input == 'q' && prota.x > 0){
+		screen[prota.y][prota.x].layer[0] = 0;
+		prota.x -= 1;
+		screen[prota.y][prota.x].layer[0] = 1;
+	}
+}
+
+
 int main(){
 
 	int width = 30;
 	int height = 20;
+
+	player prota;
+	prota.x = 15;
+	prota.y = 10;
  
 	pixel **screen = init_screen(width, height);
-	screen[10][15].layer[0] = 1;
+	screen[prota.y][prota.x].layer[0] = 1;
 
 	while (1){
 		print_screen(screen, width, height);
-		char input[100];
-		scanf("%s",&input);
+		char input;
+		scanf("%c",&input);
+		move_player(screen, prota, input, width, height);
 	}
 	free_screen(screen, width, height);
-
 	return EXIT_SUCCESS;
 }
