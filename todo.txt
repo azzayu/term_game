@@ -2,15 +2,15 @@ TODO LIST OF NEEDED FEATURES:
 
 make pixel screen with the proper structures in place (use a layer system and priority on first layer) => done for now, refining and information top half to add later
 
-make proper first display
+make proper first display => the need for health bar is now aparent, this should be the next step
 
 make input reading with updates on input => done but it can take a chain of inputs, accepted when the player presses enter (this could allow the player to predo their inputs)
 
-make character struct => being worked on
+make character struct => being worked on => now had position and health attributes
 
-make basic attacks to dodge
+make basic attacks to dodge => made random vertical columns more variety will be added
 
-make first gameplay loop
+make first gameplay loop => health add attacks are in
 
 seperate files and make a makefile for compilation
 

@@ -1,8 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include <unistd.h>
-#include <curses.h>
-
 
 
 const char FULL_BLOCK[] = "██"; 
@@ -44,6 +43,8 @@ typedef struct pixel_s {
 typedef struct player_s{
 	int x;
 	int y;
+	int max_health;
+	int health;
 } player;
 
 void print_screen(pixel **pixel_mat, int width, int height){
@@ -51,7 +52,7 @@ void print_screen(pixel **pixel_mat, int width, int height){
 	each layer corresponds to something different with things closer to 0 more important to display (hence they get displayed)
 	0 => player
 	1 - 7 => border
-
+	8 - 11 => attacks, with 8 being attacks currently happening
 
 	50 => background of play area
 	none to 1 => general black background (normal terminal screen)
@@ -75,8 +76,16 @@ void print_screen(pixel **pixel_mat, int width, int height){
 				printf("%s%s", WHITE, BOTTOM_LEFT_CORNER);
 			} else if (pixel_mat[y][x].layer[7] == 1) {
 				printf("%s%s", WHITE, BOTTOM_RIGHT_CORNER);
+			} else if (pixel_mat[y][x].layer[8] == 1) {
+				printf("%s%s", RED, FULL_BLOCK);
+			} else if (pixel_mat[y][x].layer[9] == 1) {
+					printf("%s%s", RED, THREE_QUART_BLOCK);
+			} else if (pixel_mat[y][x].layer[10] == 1) {
+					printf("%s%s", RED, HALF_BLOCK);
+			} else if (pixel_mat[y][x].layer[11] == 1) {
+					printf("%s%s", RED, QUART_BLOCK);
 			} else if (pixel_mat[y][x].layer[50] == 1) {
-				printf("%s%s", BRIGHT_BLUE, FULL_BLOCK);
+					printf("%s%s", BRIGHT_BLUE, FULL_BLOCK);
 			} else {
 				printf("%s%s", BLACK, FULL_BLOCK);
 			}
@@ -145,28 +154,64 @@ void free_screen(pixel **pixel_mat, int width, int height){
 }
 
 
-void move_player(pixel **screen, player prota, char input, int width, int height){
-	if (input == 'z' && prota.y < height){
-		screen[prota.y][prota.x].layer[0] = 0;
-		prota.y -= 1;
-		screen[prota.y][prota.x].layer[0] = 1;
-	}else if (input == 's' && prota.y > 0){
-		screen[prota.y][prota.x].layer[0] = 0;
-		prota.y += 1;
-		screen[prota.y][prota.x].layer[0] = 1;
-	}else if (input == 'd' && prota.x < width){
-		screen[prota.y][prota.x].layer[0] = 0;
-		prota.x += 1;
-		screen[prota.y][prota.x].layer[0] = 1;
-	}else if (input == 'q' && prota.x > 0){
-		screen[prota.y][prota.x].layer[0] = 0;
-		prota.x -= 1;
-		screen[prota.y][prota.x].layer[0] = 1;
+void move_player(pixel **screen, player *prota, char input, int width, int height){
+	if (input == 'z' && prota->y > 1){
+		screen[prota->y][prota->x].layer[0] = 0;
+		prota->y -= 1;
+		screen[prota->y][prota->x].layer[0] = 1;
+	}else if (input == 's' && prota->y < height - 2){
+		screen[prota->y][prota->x].layer[0] = 0;
+		prota->y += 1;
+		screen[prota->y][prota->x].layer[0] = 1;
+	}else if (input == 'd' && prota->x < width - 2){
+		screen[prota->y][prota->x].layer[0] = 0;
+		prota->x += 1;
+		screen[prota->y][prota->x].layer[0] = 1;
+	}else if (input == 'q' && prota->x > 1){
+		screen[prota->y][prota->x].layer[0] = 0;
+		prota->x -= 1;
+		screen[prota->y][prota->x].layer[0] = 1;
+	}
+}
+
+
+void update_attacks(pixel **screen, int width, int height, player *prota){
+	for (int y = 0; y < height; y++){
+		for (int x = 0; x < width; x++){
+			if (screen[y][x].layer[8] == 1){
+				screen[y][x].layer[8] = 0;
+				if (prota->y == y && prota->x == x){
+					prota->health -=1;
+				}
+			}
+			if (screen[y][x].layer[9] == 1){
+				screen[y][x].layer[9] = 0;
+				screen[y][x].layer[8] = 1;
+			}
+			if (screen[y][x].layer[10] == 1){
+				screen[y][x].layer[10] = 0;
+				screen[y][x].layer[9] = 1;
+			}
+			if (screen[y][x].layer[11] == 1){
+				screen[y][x].layer[11] = 0;
+				screen[y][x].layer[10] = 1;
+			}
+		}
+	}
+}
+
+
+void add_attack(pixel **screen, int width, int height){
+	int column = rand() % width;
+	for (int y = 0; y < height; y++){
+		screen[y][column].layer[11] = 1;
 	}
 }
 
 
 int main(){
+	
+	srand(time(NULL));
 
 	int width = 30;
 	int height = 20;
@@ -174,15 +219,21 @@ int main(){
 	player prota;
 	prota.x = 15;
 	prota.y = 10;
+	prota.max_health = 5;
+	prota.health = prota.max_health;
  
 	pixel **screen = init_screen(width, height);
 	screen[prota.y][prota.x].layer[0] = 1;
 
-	while (1){
+	while (prota.health > 0){
 		print_screen(screen, width, height);
 		char input;
 		scanf("%c",&input);
-		move_player(screen, prota, input, width, height);
+		if (input != '\n'){
+			move_player(screen, &prota, input, width, height);
+			update_attacks(screen, width, height, &prota);
+			add_attack(screen, width, height);
+		}
 	}
 	free_screen(screen, width, height);
 	return EXIT_SUCCESS;
