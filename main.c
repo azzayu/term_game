@@ -224,7 +224,7 @@ void update_attacks(pixel **screen, int width, int height, player *prota, play_s
 }
 
 
-void column_attack(pixel **screen, int width, int height, play_screen play_area){
+void column_attack(pixel **screen, play_screen play_area){
 	int column = rand() % play_area.width;
 	for (int y = play_area.y_min; y < play_area.y_max; y++){
 		screen[y][play_area.x_min + column].layer[11] = 1;
@@ -232,7 +232,7 @@ void column_attack(pixel **screen, int width, int height, play_screen play_area)
 }
 
 
-void line_attack(pixel **screen, int width, int height, play_screen play_area){
+void line_attack(pixel **screen, play_screen play_area){
 	int line = rand() % play_area.height;
 	for (int x = play_area.x_min; x < play_area.x_max; x++){
 		screen[line + play_area.y_min][x].layer[11] = 1;
@@ -240,7 +240,7 @@ void line_attack(pixel **screen, int width, int height, play_screen play_area){
 }
 
 
-void circle_attack(pixel **screen, int width, int height, play_screen play_area){
+void circle_attack(pixel **screen, play_screen play_area){
 	int center_x = rand() % play_area.width;
 	int center_y = rand() % play_area.height;
 	int radius = rand() % 6;
@@ -256,7 +256,7 @@ void circle_attack(pixel **screen, int width, int height, play_screen play_area)
 }
 
 
-void square_attack(pixel **screen, int width, int height, play_screen play_area){
+void square_attack(pixel **screen, play_screen play_area){
 	int center_x = rand() % play_area.width;
 	int center_y = rand() % play_area.height;
 	int size = rand() % 4;
@@ -270,20 +270,20 @@ void square_attack(pixel **screen, int width, int height, play_screen play_area)
 }
 
 
-void add_attack(pixel **screen, int width, int height, play_screen play_area){
+void add_attack(pixel **screen, play_screen play_area){
 	int attack_type = rand() % 4;
 	switch (attack_type){
 		case 0:
-			column_attack(screen, width, height, play_area);
+			column_attack(screen, play_area);
 			break;
 		case 1:
-			line_attack(screen, width, height, play_area);
+			line_attack(screen, play_area);
 			break;
 		case 2:
-			circle_attack(screen, width, height, play_area);
+			circle_attack(screen, play_area);
 			break;
 		case 3:
-			square_attack(screen, width, height, play_area);
+			square_attack(screen, play_area);
 			break;
 	}
 }
@@ -321,7 +321,7 @@ int main(){
 		if (input != '\n'){
 			move_player(screen, &prota, input, width, height, play_area);
 			update_attacks(screen, width, height, &prota, play_area);
-			add_attack(screen, width, height, play_area);
+			add_attack(screen, play_area);
 		}
 	}
 	free_screen(screen, width, height);
