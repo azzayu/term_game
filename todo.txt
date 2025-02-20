@@ -8,7 +8,7 @@ make input reading with updates on input => done but it can take a chain of inpu
 
 make character struct => being worked on => now had position and health attributes
 
-make basic attacks to dodge => made random vertical columns more variety will be added
+make basic attacks to dodge => made random vertical columns more variety will be added => 4 basic attacks are now in
 
 make first gameplay loop => health and attacks are in
 

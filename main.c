@@ -96,6 +96,16 @@ void print_screen(pixel **pixel_mat, int width, int height){
 }
 
 
+int distance_2(int x1, int y1, int x2, int y2){
+	return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+}
+
+
+int distance_man(int x1, int y1, int x2, int y2){
+	return abs(x1 - x2) + abs(y1 - y2);
+}
+
+
 pixel **init_screen(int width, int height){
 	pixel **screen = malloc(sizeof(pixel*) * height);
 	for (int y = 0; y < height; y++){
@@ -217,14 +227,50 @@ void line_attack(pixel **screen, int width, int height){
 }
 
 
+void circle_attack(pixel **screen, int width, int height){
+	int center_x = rand() % (width - 2) + 1;
+	int center_y = rand() % (height - 2) + 1;
+	int radius = rand() % 6;
+	for (int x = center_x - radius; x < center_x + radius; x++){
+		for (int y = center_y - radius; y < center_y + radius; y++){
+			if (0 < x && x < width - 1 && 0 < y && y < height - 1){
+				if (distance_2(x, y, center_x, center_y) < radius * radius) {
+					screen[y][x].layer[11] = 1;
+				}
+			}
+		}
+	}
+}
+
+
+void square_attack(pixel **screen, int width, int height){
+	int center_x = rand() % (width - 2) + 1;
+	int center_y = rand() % (height - 2) + 1;
+	int size = rand() % 4;
+	for (int x = center_x - size; x < center_x + size; x++){
+		for (int y = center_y - size; y < center_y + size; y++){
+			if (0 < x && x < width - 1 && 0 < y && y < height - 1){					
+				screen[y][x].layer[11] = 1;
+			}
+		}
+	}
+}
+
+
 void add_attack(pixel **screen, int width, int height){
-	int attack_type = rand() % 2;
+	int attack_type = rand() % 4;
 	switch (attack_type){
 		case 0:
 			column_attack(screen, width, height);
 			break;
 		case 1:
 			line_attack(screen, width, height);
+			break;
+		case 2:
+			circle_attack(screen, width, height);
+			break;
+		case 3:
+			square_attack(screen, width, height);
 			break;
 	}
 }
