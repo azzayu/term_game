@@ -10,7 +10,7 @@ make character struct => being worked on => now had position and health attribut
 
 make basic attacks to dodge => made random vertical columns more variety will be added
 
-make first gameplay loop => health add attacks are in
+make first gameplay loop => health and attacks are in
 
 seperate files and make a makefile for compilation
 
