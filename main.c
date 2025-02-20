@@ -201,10 +201,31 @@ void update_attacks(pixel **screen, int width, int height, player *prota){
 }
 
 
-void add_attack(pixel **screen, int width, int height){
-	int column = rand() % width;
-	for (int y = 0; y < height; y++){
+void column_attack(pixel **screen, int width, int height){
+	int column = rand() % (width - 2) + 1;
+	for (int y = 1; y < height - 1; y++){
 		screen[y][column].layer[11] = 1;
+	}
+}
+
+
+void line_attack(pixel **screen, int width, int height){
+	int line = rand() % (height - 2) + 1;
+	for (int x = 1; x < width - 1; x++){
+		screen[line][x].layer[11] = 1;
+	}
+}
+
+
+void add_attack(pixel **screen, int width, int height){
+	int attack_type = rand() % 2;
+	switch (attack_type){
+		case 0:
+			column_attack(screen, width, height);
+			break;
+		case 1:
+			line_attack(screen, width, height);
+			break;
 	}
 }
 
