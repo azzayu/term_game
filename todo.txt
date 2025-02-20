@@ -2,7 +2,7 @@ TODO LIST OF NEEDED FEATURES:
 
 make pixel screen with the proper structures in place (use a layer system and priority on first layer) => done for now, refining and information top half to add later
 
-make proper first display => the need for health bar is now aparent, this should be the next step
+make proper first display => the need for health bar is now aparent, this should be the next step => display has been adapted to have empty space on top
 
 make input reading with updates on input => done but it can take a chain of inputs, accepted when the player presses enter (this could allow the player to predo their inputs)
 

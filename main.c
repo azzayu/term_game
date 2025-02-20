@@ -47,6 +47,17 @@ typedef struct player_s{
 	int health;
 } player;
 
+typedef struct play_screen_s{
+	int x_min;
+	int y_min;
+	int x_max;
+	int y_max;
+
+	int width;
+	int height;
+} play_screen;
+
+
 void print_screen(pixel **pixel_mat, int width, int height){
 	/*
 	each layer corresponds to something different with things closer to 0 more important to display (hence they get displayed)
@@ -106,7 +117,7 @@ int distance_man(int x1, int y1, int x2, int y2){
 }
 
 
-pixel **init_screen(int width, int height){
+pixel **init_screen(int width, int height, play_screen play_area){
 	pixel **screen = malloc(sizeof(pixel*) * height);
 	for (int y = 0; y < height; y++){
 		screen[y] = malloc(sizeof(pixel) * width);
@@ -114,21 +125,23 @@ pixel **init_screen(int width, int height){
 			for (int layer = 0; layer < 100; layer ++){
 				screen[y][x].layer[layer] = 0;
 			}
-			screen[y][x].layer[50] = 1;
+			if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max){
+				screen[y][x].layer[50] = 1;
+			}
 		}
 	}
-	for (int x = 1; x < width - 1; x++){
-		screen[0][x].layer[3] = 1;
-		screen[height - 1][x].layer[3] = 1;
+	for (int x = play_area.x_min; x < play_area.x_max; x++){
+		screen[play_area.y_min - 1][x].layer[3] = 1;
+		screen[play_area.y_max][x].layer[3] = 1;
 	}
-	for (int y = 1; y < height - 1; y++){
-		screen[y][0].layer[2] = 1;
-		screen[y][width - 1].layer[1] = 1;
+	for (int y = play_area.y_min; y < play_area.y_max; y++){
+		screen[y][play_area.x_min - 1].layer[2] = 1;
+		screen[y][play_area.x_max].layer[1] = 1;
 	}
-	screen[0][0].layer[4] = 1;
-	screen[0][width - 1].layer[5] = 1;
-	screen[height - 1][0].layer[6] = 1;
-	screen[height - 1][width - 1].layer[7] = 1;
+	screen[play_area.y_min - 1][play_area.x_min - 1].layer[4] = 1;
+	screen[play_area.y_min - 1][play_area.x_max].layer[5] = 1;
+	screen[play_area.y_max][play_area.x_min - 1].layer[6] = 1;
+	screen[play_area.y_max][play_area.x_max].layer[7] = 1;
 	return screen;
 }
 
@@ -164,20 +177,20 @@ void free_screen(pixel **pixel_mat, int width, int height){
 }
 
 
-void move_player(pixel **screen, player *prota, char input, int width, int height){
-	if (input == 'z' && prota->y > 1){
+void move_player(pixel **screen, player *prota, char input, int width, int height, play_screen play_area){
+	if (input == 'z' && prota->y > play_area.y_min){
 		screen[prota->y][prota->x].layer[0] = 0;
 		prota->y -= 1;
 		screen[prota->y][prota->x].layer[0] = 1;
-	}else if (input == 's' && prota->y < height - 2){
+	}else if (input == 's' && prota->y < play_area.y_max - 1){
 		screen[prota->y][prota->x].layer[0] = 0;
 		prota->y += 1;
 		screen[prota->y][prota->x].layer[0] = 1;
-	}else if (input == 'd' && prota->x < width - 2){
+	}else if (input == 'd' && prota->x < play_area.x_max - 1){
 		screen[prota->y][prota->x].layer[0] = 0;
 		prota->x += 1;
 		screen[prota->y][prota->x].layer[0] = 1;
-	}else if (input == 'q' && prota->x > 1){
+	}else if (input == 'q' && prota->x > play_area.x_min){
 		screen[prota->y][prota->x].layer[0] = 0;
 		prota->x -= 1;
 		screen[prota->y][prota->x].layer[0] = 1;
@@ -185,9 +198,9 @@ void move_player(pixel **screen, player *prota, char input, int width, int heigh
 }
 
 
-void update_attacks(pixel **screen, int width, int height, player *prota){
-	for (int y = 0; y < height; y++){
-		for (int x = 0; x < width; x++){
+void update_attacks(pixel **screen, int width, int height, player *prota, play_screen play_area){
+	for (int y = play_area.y_min; y < play_area.y_max; y++){
+		for (int x = play_area.x_min; x < play_area.x_max; x++){
 			if (screen[y][x].layer[8] == 1){
 				screen[y][x].layer[8] = 0;
 				if (prota->y == y && prota->x == x){
@@ -211,30 +224,30 @@ void update_attacks(pixel **screen, int width, int height, player *prota){
 }
 
 
-void column_attack(pixel **screen, int width, int height){
-	int column = rand() % (width - 2) + 1;
-	for (int y = 1; y < height - 1; y++){
-		screen[y][column].layer[11] = 1;
+void column_attack(pixel **screen, int width, int height, play_screen play_area){
+	int column = rand() % play_area.width;
+	for (int y = play_area.y_min; y < play_area.y_max; y++){
+		screen[y][play_area.x_min + column].layer[11] = 1;
 	}
 }
 
 
-void line_attack(pixel **screen, int width, int height){
-	int line = rand() % (height - 2) + 1;
-	for (int x = 1; x < width - 1; x++){
-		screen[line][x].layer[11] = 1;
+void line_attack(pixel **screen, int width, int height, play_screen play_area){
+	int line = rand() % play_area.height;
+	for (int x = play_area.x_min; x < play_area.x_max; x++){
+		screen[line + play_area.y_min][x].layer[11] = 1;
 	}
 }
 
 
-void circle_attack(pixel **screen, int width, int height){
-	int center_x = rand() % (width - 2) + 1;
-	int center_y = rand() % (height - 2) + 1;
+void circle_attack(pixel **screen, int width, int height, play_screen play_area){
+	int center_x = rand() % play_area.width;
+	int center_y = rand() % play_area.height;
 	int radius = rand() % 6;
-	for (int x = center_x - radius; x < center_x + radius; x++){
-		for (int y = center_y - radius; y < center_y + radius; y++){
-			if (0 < x && x < width - 1 && 0 < y && y < height - 1){
-				if (distance_2(x, y, center_x, center_y) < radius * radius) {
+	for (int x = center_x - radius + play_area.x_min; x < center_x + radius + play_area.x_min; x++){
+		for (int y = center_y - radius + play_area.y_min; y < center_y + radius + play_area.y_min; y++){
+			if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max){
+				if (distance_2(x, y, center_x + play_area.x_min, center_y + play_area.y_min) < radius * radius) {
 					screen[y][x].layer[11] = 1;
 				}
 			}
@@ -243,13 +256,13 @@ void circle_attack(pixel **screen, int width, int height){
 }
 
 
-void square_attack(pixel **screen, int width, int height){
-	int center_x = rand() % (width - 2) + 1;
-	int center_y = rand() % (height - 2) + 1;
+void square_attack(pixel **screen, int width, int height, play_screen play_area){
+	int center_x = rand() % play_area.width;
+	int center_y = rand() % play_area.height;
 	int size = rand() % 4;
-	for (int x = center_x - size; x < center_x + size; x++){
-		for (int y = center_y - size; y < center_y + size; y++){
-			if (0 < x && x < width - 1 && 0 < y && y < height - 1){					
+	for (int x = center_x - size + play_area.x_min; x < center_x + size + play_area.x_min; x++){
+		for (int y = center_y - size + play_area.y_min; y < center_y + size + play_area.y_min; y++){
+			if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max){					
 				screen[y][x].layer[11] = 1;
 			}
 		}
@@ -257,20 +270,20 @@ void square_attack(pixel **screen, int width, int height){
 }
 
 
-void add_attack(pixel **screen, int width, int height){
+void add_attack(pixel **screen, int width, int height, play_screen play_area){
 	int attack_type = rand() % 4;
 	switch (attack_type){
 		case 0:
-			column_attack(screen, width, height);
+			column_attack(screen, width, height, play_area);
 			break;
 		case 1:
-			line_attack(screen, width, height);
+			line_attack(screen, width, height, play_area);
 			break;
 		case 2:
-			circle_attack(screen, width, height);
+			circle_attack(screen, width, height, play_area);
 			break;
 		case 3:
-			square_attack(screen, width, height);
+			square_attack(screen, width, height, play_area);
 			break;
 	}
 }
@@ -281,15 +294,24 @@ int main(){
 	srand(time(NULL));
 
 	int width = 30;
-	int height = 20;
+	int height = 40;
+
+	play_screen play_area;
+
+	play_area.x_min = 1;
+	play_area.x_max = width - 1;
+	play_area.y_min = height / 2 + 1;
+	play_area.y_max = height - 1;
+	play_area.width = play_area.x_max - play_area.x_min;
+	play_area.height = play_area.y_max - play_area.y_min;
 
 	player prota;
-	prota.x = 15;
-	prota.y = 10;
+	prota.x = (play_area.x_max - play_area.x_min) / 2 + play_area.x_min;
+	prota.y = (play_area.y_max - play_area.y_min) / 2 + play_area.y_min;
 	prota.max_health = 5;
 	prota.health = prota.max_health;
  
-	pixel **screen = init_screen(width, height);
+	pixel **screen = init_screen(width, height, play_area);
 	screen[prota.y][prota.x].layer[0] = 1;
 
 	while (prota.health > 0){
@@ -297,9 +319,9 @@ int main(){
 		char input;
 		scanf("%c",&input);
 		if (input != '\n'){
-			move_player(screen, &prota, input, width, height);
-			update_attacks(screen, width, height, &prota);
-			add_attack(screen, width, height);
+			move_player(screen, &prota, input, width, height, play_area);
+			update_attacks(screen, width, height, &prota, play_area);
+			add_attack(screen, width, height, play_area);
 		}
 	}
 	free_screen(screen, width, height);
