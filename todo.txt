@@ -12,6 +12,26 @@ make basic attacks to dodge => made random vertical columns more variety will be
 
 make first gameplay loop => health and attacks are in
 
-seperate files and make a makefile for compilation
+ >>> seperate files and make a makefile for compilation
 
+
+phase 2 : 
+
+make heads up display
+
+add attacking and passing turn 
+
+add stamina
+
+add aiming
+
+make enemies cycle in and out 
+
+make exp and health augmenting (base for upgrades)
+
+add text display on right as logs (or just info)
+
+do pretty mob name display
+
+do the great seperation
 
