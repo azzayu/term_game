@@ -53,6 +53,7 @@ typedef struct player_s{
 	int health;
 } player;
 
+
 typedef struct play_screen_s{
 	int x_min;
 	int y_min;
@@ -210,24 +211,41 @@ void free_screen(pixel **pixel_mat, int width, int height){
 }
 
 
-void move_player(pixel **screen, player *prota, char input, int width, int height, play_screen play_area){
+int move_player(pixel **screen, player *prota, char input, int width, int height, play_screen play_area){
+	/*
+		returns 1 if move succesfull 
+		0 if not
+	*/
+	
 	if (input == 'z' && prota->y > play_area.y_min){
 		screen[prota->y][prota->x].layer[0] = 0;
 		prota->y -= 1;
 		screen[prota->y][prota->x].layer[0] = 1;
-	}else if (input == 's' && prota->y < play_area.y_max - 1){
+		return 1;
+	}
+	if (input == 's' && prota->y < play_area.y_max - 1){
 		screen[prota->y][prota->x].layer[0] = 0;
 		prota->y += 1;
 		screen[prota->y][prota->x].layer[0] = 1;
-	}else if (input == 'd' && prota->x < play_area.x_max - 1){
+		return 1;
+	}
+	if (input == 'd' && prota->x < play_area.x_max - 1){
 		screen[prota->y][prota->x].layer[0] = 0;
 		prota->x += 1;
 		screen[prota->y][prota->x].layer[0] = 1;
-	}else if (input == 'q' && prota->x > play_area.x_min){
+		return 1;
+	}
+	if (input == 'q' && prota->x > play_area.x_min){
 		screen[prota->y][prota->x].layer[0] = 0;
 		prota->x -= 1;
 		screen[prota->y][prota->x].layer[0] = 1;
+		return 1;
 	}
+	if (input == 'p'){
+		//counts as passing
+		return 1;
+	}
+	return 0;
 }
 
 
@@ -347,12 +365,12 @@ int main(){
 	pixel **screen = init_screen(width, height, play_area);
 	screen[prota.y][prota.x].layer[0] = 1;
 
-	while (prota.health > 0){
+	while (prota.health > 0) {
 		print_screen(screen, width, height);
 		char input;
 		scanf("%c",&input);
-		if (input != '\n'){
-			move_player(screen, &prota, input, width, height, play_area);
+		int has_moved = move_player(screen, &prota, input, width, height, play_area);
+		if (has_moved) {
 			update_attacks(screen, width, height, &prota, play_area);
 			add_attack(screen, play_area);
 		}

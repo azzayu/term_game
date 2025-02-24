@@ -17,9 +17,9 @@ make first gameplay loop => health and attacks are in
 
 phase 2 : 
 
-make heads up display
+make heads up display => frame made
 
-add attacking and passing turn 
+add attacking and passing turn => passing has been added, attacking can just be added with an extra if
 
 add stamina
 
