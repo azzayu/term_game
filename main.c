@@ -15,7 +15,6 @@ const char TOP_LEFT_CORNER[] = " ╔";
 const char TOP_RIGHT_CORNER[] = "╗ ";
 const char BOTTOM_LEFT_CORNER[] = " ╚";
 const char BOTTOM_RIGHT_CORNER[] = "╝ ";
-
 const char RIGHT_JUNCTION[] = " ╠";
 const char LEFT_JUNCTION[] = "╣ ";
 const char UP_RIGHT_JUNCTION[] = "═╩";
@@ -71,6 +70,7 @@ void print_screen(pixel **pixel_mat, int width, int height){
 	0 => player
 	1 - 7 => border
 	8 - 11 => attacks, with 8 being attacks currently happening
+	12 - 17 => junctions for borders
 
 	50 => background of play area
 	none to 1 => general black background (normal terminal screen)
@@ -97,13 +97,25 @@ void print_screen(pixel **pixel_mat, int width, int height){
 			} else if (pixel_mat[y][x].layer[8] == 1) {
 				printf("%s%s", RED, FULL_BLOCK);
 			} else if (pixel_mat[y][x].layer[9] == 1) {
-					printf("%s%s", RED, THREE_QUART_BLOCK);
+				printf("%s%s", RED, THREE_QUART_BLOCK);
 			} else if (pixel_mat[y][x].layer[10] == 1) {
-					printf("%s%s", RED, HALF_BLOCK);
+				printf("%s%s", RED, HALF_BLOCK);
 			} else if (pixel_mat[y][x].layer[11] == 1) {
-					printf("%s%s", RED, QUART_BLOCK);
+				printf("%s%s", RED, QUART_BLOCK);
+			} else if (pixel_mat[y][x].layer[12] == 1) {
+				printf("%s%s", WHITE, RIGHT_JUNCTION);
+			} else if (pixel_mat[y][x].layer[13] == 1) {
+				printf("%s%s", WHITE, LEFT_JUNCTION);
+			} else if (pixel_mat[y][x].layer[14] == 1) {
+				printf("%s%s", WHITE, UP_RIGHT_JUNCTION);
+			} else if (pixel_mat[y][x].layer[15] == 1) {
+				printf("%s%s", WHITE, UP_LEFT_JUNCTION);
+			} else if (pixel_mat[y][x].layer[16] == 1) {
+				printf("%s%s", WHITE, DOWN_LEFT_JUNCTION);
+			} else if (pixel_mat[y][x].layer[17] == 1) {
+				printf("%s%s", WHITE, DOWN_RIGHT_JUNCTION);
 			} else if (pixel_mat[y][x].layer[50] == 1) {
-					printf("%s%s", BRIGHT_BLUE, FULL_BLOCK);
+				printf("%s%s", BRIGHT_BLUE, FULL_BLOCK);
 			} else {
 				printf("%s%s", BLACK, FULL_BLOCK);
 			}
@@ -137,16 +149,30 @@ pixel **init_screen(int width, int height, play_screen play_area){
 			}
 		}
 	}
+
 	for (int x = play_area.x_min; x < play_area.x_max; x++){
 		screen[play_area.y_min - 1][x].layer[3] = 1;
 		screen[play_area.y_max][x].layer[3] = 1;
 	}
+
 	for (int y = play_area.y_min; y < play_area.y_max; y++){
 		screen[y][play_area.x_min - 1].layer[2] = 1;
 		screen[y][play_area.x_max].layer[1] = 1;
 	}
-	screen[play_area.y_min - 1][play_area.x_min - 1].layer[4] = 1;
-	screen[play_area.y_min - 1][play_area.x_max].layer[5] = 1;
+
+	for (int x = 1; x < width - 1; x++){
+		screen[0][x].layer[3] = 1;
+	}
+
+	for (int y = 1; y < play_area.y_min - 1; y++){
+		screen[y][play_area.x_min - 1].layer[2] = 1;
+		screen[y][play_area.x_max].layer[1] = 1;
+	}
+
+	screen[0][0].layer[4] = 1;
+	screen[0][width - 1].layer[5] = 1;
+	screen[play_area.y_min - 1][play_area.x_min - 1].layer[12] = 1;
+	screen[play_area.y_min - 1][play_area.x_max].layer[13] = 1;
 	screen[play_area.y_max][play_area.x_min - 1].layer[6] = 1;
 	screen[play_area.y_max][play_area.x_max].layer[7] = 1;
 	return screen;
