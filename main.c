@@ -16,6 +16,13 @@ const char TOP_RIGHT_CORNER[] = "╗ ";
 const char BOTTOM_LEFT_CORNER[] = " ╚";
 const char BOTTOM_RIGHT_CORNER[] = "╝ ";
 
+const char RIGHT_JUNCTION[] = " ╠";
+const char LEFT_JUNCTION[] = "╣ ";
+const char UP_RIGHT_JUNCTION[] = "═╩";
+const char UP_LEFT_JUNCTION[] = "╩═";
+const char DOWN_LEFT_JUNCTION[] = "╦═";
+const char DOWN_RIGHT_JUNCTION[] = "═╦";
+
 
 const char BLACK[] = "\033[0;30m";
 const char RED[] = "\033[0;31m";
