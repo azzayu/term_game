@@ -4,41 +4,41 @@
 #include <unistd.h>
 
 
-const char FULL_BLOCK[] = "██"; 
-const char THREE_QUART_BLOCK[] = "▓▓";
-const char HALF_BLOCK[] = "▒▒";
-const char QUART_BLOCK[] = "░░";
-const char VERT_WALL_LEFT[] = "║ ";
-const char VERT_WALL_RIGHT[] = " ║";
-const char HORI_WALL[] = "══";
-const char TOP_LEFT_CORNER[] = " ╔";
-const char TOP_RIGHT_CORNER[] = "╗ ";
-const char BOTTOM_LEFT_CORNER[] = " ╚";
-const char BOTTOM_RIGHT_CORNER[] = "╝ ";
-const char RIGHT_JUNCTION[] = " ╠";
-const char LEFT_JUNCTION[] = "╣ ";
-const char UP_RIGHT_JUNCTION[] = "═╩";
-const char UP_LEFT_JUNCTION[] = "╩═";
-const char DOWN_LEFT_JUNCTION[] = "╦═";
-const char DOWN_RIGHT_JUNCTION[] = "═╦";
+#define FULL_BLOCK "██"; 
+#define THREE_QUART_BLOCK "▓▓";
+#define HALF_BLOCK "▒▒";
+#define QUART_BLOCK "░░";
+#define VERT_WALL_LEFT "║ ";
+#define VERT_WALL_RIGHT " ║";
+#define HORI_WALL "══";
+#define TOP_LEFT_CORNER " ╔";
+#define TOP_RIGHT_CORNER "╗ ";
+#define BOTTOM_LEFT_CORNER " ╚";
+#define BOTTOM_RIGHT_CORNER "╝ ";
+#define RIGHT_JUNCTION " ╠";
+#define LEFT_JUNCTION "╣ ";
+#define UP_RIGHT_JUNCTION "═╩";
+#define UP_LEFT_JUNCTION "╩═";
+#define DOWN_LEFT_JUNCTION "╦═";
+#define DOWN_RIGHT_JUNCTION "═╦";
 
 
-const char BLACK[] = "\033[0;30m";
-const char RED[] = "\033[0;31m";
-const char GREEN[] = "\033[0;32m";
-const char YELLOW[] = "\033[0;33m";
-const char BLUE[] = "\033[0;34m";
-const char MAGENTA[] = "\033[0;35m";
-const char CYAN[] = "\033[0;36m";
-const char WHITE[] = "\033[0;37m";
-const char BRIGHT_BLACK[] = "\033[0;90m";
-const char BRIGHT_RED[] = "\033[0;91m";
-const char BRIGHT_GREEN[] = "\033[0;92m";
-const char BRIGHT_YELLOW[] = "\033[0;93m";
-const char BRIGHT_BLUE[] = "\033[0;94m";
-const char BRIGHT_MAGENTA[] = "\033[0;95m";
-const char BRIGHT_CYAN[] = "\033[0;96m";
-const char BRIGHT_WHITE[] = "\033[0;97m";
+#define BLACK "\033[0;30m";
+#define RED "\033[0;31m";
+#define GREEN "\033[0;32m";
+#define YELLOW "\033[0;33m";
+#define BLUE "\033[0;34m";
+#define MAGENTA "\033[0;35m";
+#define CYAN "\033[0;36m";
+#define WHITE "\033[0;37m";
+#define BRIGHT_BLACK "\033[0;90m";
+#define BRIGHT_RED "\033[0;91m";
+#define BRIGHT_GREEN "\033[0;92m";
+#define BRIGHT_YELLOW "\033[0;93m";
+#define BRIGHT_BLUE "\033[0;94m";
+#define BRIGHT_MAGENTA "\033[0;95m";
+#define BRIGHT_CYAN "\033[0;96m";
+#define BRIGHT_WHITE "\033[0;97m";
 
 
 typedef struct pixel_s {

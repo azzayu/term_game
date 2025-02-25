@@ -12,7 +12,7 @@ make basic attacks to dodge => made random vertical columns more variety will be
 
 make first gameplay loop => health and attacks are in
 
- >>> seperate files and make a makefile for compilation
+>>> seperate files and make a makefile for compilation
 
 
 phase 2 : 
