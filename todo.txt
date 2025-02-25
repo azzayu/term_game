@@ -21,7 +21,7 @@ make heads up display => frame made
 
 add attacking and passing turn => passing has been added, attacking can just be added with an extra if
 
-add stamina
+add stamina  
 
 add aiming
 
