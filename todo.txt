@@ -23,7 +23,7 @@ add attacking and passing turn => passing has been added, attacking can just be 
 
 add stamina  
 
-add aiming
+add aiming 
 
 make enemies cycle in and out 
 
