@@ -33,6 +33,6 @@ add text display on right as logs (or just info)
 
 do pretty mob name display
 
-do the great seperation
+do the great seperation => it has been done, makefile is now working too
 
 add basic playing instruction in README.md => basic controls are there, to be added as more features are added in
