@@ -35,3 +35,4 @@ do pretty mob name display
 
 do the great seperation
 
+add basic playing instruction in README.md => basic controls are there, to be added as more features are added in
