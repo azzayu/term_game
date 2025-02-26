@@ -92,6 +92,28 @@ pixel **init_screen(int width, int height, play_screen play_area){
 	screen[play_area.y_min - 1][play_area.x_max].layer[13] = 1;
 	screen[play_area.y_max][play_area.x_min - 1].layer[6] = 1;
 	screen[play_area.y_max][play_area.x_max].layer[7] = 1;
+
+	//health bar display :
+
+	screen[4][width - 1].layer[1] = 0;
+	screen[4][width - 1].layer[13] = 1;
+	for (int x = width - 2; x > width - 9; x--){
+		screen[4][x].layer[3] = 1;
+	}
+	screen[4][width - 9].layer[6] = 1;
+
+	screen[1][width - 9].layer[2] = 1;
+	screen[2][width - 9].layer[12] = 1;
+	screen[3][width - 9].layer[2] = 1;
+	screen[2][width - 8].layer[3] = 1;
+	
+	screen[0][width - 9].layer[3] = 0;
+	screen[0][width - 9].layer[17] = 1;
+
+	screen[2][width - 1].layer[1] = 0;
+	screen[2][width - 1].layer[13] = 1;
+	screen[2][width - 2].layer[3] = 1;
+
 	return screen;
 }
 
