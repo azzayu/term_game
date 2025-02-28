@@ -40,6 +40,7 @@ int main(){
 	health_bar.width = health_bar.x_max - health_bar.x_min;
 	health_bar.height = health_bar.y_max - health_bar.y_min;
 
+	update_health_bar(screen, prota, health_bar);
 
 	while (prota.health > 0) {
 		print_screen(screen, width, height);

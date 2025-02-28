@@ -61,14 +61,12 @@ void update_health_bar(pixel **screen, player prota, screen_section health_bar){
 		i++;
 	}
 
-	if((i + 1) * health_per_block <= (i * health_per_block + (double) prota.health * 0.25)){
-		screen[health_bar.y_min][health_bar.x_min + i].layer[11] = 1;
-	}
-	if((i + 1) * health_per_block <= (i * health_per_block + (double) prota.health * 0.5)){
-		screen[health_bar.y_min][health_bar.x_min + i].layer[10] = 1;
-	}
-	if((i + 1) * health_per_block <= (i * health_per_block + (double) prota.health * 0.75)){
+	if((i + 0.75) * health_per_block <= prota.health){
 		screen[health_bar.y_min][health_bar.x_min + i].layer[9] = 1;
+	} else if((i + 0.5) * health_per_block <= prota.health){
+		screen[health_bar.y_min][health_bar.x_min + i].layer[10] = 1;
+	} else if((i + 0.25) * health_per_block * 0.25 <= prota.health){
+		screen[health_bar.y_min][health_bar.x_min + i].layer[11] = 1;
 	}
 }
 
