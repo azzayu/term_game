@@ -14,7 +14,7 @@ int main(){
 	int width = 30;
 	int height = 40;
 
-	play_screen play_area;
+	screen_section play_area;
 
 	play_area.x_min = 1;
 	play_area.x_max = width - 1;
@@ -26,11 +26,20 @@ int main(){
 	player prota;
 	prota.x = (play_area.x_max - play_area.x_min) / 2 + play_area.x_min;
 	prota.y = (play_area.y_max - play_area.y_min) / 2 + play_area.y_min;
-	prota.max_health = 5;
+	prota.max_health = 20;
 	prota.health = prota.max_health;
  
 	pixel **screen = init_screen(width, height, play_area);
 	screen[prota.y][prota.x].layer[0] = 1;
+
+	screen_section health_bar;
+	health_bar.x_min = width - 8;
+	health_bar.x_max = width - 1;
+	health_bar.y_min = 3;
+	health_bar.y_max = 4;
+	health_bar.width = health_bar.x_max - health_bar.x_min;
+	health_bar.height = health_bar.y_max - health_bar.y_min;
+
 
 	while (prota.health > 0) {
 		print_screen(screen, width, height);
@@ -40,6 +49,7 @@ int main(){
 		if (has_moved) {
 			update_attacks(screen, width, height, &prota, play_area);
 			add_attack(screen, play_area);
+			update_health_bar(screen, prota, health_bar);
 		}
 	}
 	free_screen(screen, width, height);

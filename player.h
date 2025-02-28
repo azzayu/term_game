@@ -1,4 +1,5 @@
 
+
 typedef struct player_s{
 	int x;
 	int y;
@@ -6,4 +7,6 @@ typedef struct player_s{
 	int health;
 } player;
 
-int move_player(pixel **screen, player *prota, char input, int width, int height, play_screen play_area);
+int move_player(pixel **screen, player *prota, char input, int width, int height, screen_section play_area);
+
+void update_health_bar(pixel **screen, player prota, screen_section health_bar);

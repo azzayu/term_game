@@ -5,7 +5,7 @@ typedef struct pixel_s {
 } pixel;
 
 
-typedef struct play_screen_s{
+typedef struct screen_section_s{
 	int x_min;
 	int y_min;
 	int x_max;
@@ -13,10 +13,10 @@ typedef struct play_screen_s{
 
 	int width;
 	int height;
-} play_screen;
+} screen_section;
 
 
-pixel **init_screen(int width, int height, play_screen play_area);
+pixel **init_screen(int width, int height, screen_section play_area);
 
 
 void default_test_screen();

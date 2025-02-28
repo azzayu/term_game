@@ -1,6 +1,5 @@
 #include "display.h"
 
-
 typedef struct player_s{
 	int x;
 	int y;
@@ -9,7 +8,7 @@ typedef struct player_s{
 } player;
 
 
-int move_player(pixel **screen, player *prota, char input, int width, int height, play_screen play_area){
+int move_player(pixel **screen, player *prota, char input, int width, int height, screen_section play_area){
 	/*
 		returns 1 if move succesfull 
 		0 if not
@@ -44,6 +43,33 @@ int move_player(pixel **screen, player *prota, char input, int width, int height
 		return 1;
 	}
 	return 0;
+}
+
+void update_health_bar(pixel **screen, player prota, screen_section health_bar){
+	double health_per_block = (double) prota.max_health / (double) health_bar.width;
+
+	for (int j = 0 ; j < health_bar.width ; j++){
+		screen[health_bar.y_min][health_bar.x_min + j].layer[8] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[9] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[10] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[11] = 0;
+	}
+
+	int i = 0;
+	while ((i + 1) * health_per_block <= prota.health){
+		screen[health_bar.y_min][health_bar.x_min + i].layer[8] = 1;
+		i++;
+	}
+
+	if((i + 1) * health_per_block <= (i * health_per_block + (double) prota.health * 0.25)){
+		screen[health_bar.y_min][health_bar.x_min + i].layer[11] = 1;
+	}
+	if((i + 1) * health_per_block <= (i * health_per_block + (double) prota.health * 0.5)){
+		screen[health_bar.y_min][health_bar.x_min + i].layer[10] = 1;
+	}
+	if((i + 1) * health_per_block <= (i * health_per_block + (double) prota.health * 0.75)){
+		screen[health_bar.y_min][health_bar.x_min + i].layer[9] = 1;
+	}
 }
 
 
