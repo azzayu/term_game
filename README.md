@@ -10,6 +10,6 @@ Welcome to a small terminal game i made to pass the time.
 4. you can "make clean" if issues occur with compilation step
 
 ## Controls :
-- use z,q,s,d to move around
+- use z, q, s, d to move around
 - use p to pass turn (attacks still advance)
-- all other cahracters on input are ignored
+- all other characters on input are ignored
