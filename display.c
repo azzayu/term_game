@@ -63,6 +63,7 @@
 #define LAYER_STAMINA_THREE_QUART 19
 #define LAYER_STAMINA_HALF 20
 #define LAYER_STAMINA_QUART 21
+#define LAYER_DEFAULT 50
 
 
 typedef struct pixel_s {
@@ -89,27 +90,27 @@ void init_health_bar(pixel **screen, int width, int height){
 	screen[4][width - 1].layer[LAYER_LEFT_JUNCTION] = 1;
 
 	for (int x = width - 2; x > width - 9; x--){
-		screen[4][x].layer[3] = 1;
+		screen[4][x].layer[LAYER_HORI_WALL] = 1;
 	}
 
 	//bottom left junction
 
-	screen[4][width - 9].layer[12] = 1;
+	screen[4][width - 9].layer[LAYER_RIGHT_JUNCTION] = 1;
 
 	//left wall and junctions
 
-	screen[1][width - 9].layer[2] = 1;
-	screen[2][width - 9].layer[12] = 1;
-	screen[3][width - 9].layer[2] = 1;
-	screen[2][width - 8].layer[3] = 1;
-	screen[0][width - 9].layer[3] = 0;
-	screen[0][width - 9].layer[17] = 1;
+	screen[1][width - 9].layer[LAYER_VERT_WALL_RIGHT] = 1;
+	screen[2][width - 9].layer[LAYER_RIGHT_JUNCTION] = 1;
+	screen[3][width - 9].layer[LAYER_VERT_WALL_RIGHT] = 1;
+	screen[2][width - 8].layer[LAYER_HORI_WALL] = 1;
+	screen[0][width - 9].layer[LAYER_HORI_WALL] = 0;
+	screen[0][width - 9].layer[LAYER_DOWN_RIGHT_JUNCTION] = 1;
 
 	//seperation between text and bar
 
-	screen[2][width - 1].layer[1] = 0;
-	screen[2][width - 1].layer[13] = 1;
-	screen[2][width - 2].layer[3] = 1;
+	screen[2][width - 1].layer[LAYER_VERT_WALL_LEFT] = 0;
+	screen[2][width - 1].layer[LAYER_LEFT_JUNCTION] = 1;
+	screen[2][width - 2].layer[LAYER_HORI_WALL] = 1;
 }
 
 
@@ -117,31 +118,31 @@ void init_stamina_bar(pixel **screen, int width, int height){
 
 	//bottom line and junctions
 
-	screen[8][width - 1].layer[1] = 0;
-	screen[8][width - 1].layer[13] = 1;
+	screen[8][width - 1].layer[LAYER_VERT_WALL_LEFT] = 0;
+	screen[8][width - 1].layer[LAYER_LEFT_JUNCTION] = 1;
 
 	for (int x = width - 2; x > width - 9; x--){
-		screen[8][x].layer[3] = 1;
+		screen[8][x].layer[LAYER_HORI_WALL] = 1;
 	}
 
 	//bottom left corner
 
-	screen[8][width - 9].layer[6] = 1;
+	screen[8][width - 9].layer[LAYER_BOTTOM_LEFT_CORNER] = 1;
 
 	//left wall and junctions
 
-	screen[5][width - 9].layer[2] = 1;
-	screen[6][width - 9].layer[12] = 1;
-	screen[7][width - 9].layer[2] = 1;
-	screen[6][width - 8].layer[3] = 1;
-	screen[4][width - 9].layer[3] = 0;
-	screen[4][width - 9].layer[17] = 1;
+	screen[5][width - 9].layer[LAYER_VERT_WALL_RIGHT] = 1;
+	screen[6][width - 9].layer[LAYER_RIGHT_JUNCTION] = 1;
+	screen[7][width - 9].layer[LAYER_VERT_WALL_RIGHT] = 1;
+	screen[6][width - 8].layer[LAYER_HORI_WALL] = 1;
+	screen[4][width - 9].layer[LAYER_HORI_WALL] = 0;
+	screen[4][width - 9].layer[LAYER_DOWN_RIGHT_JUNCTION] = 1;
 
 	//seperation between text and bar
 
-	screen[6][width - 1].layer[1] = 0;
-	screen[6][width - 1].layer[13] = 1;
-	screen[6][width - 2].layer[3] = 1;
+	screen[6][width - 1].layer[LAYER_VERT_WALL_LEFT] = 0;
+	screen[6][width - 1].layer[LAYER_LEFT_JUNCTION] = 1;
+	screen[6][width - 2].layer[LAYER_HORI_WALL] = 1;
 }
 
 
@@ -154,36 +155,36 @@ pixel **init_screen(int width, int height, screen_section play_area){
 				screen[y][x].layer[layer] = 0;
 			}
 			if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max){
-				screen[y][x].layer[50] = 1;
+				screen[y][x].layer[LAYER_DEFAULT] = 1;
 			}
 		}
 	}
 
 	for (int x = play_area.x_min; x < play_area.x_max; x++){
-		screen[play_area.y_min - 1][x].layer[3] = 1;
-		screen[play_area.y_max][x].layer[3] = 1;
+		screen[play_area.y_min - 1][x].layer[LAYER_HORI_WALL] = 1;
+		screen[play_area.y_max][x].layer[LAYER_HORI_WALL] = 1;
 	}
 
 	for (int y = play_area.y_min; y < play_area.y_max; y++){
-		screen[y][play_area.x_min - 1].layer[2] = 1;
-		screen[y][play_area.x_max].layer[1] = 1;
+		screen[y][play_area.x_min - 1].layer[LAYER_VERT_WALL_RIGHT] = 1;
+		screen[y][play_area.x_max].layer[LAYER_VERT_WALL_LEFT] = 1;
 	}
 
 	for (int x = 1; x < width - 1; x++){
-		screen[0][x].layer[3] = 1;
+		screen[0][x].layer[LAYER_HORI_WALL] = 1;
 	}
 
 	for (int y = 1; y < play_area.y_min - 1; y++){
-		screen[y][play_area.x_min - 1].layer[2] = 1;
-		screen[y][play_area.x_max].layer[1] = 1;
+		screen[y][play_area.x_min - 1].layer[LAYER_VERT_WALL_RIGHT] = 1;
+		screen[y][play_area.x_max].layer[LAYER_VERT_WALL_LEFT] = 1;
 	}
 
-	screen[0][0].layer[4] = 1;
-	screen[0][width - 1].layer[5] = 1;
-	screen[play_area.y_min - 1][play_area.x_min - 1].layer[12] = 1;
-	screen[play_area.y_min - 1][play_area.x_max].layer[13] = 1;
-	screen[play_area.y_max][play_area.x_min - 1].layer[6] = 1;
-	screen[play_area.y_max][play_area.x_max].layer[7] = 1;
+	screen[0][0].layer[LAYER_TOP_LEFT_CORNER] = 1;
+	screen[0][width - 1].layer[LAYER_TOP_RIGHT_CORNER] = 1;
+	screen[play_area.y_min - 1][play_area.x_min - 1].layer[LAYER_RIGHT_JUNCTION] = 1;
+	screen[play_area.y_min - 1][play_area.x_max].layer[LAYER_LEFT_JUNCTION] = 1;
+	screen[play_area.y_max][play_area.x_min - 1].layer[LAYER_BOTTOM_LEFT_CORNER] = 1;
+	screen[play_area.y_max][play_area.x_max].layer[LAYER_BOTTOM_RIGHT_CORNER] = 1;
 
 	//health bar display :
 
@@ -244,51 +245,51 @@ void print_screen(pixel **pixel_mat, int width, int height){
 	system("clear");
 	for (int y = 0; y < height; y++){
 		for (int x = 0; x < width; x++){
-			if (pixel_mat[y][x].layer[0] == 1) {
+			if (pixel_mat[y][x].layer[LAYER_PLAYER] == 1) {
 				printf("%s%s", YELLOW, FULL_BLOCK);
-			} else if (pixel_mat[y][x].layer[1] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_VERT_WALL_LEFT] == 1) {
 				printf("%s%s", WHITE, VERT_WALL_LEFT);
-			} else if (pixel_mat[y][x].layer[2] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_VERT_WALL_RIGHT] == 1) {
 				printf("%s%s", WHITE, VERT_WALL_RIGHT);
-			} else if (pixel_mat[y][x].layer[3] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_HORI_WALL] == 1) {
 				printf("%s%s", WHITE, HORI_WALL);
-			} else if (pixel_mat[y][x].layer[4] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_TOP_LEFT_CORNER] == 1) {
 				printf("%s%s", WHITE, TOP_LEFT_CORNER);
-			} else if (pixel_mat[y][x].layer[5] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_TOP_RIGHT_CORNER] == 1) {
 				printf("%s%s", WHITE, TOP_RIGHT_CORNER);
-			} else if (pixel_mat[y][x].layer[6] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_BOTTOM_LEFT_CORNER] == 1) {
 				printf("%s%s", WHITE, BOTTOM_LEFT_CORNER);
-			} else if (pixel_mat[y][x].layer[7] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_BOTTOM_RIGHT_CORNER] == 1) {
 				printf("%s%s", WHITE, BOTTOM_RIGHT_CORNER);
-			} else if (pixel_mat[y][x].layer[8] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN0] == 1) {
 				printf("%s%s", RED, FULL_BLOCK);
-			} else if (pixel_mat[y][x].layer[9] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN1] == 1) {
 				printf("%s%s", RED, THREE_QUART_BLOCK);
-			} else if (pixel_mat[y][x].layer[10] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN2] == 1) {
 				printf("%s%s", RED, HALF_BLOCK);
-			} else if (pixel_mat[y][x].layer[11] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN3] == 1) {
 				printf("%s%s", RED, QUART_BLOCK);
-			} else if (pixel_mat[y][x].layer[12] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_RIGHT_JUNCTION] == 1) {
 				printf("%s%s", WHITE, RIGHT_JUNCTION);
-			} else if (pixel_mat[y][x].layer[13] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_LEFT_JUNCTION] == 1) {
 				printf("%s%s", WHITE, LEFT_JUNCTION);
-			} else if (pixel_mat[y][x].layer[14] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_UP_RIGHT_JUNCTION] == 1) {
 				printf("%s%s", WHITE, UP_RIGHT_JUNCTION);
-			} else if (pixel_mat[y][x].layer[15] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_UP_LEFT_JUNCTION] == 1) {
 				printf("%s%s", WHITE, UP_LEFT_JUNCTION);
-			} else if (pixel_mat[y][x].layer[16] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_DOWN_LEFT_JUNCTION] == 1) {
 				printf("%s%s", WHITE, DOWN_LEFT_JUNCTION);
-			} else if (pixel_mat[y][x].layer[17] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_DOWN_RIGHT_JUNCTION] == 1) {
 				printf("%s%s", WHITE, DOWN_RIGHT_JUNCTION);
-			} else if (pixel_mat[y][x].layer[18] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_STAMINA_FULL] == 1) {
 				printf("%s%s", BLUE, FULL_BLOCK);
-			} else if (pixel_mat[y][x].layer[19] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_STAMINA_THREE_QUART] == 1) {
 				printf("%s%s", BLUE, THREE_QUART_BLOCK);
-			} else if (pixel_mat[y][x].layer[20] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_STAMINA_HALF] == 1) {
 				printf("%s%s", BLUE, HALF_BLOCK);
-			} else if (pixel_mat[y][x].layer[21] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_STAMINA_QUART] == 1) {
 				printf("%s%s", BLUE, QUART_BLOCK);
-			} else if (pixel_mat[y][x].layer[50] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_DEFAULT] == 1) {
 				printf("%s%s", BRIGHT_BLUE, FULL_BLOCK);
 			} else {
 				printf("%s%s", BLACK, FULL_BLOCK);
