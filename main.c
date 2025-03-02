@@ -28,6 +28,8 @@ int main(){
 	prota.y = (play_area.y_max - play_area.y_min) / 2 + play_area.y_min;
 	prota.max_health = 20;
 	prota.health = prota.max_health;
+	prota.max_stamina = 20;
+	prota.stamina = prota.max_stamina;
  
 	pixel **screen = init_screen(width, height, play_area);
 	screen[prota.y][prota.x].layer[0] = 1;
@@ -40,7 +42,16 @@ int main(){
 	health_bar.width = health_bar.x_max - health_bar.x_min;
 	health_bar.height = health_bar.y_max - health_bar.y_min;
 
+	screen_section stamina_bar;
+	stamina_bar.x_min = width - 8;
+	stamina_bar.x_max = width - 1;
+	stamina_bar.y_min = 7;
+	stamina_bar.y_max = 8;
+	stamina_bar.width = stamina_bar.x_max - stamina_bar.x_min;
+	stamina_bar.height = stamina_bar.y_max - stamina_bar.y_min;
+
 	update_health_bar(screen, prota, health_bar);
+	update_stamina_bar(screen, prota, stamina_bar);
 
 	while (prota.health > 0) {
 		print_screen(screen, width, height);
@@ -51,6 +62,7 @@ int main(){
 			update_attacks(screen, width, height, &prota, play_area);
 			add_attack(screen, play_area);
 			update_health_bar(screen, prota, health_bar);
+			update_stamina_bar(screen, prota, stamina_bar);
 		}
 	}
 	free_screen(screen, width, height);

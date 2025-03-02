@@ -37,6 +37,33 @@
 #define BRIGHT_CYAN "\033[0;96m"
 #define BRIGHT_WHITE "\033[0;97m"
 
+#define LAYER_PLAYER 0
+#define LAYER_VERT_WALL_LEFT 1
+#define LAYER_VERT_WALL_RIGHT 2
+#define LAYER_HORI_WALL 3
+#define LAYER_TOP_LEFT_CORNER 4
+#define LAYER_TOP_RIGHT_CORNER 5
+#define LAYER_BOTTOM_LEFT_CORNER 6
+#define LAYER_BOTTOM_RIGHT_CORNER 7
+#define LAYER_ATTACK_IN0 8
+#define LAYER_ATTACK_IN1 9
+#define LAYER_ATTACK_IN2 10
+#define LAYER_ATTACK_IN3 11
+#define LAYER_HEALTH_FULL 8
+#define LAYER_HEALTH_THREE_QUART 9
+#define LAYER_HEALTH_HALF 10
+#define LAYER_HEALTH_QUART 11
+#define LAYER_RIGHT_JUNCTION 12
+#define LAYER_LEFT_JUNCTION 13
+#define LAYER_UP_RIGHT_JUNCTION 14
+#define LAYER_UP_LEFT_JUNCTION 15
+#define LAYER_DOWN_LEFT_JUNCTION 16
+#define LAYER_DOWN_RIGHT_JUNCTION 17
+#define LAYER_STAMINA_FULL 18
+#define LAYER_STAMINA_THREE_QUART 19
+#define LAYER_STAMINA_HALF 20
+#define LAYER_STAMINA_QUART 21
+
 
 typedef struct pixel_s {
 	int layer[100];
@@ -52,6 +79,71 @@ typedef struct screen_section_s{
 	int width;
 	int height;
 } screen_section;
+
+
+void init_health_bar(pixel **screen, int width, int height){
+
+	//bottom line and junctions
+
+	screen[4][width - 1].layer[LAYER_VERT_WALL_LEFT] = 0;
+	screen[4][width - 1].layer[LAYER_LEFT_JUNCTION] = 1;
+
+	for (int x = width - 2; x > width - 9; x--){
+		screen[4][x].layer[3] = 1;
+	}
+
+	//bottom left junction
+
+	screen[4][width - 9].layer[12] = 1;
+
+	//left wall and junctions
+
+	screen[1][width - 9].layer[2] = 1;
+	screen[2][width - 9].layer[12] = 1;
+	screen[3][width - 9].layer[2] = 1;
+	screen[2][width - 8].layer[3] = 1;
+	screen[0][width - 9].layer[3] = 0;
+	screen[0][width - 9].layer[17] = 1;
+
+	//seperation between text and bar
+
+	screen[2][width - 1].layer[1] = 0;
+	screen[2][width - 1].layer[13] = 1;
+	screen[2][width - 2].layer[3] = 1;
+}
+
+
+void init_stamina_bar(pixel **screen, int width, int height){
+
+	//bottom line and junctions
+
+	screen[8][width - 1].layer[1] = 0;
+	screen[8][width - 1].layer[13] = 1;
+
+	for (int x = width - 2; x > width - 9; x--){
+		screen[8][x].layer[3] = 1;
+	}
+
+	//bottom left corner
+
+	screen[8][width - 9].layer[6] = 1;
+
+	//left wall and junctions
+
+	screen[5][width - 9].layer[2] = 1;
+	screen[6][width - 9].layer[12] = 1;
+	screen[7][width - 9].layer[2] = 1;
+	screen[6][width - 8].layer[3] = 1;
+	screen[4][width - 9].layer[3] = 0;
+	screen[4][width - 9].layer[17] = 1;
+
+	//seperation between text and bar
+
+	screen[6][width - 1].layer[1] = 0;
+	screen[6][width - 1].layer[13] = 1;
+	screen[6][width - 2].layer[3] = 1;
+}
+
 
 pixel **init_screen(int width, int height, screen_section play_area){
 	pixel **screen = malloc(sizeof(pixel*) * height);
@@ -95,24 +187,11 @@ pixel **init_screen(int width, int height, screen_section play_area){
 
 	//health bar display :
 
-	screen[4][width - 1].layer[1] = 0;
-	screen[4][width - 1].layer[13] = 1;
-	for (int x = width - 2; x > width - 9; x--){
-		screen[4][x].layer[3] = 1;
-	}
-	screen[4][width - 9].layer[6] = 1;
+	init_health_bar(screen, width, height);
 
-	screen[1][width - 9].layer[2] = 1;
-	screen[2][width - 9].layer[12] = 1;
-	screen[3][width - 9].layer[2] = 1;
-	screen[2][width - 8].layer[3] = 1;
-	
-	screen[0][width - 9].layer[3] = 0;
-	screen[0][width - 9].layer[17] = 1;
+	//stamina bar display :
 
-	screen[2][width - 1].layer[1] = 0;
-	screen[2][width - 1].layer[13] = 1;
-	screen[2][width - 2].layer[3] = 1;
+	init_stamina_bar(screen, width, height);
 
 	return screen;
 }
@@ -154,8 +233,10 @@ void print_screen(pixel **pixel_mat, int width, int height){
 	each layer corresponds to something different with things closer to 0 more important to display (hence they get displayed)
 	0 => player
 	1 - 7 => border
-	8 - 11 => attacks, with 8 being attacks currently happening
+	8 - 11 => attacks, with 8 being attacks currently happening (these are redblock also used for health bar)  (layer 11 can be equal to more than 1 to show delayed attacks later)
 	12 - 17 => junctions for borders
+	18 - 21 => stamina bar (these big dark blue blocks)
+
 
 	50 => background of play area
 	none to 1 => general black background (normal terminal screen)
@@ -199,6 +280,14 @@ void print_screen(pixel **pixel_mat, int width, int height){
 				printf("%s%s", WHITE, DOWN_LEFT_JUNCTION);
 			} else if (pixel_mat[y][x].layer[17] == 1) {
 				printf("%s%s", WHITE, DOWN_RIGHT_JUNCTION);
+			} else if (pixel_mat[y][x].layer[18] == 1) {
+				printf("%s%s", BLUE, FULL_BLOCK);
+			} else if (pixel_mat[y][x].layer[19] == 1) {
+				printf("%s%s", BLUE, THREE_QUART_BLOCK);
+			} else if (pixel_mat[y][x].layer[20] == 1) {
+				printf("%s%s", BLUE, HALF_BLOCK);
+			} else if (pixel_mat[y][x].layer[21] == 1) {
+				printf("%s%s", BLUE, QUART_BLOCK);
 			} else if (pixel_mat[y][x].layer[50] == 1) {
 				printf("%s%s", BRIGHT_BLUE, FULL_BLOCK);
 			} else {

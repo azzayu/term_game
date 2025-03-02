@@ -5,6 +5,8 @@ typedef struct player_s{
 	int y;
 	int max_health;
 	int health;
+	int max_stamina;
+	int stamina;
 } player;
 
 
@@ -70,4 +72,27 @@ void update_health_bar(pixel **screen, player prota, screen_section health_bar){
 	}
 }
 
+void update_stamina_bar(pixel **screen, player prota, screen_section stamina_bar){
+	double stamina_per_block = (double) prota.max_stamina / (double) stamina_bar.width;
 
+	for (int j = 0 ; j < stamina_bar.width ; j++){
+		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[18] = 0;
+		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[19] = 0;
+		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[20] = 0;
+		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[21] = 0;
+	}
+
+	int i = 0;
+	while ((i + 1) * stamina_per_block <= prota.stamina){
+		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[18] = 1;
+		i++;
+	}
+
+	if((i + 0.75) * stamina_per_block <= prota.stamina){
+		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[19] = 1;
+	} else if((i + 0.5) * stamina_per_block <= prota.stamina){
+		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[20] = 1;
+	} else if((i + 0.25) * stamina_per_block * 0.25 <= prota.stamina){
+		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[21] = 1;
+	}
+}
