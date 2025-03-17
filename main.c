@@ -53,8 +53,20 @@ int main(){
 	update_health_bar(screen, prota, health_bar);
 	update_stamina_bar(screen, prota, stamina_bar);
 
+	text_section health = init_text(width - 7, width, 1, "HEALTH", 6);
+
+	text_section *all_text = malloc(sizeof(text_section) * 2);
+
+	all_text[1] = health;
+
+	screen[health.y][health.x_min].layer[LAYER_TEXT] = 1;
+	
+	for(int i = health.x_min + 1 ; i < health.x_max ; i++){
+		screen[health.y][i].layer[LAYER_TEXT_BEFORE] = 1;
+	}
+
 	while (prota.health > 0) {
-		print_screen(screen, width, height);
+		print_screen(screen, width, height, all_text);
 		char input;
 		scanf("%c",&input);
 		int has_moved = move_player(screen, &prota, input, width, height, play_area);
@@ -65,6 +77,8 @@ int main(){
 			update_stamina_bar(screen, prota, stamina_bar);
 		}
 	}
+
 	free_screen(screen, width, height);
+	free(all_text);
 	return EXIT_SUCCESS;
 }

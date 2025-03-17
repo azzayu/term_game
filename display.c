@@ -1,85 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define FULL_BLOCK "██"
-#define THREE_QUART_BLOCK "▓▓"
-#define HALF_BLOCK "▒▒"
-#define QUART_BLOCK "░░"
-#define VERT_WALL_LEFT "║ "
-#define VERT_WALL_RIGHT " ║"
-#define HORI_WALL "══"
-#define TOP_LEFT_CORNER " ╔"
-#define TOP_RIGHT_CORNER "╗ "
-#define BOTTOM_LEFT_CORNER " ╚"
-#define BOTTOM_RIGHT_CORNER "╝ "
-#define RIGHT_JUNCTION " ╠"
-#define LEFT_JUNCTION "╣ "
-#define UP_RIGHT_JUNCTION "═╩"
-#define UP_LEFT_JUNCTION "╩═"
-#define DOWN_LEFT_JUNCTION "╦═"
-#define DOWN_RIGHT_JUNCTION "═╦"
-
-
-#define BLACK "\033[0;30m"
-#define RED "\033[0;31m"
-#define GREEN "\033[0;32m"
-#define YELLOW "\033[0;33m"
-#define BLUE "\033[0;34m"
-#define MAGENTA "\033[0;35m"
-#define CYAN "\033[0;36m"
-#define WHITE "\033[0;37m"
-#define BRIGHT_BLACK "\033[0;90m"
-#define BRIGHT_RED "\033[0;91m"
-#define BRIGHT_GREEN "\033[0;92m"
-#define BRIGHT_YELLOW "\033[0;93m"
-#define BRIGHT_BLUE "\033[0;94m"
-#define BRIGHT_MAGENTA "\033[0;95m"
-#define BRIGHT_CYAN "\033[0;96m"
-#define BRIGHT_WHITE "\033[0;97m"
-
-#define LAYER_PLAYER 0
-#define LAYER_VERT_WALL_LEFT 1
-#define LAYER_VERT_WALL_RIGHT 2
-#define LAYER_HORI_WALL 3
-#define LAYER_TOP_LEFT_CORNER 4
-#define LAYER_TOP_RIGHT_CORNER 5
-#define LAYER_BOTTOM_LEFT_CORNER 6
-#define LAYER_BOTTOM_RIGHT_CORNER 7
-#define LAYER_ATTACK_IN0 8
-#define LAYER_ATTACK_IN1 9
-#define LAYER_ATTACK_IN2 10
-#define LAYER_ATTACK_IN3 11
-#define LAYER_HEALTH_FULL 8
-#define LAYER_HEALTH_THREE_QUART 9
-#define LAYER_HEALTH_HALF 10
-#define LAYER_HEALTH_QUART 11
-#define LAYER_RIGHT_JUNCTION 12
-#define LAYER_LEFT_JUNCTION 13
-#define LAYER_UP_RIGHT_JUNCTION 14
-#define LAYER_UP_LEFT_JUNCTION 15
-#define LAYER_DOWN_LEFT_JUNCTION 16
-#define LAYER_DOWN_RIGHT_JUNCTION 17
-#define LAYER_STAMINA_FULL 18
-#define LAYER_STAMINA_THREE_QUART 19
-#define LAYER_STAMINA_HALF 20
-#define LAYER_STAMINA_QUART 21
-#define LAYER_DEFAULT 50
-
-
-typedef struct pixel_s {
-	int layer[100];
-} pixel;
-
-
-typedef struct screen_section_s{
-	int x_min;
-	int y_min;
-	int x_max;
-	int y_max;
-
-	int width;
-	int height;
-} screen_section;
+#include "display.h"
 
 
 void init_health_bar(pixel **screen, int width, int height){
@@ -229,7 +151,17 @@ void free_screen(pixel **pixel_mat, int width, int height){
 }
 
 
-void print_screen(pixel **pixel_mat, int width, int height){
+void print_text_section(text_section text){
+	for (int i = 0 ; i < text.length ; i++){
+		printf("%c", text.text[i]);
+	}
+	for (int i = 0 ; i < 2 * text.width - text.length ; i++){
+		printf("%s█", BLACK);
+	}
+}
+
+
+void print_screen(pixel **pixel_mat, int width, int height, text_section* all_text){
 	/*
 	each layer corresponds to something different with things closer to 0 more important to display (hence they get displayed)
 	0 => player
@@ -237,7 +169,8 @@ void print_screen(pixel **pixel_mat, int width, int height){
 	8 - 11 => attacks, with 8 being attacks currently happening (these are redblock also used for health bar)  (layer 11 can be equal to more than 1 to show delayed attacks later)
 	12 - 17 => junctions for borders
 	18 - 21 => stamina bar (these big dark blue blocks)
-
+	22 => for text display, an array of text sections is passed in args and the value in the layer corresponds to the text section to print, text starts at 1, the 0 spot is kept empty
+	23 => this space is handled by a text section
 
 	50 => background of play area
 	none to 1 => general black background (normal terminal screen)
@@ -289,6 +222,10 @@ void print_screen(pixel **pixel_mat, int width, int height){
 				printf("%s%s", BLUE, HALF_BLOCK);
 			} else if (pixel_mat[y][x].layer[LAYER_STAMINA_QUART] == 1) {
 				printf("%s%s", BLUE, QUART_BLOCK);
+			} else if (pixel_mat[y][x].layer[LAYER_TEXT] > 0){
+				print_text_section(all_text[pixel_mat[y][x].layer[LAYER_TEXT]]);
+			} else if (pixel_mat[y][x].layer[LAYER_TEXT] > 0){
+				continue;
 			} else if (pixel_mat[y][x].layer[LAYER_DEFAULT] == 1) {
 				printf("%s%s", BRIGHT_BLUE, FULL_BLOCK);
 			} else {
@@ -300,3 +237,20 @@ void print_screen(pixel **pixel_mat, int width, int height){
 	fflush(stdout);
 }
 
+
+text_section init_text(int x_min, int x_max, int y, char* text, int length){
+	text_section sect;
+	sect.x_min = x_min;
+	sect.x_max = x_max;
+	sect.y = y;
+
+	sect.width = x_max - x_min;
+
+	sect.length = length;
+
+	for (int i = 0 ; i < length ; i++){
+		sect.text[i] = text[i];
+	}
+
+	return sect;
+}
