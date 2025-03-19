@@ -7,32 +7,40 @@ int move_player(pixel **screen, player *prota, char input, int width, int height
 		0 if not
 	*/
 	
-	if (input == 'z' && prota->y > play_area.y_min){
+	if (input == 'z' && prota->y > play_area.y_min && prota->stamina > 0){
 		screen[prota->y][prota->x].layer[0] = 0;
 		prota->y -= 1;
 		screen[prota->y][prota->x].layer[0] = 1;
+		prota->stamina--;
 		return 1;
 	}
-	if (input == 's' && prota->y < play_area.y_max - 1){
+	if (input == 's' && prota->y < play_area.y_max - 1 && prota->stamina > 0){
 		screen[prota->y][prota->x].layer[0] = 0;
 		prota->y += 1;
 		screen[prota->y][prota->x].layer[0] = 1;
+		prota->stamina--;
 		return 1;
 	}
-	if (input == 'd' && prota->x < play_area.x_max - 1){
+	if (input == 'd' && prota->x < play_area.x_max - 1 && prota->stamina > 0){
 		screen[prota->y][prota->x].layer[0] = 0;
 		prota->x += 1;
 		screen[prota->y][prota->x].layer[0] = 1;
+		prota->stamina--;
 		return 1;
 	}
-	if (input == 'q' && prota->x > play_area.x_min){
+	if (input == 'q' && prota->x > play_area.x_min && prota->stamina > 0){
 		screen[prota->y][prota->x].layer[0] = 0;
 		prota->x -= 1;
 		screen[prota->y][prota->x].layer[0] = 1;
+		prota->stamina--;
 		return 1;
 	}
-	if (input == 'p'){
-		//counts as passing
+	if (input == 'w'){
+		//counts as resting
+		prota->stamina += 3;
+		if (prota->stamina > prota->max_stamina){
+			prota->stamina = prota->max_stamina;
+		}
 		return 1;
 	}
 	return 0;

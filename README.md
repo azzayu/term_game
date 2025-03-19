@@ -10,6 +10,6 @@ Welcome to a small terminal game I made to pass the time.
 4. You can "make clean" if issues occur with compilation step
 
 ## Controls :
-- Use z, q, s, d to move around
-- Use p to pass turn (attacks still advance)
+- Use z, q, s, d to move around (costs 1 stamina)
+- Use w to rest turn (attacks still advance) (restores 3 stamina)
 - All other characters on input are ignored

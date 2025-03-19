@@ -93,7 +93,7 @@ typedef struct text_section_s{
 } text_section;
 
 
-pixel **init_screen(int width, int height, screen_section play_area);
+pixel **init_screen(int width, int height, screen_section play_area, screen_section enemy_locations[3]);
 
 
 void default_test_screen();
