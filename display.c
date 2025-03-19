@@ -152,10 +152,11 @@ void free_screen(pixel **pixel_mat, int width, int height){
 
 
 void print_text_section(text_section text){
+	printf("%s",WHITE);
 	for (int i = 0 ; i < text.length ; i++){
 		printf("%c", text.text[i]);
 	}
-	for (int i = 0 ; i < 2 * text.width - text.length ; i++){
+	for (int i = 0 ; i < 2 * text.width - text.length; i++){
 		printf("%s█", BLACK);
 	}
 }
@@ -224,7 +225,7 @@ void print_screen(pixel **pixel_mat, int width, int height, text_section* all_te
 				printf("%s%s", BLUE, QUART_BLOCK);
 			} else if (pixel_mat[y][x].layer[LAYER_TEXT] > 0){
 				print_text_section(all_text[pixel_mat[y][x].layer[LAYER_TEXT]]);
-			} else if (pixel_mat[y][x].layer[LAYER_TEXT] > 0){
+			} else if (pixel_mat[y][x].layer[LAYER_TEXT_BEFORE] > 0){
 				continue;
 			} else if (pixel_mat[y][x].layer[LAYER_DEFAULT] == 1) {
 				printf("%s%s", BRIGHT_BLUE, FULL_BLOCK);
@@ -251,6 +252,19 @@ text_section init_text(int x_min, int x_max, int y, char* text, int length){
 	for (int i = 0 ; i < length ; i++){
 		sect.text[i] = text[i];
 	}
+
+	return sect;
+}
+
+screen_section init_screen_section(int x_min, int y_min, int x_max, int y_max){
+	screen_section sect;
+	sect.x_min = x_min;
+	sect.x_max = x_max;
+	sect.y_min = y_min;
+	sect.y_max = y_max;
+
+	sect.width = x_max - x_min;
+	sect.height = y_max - y_min;
 
 	return sect;
 }

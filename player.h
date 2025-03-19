@@ -1,4 +1,4 @@
-
+#include "display.h"
 
 typedef struct player_s{
 	int x;
@@ -14,3 +14,5 @@ int move_player(pixel **screen, player *prota, char input, int width, int height
 void update_health_bar(pixel **screen, player prota, screen_section health_bar);
 
 void update_stamina_bar(pixel **screen, player prota, screen_section stamina_bar);
+
+player init_player(int x, int y, int max_health, int max_stamina);

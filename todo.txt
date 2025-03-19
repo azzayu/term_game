@@ -17,11 +17,11 @@ make first gameplay loop => health and attacks are in
 
 phase 2 : 
 
-make heads up display => frame made => health bar made, stamina bar and text display still needs implem
+make heads up display => frame made => health bar made, stamina bar and text display still needs implem => text display is done
 
 add attacking and passing turn => passing has been added, attacking can just be added with an extra if
 
-add stamina  
+add stamina => done
 
 add aiming 
 

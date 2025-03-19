@@ -1,4 +1,4 @@
-
+#include "player.h"
 
 
 void add_attack(pixel **screen, screen_section play_area);

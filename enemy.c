@@ -1,5 +1,4 @@
-#include "display.h"
-#include "player.h"
+#include "enemy.h"
 #include <stdlib.h>
 #include <time.h>
 

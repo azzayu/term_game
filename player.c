@@ -1,13 +1,4 @@
-#include "display.h"
-
-typedef struct player_s{
-	int x;
-	int y;
-	int max_health;
-	int health;
-	int max_stamina;
-	int stamina;
-} player;
+#include "player.h"
 
 
 int move_player(pixel **screen, player *prota, char input, int width, int height, screen_section play_area){
@@ -47,6 +38,7 @@ int move_player(pixel **screen, player *prota, char input, int width, int height
 	return 0;
 }
 
+
 void update_health_bar(pixel **screen, player prota, screen_section health_bar){
 	double health_per_block = (double) prota.max_health / (double) health_bar.width;
 
@@ -72,6 +64,7 @@ void update_health_bar(pixel **screen, player prota, screen_section health_bar){
 	}
 }
 
+
 void update_stamina_bar(pixel **screen, player prota, screen_section stamina_bar){
 	double stamina_per_block = (double) prota.max_stamina / (double) stamina_bar.width;
 
@@ -95,4 +88,19 @@ void update_stamina_bar(pixel **screen, player prota, screen_section stamina_bar
 	} else if((i + 0.25) * stamina_per_block * 0.25 <= prota.stamina){
 		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[21] = 1;
 	}
+}
+
+
+player init_player(int x, int y, int max_health, int max_stamina){
+	player prota;
+
+	prota.x = x;
+	prota.y = y;
+	prota.max_health = max_health;
+	prota.max_stamina = max_stamina;
+
+	prota.health = max_health;
+	prota.stamina = max_stamina;
+
+	return prota;
 }
