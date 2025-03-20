@@ -15,26 +15,26 @@ int distance_man(int x1, int y1, int x2, int y2){
 void update_attacks(pixel **screen, int width, int height, player *prota, screen_section play_area){
 	for (int y = play_area.y_min; y < play_area.y_max; y++){
 		for (int x = play_area.x_min; x < play_area.x_max; x++){
-			if (screen[y][x].layer[8] == 1){
-				screen[y][x].layer[8] = 0;
+			if (screen[y][x].layer[LAYER_ATTACK_IN0] == 1){
+				screen[y][x].layer[LAYER_ATTACK_IN0] = 0;
 				if (prota->y == y && prota->x == x){
 					prota->health -=1;
 				}
 			}
-			if (screen[y][x].layer[9] == 1){
-				screen[y][x].layer[9] = 0;
-				screen[y][x].layer[8] = 1;
+			if (screen[y][x].layer[LAYER_ATTACK_IN1] == 1){
+				screen[y][x].layer[LAYER_ATTACK_IN1] = 0;
+				screen[y][x].layer[LAYER_ATTACK_IN0] = 1;
 			}
-			if (screen[y][x].layer[10] == 1){
-				screen[y][x].layer[10] = 0;
-				screen[y][x].layer[9] = 1;
+			if (screen[y][x].layer[LAYER_ATTACK_IN2] == 1){
+				screen[y][x].layer[LAYER_ATTACK_IN2] = 0;
+				screen[y][x].layer[LAYER_ATTACK_IN1] = 1;
 			}
-			if (screen[y][x].layer[11] == 1){
-				screen[y][x].layer[11] = 0;
-				screen[y][x].layer[10] = 1;
+			if (screen[y][x].layer[LAYER_ATTACK_IN3] == 1){
+				screen[y][x].layer[LAYER_ATTACK_IN3] = 0;
+				screen[y][x].layer[LAYER_ATTACK_IN2] = 1;
 			}
-			if (screen[y][x].layer[11] > 1){
-				screen[y][x].layer[11]--;
+			if (screen[y][x].layer[LAYER_ATTACK_IN3] > 1){
+				screen[y][x].layer[LAYER_ATTACK_IN3]--;
 			}
 		}
 	}
@@ -44,7 +44,7 @@ void update_attacks(pixel **screen, int width, int height, player *prota, screen
 void column_attack(pixel **screen, screen_section play_area){
 	int column = rand() % play_area.width;
 	for (int y = play_area.y_min; y < play_area.y_max; y++){
-		screen[y][play_area.x_min + column].layer[11] = 1;
+		screen[y][play_area.x_min + column].layer[LAYER_ATTACK_IN3] = 1;
 	}
 }
 
@@ -52,7 +52,7 @@ void column_attack(pixel **screen, screen_section play_area){
 void line_attack(pixel **screen, screen_section play_area){
 	int line = rand() % play_area.height;
 	for (int x = play_area.x_min; x < play_area.x_max; x++){
-		screen[line + play_area.y_min][x].layer[11] = 1;
+		screen[line + play_area.y_min][x].layer[LAYER_ATTACK_IN3] = 1;
 	}
 }
 
@@ -65,7 +65,7 @@ void circle_attack(pixel **screen, screen_section play_area){
 		for (int y = center_y - radius + play_area.y_min; y < center_y + radius + play_area.y_min; y++){
 			if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max){
 				if (distance_2(x, y, center_x + play_area.x_min, center_y + play_area.y_min) < radius * radius) {
-					screen[y][x].layer[11] = 1;
+					screen[y][x].layer[LAYER_ATTACK_IN3] = 1;
 				}
 			}
 		}
@@ -80,7 +80,7 @@ void square_attack(pixel **screen, screen_section play_area){
 	for (int x = center_x - size + play_area.x_min; x < center_x + size + play_area.x_min; x++){
 		for (int y = center_y - size + play_area.y_min; y < center_y + size + play_area.y_min; y++){
 			if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max){					
-				screen[y][x].layer[11] = 1;
+				screen[y][x].layer[LAYER_ATTACK_IN3] = 1;
 			}
 		}
 	}

@@ -123,6 +123,17 @@ pixel **init_screen(int width, int height, screen_section play_area, screen_sect
 		screen[enemy_locations[i].y_min][enemy_locations[i].x_max].layer[LAYER_TOP_RIGHT_CORNER] = 1;
 		screen[enemy_locations[i].y_max][enemy_locations[i].x_max].layer[LAYER_BOTTOM_RIGHT_CORNER] = 1;
 		screen[enemy_locations[i].y_max][enemy_locations[i].x_min].layer[LAYER_BOTTOM_LEFT_CORNER] = 1;
+
+		for (int j = 1; j < enemy_locations[i].width; j++){
+			screen[enemy_locations[i].y_min][enemy_locations[i].x_min + j].layer[LAYER_HORI_WALL] = 1;
+			screen[enemy_locations[i].y_max][enemy_locations[i].x_min + j].layer[LAYER_HORI_WALL] = 1;
+		}
+
+		
+		for (int j = 1; j < enemy_locations[i].height; j++){
+			screen[enemy_locations[i].y_min + j][enemy_locations[i].x_min].layer[LAYER_VERT_WALL_RIGHT] = 1;
+			screen[enemy_locations[i].y_min + j][enemy_locations[i].x_max].layer[LAYER_VERT_WALL_LEFT] = 1;
+		}
 	}
 
 	return screen;
@@ -175,7 +186,7 @@ void print_screen(pixel **pixel_mat, int width, int height, text_section* all_te
 	/*
 	each layer corresponds to something different with things closer to 0 more important to display (hence they get displayed)
 	0 => player
-	1 - 7 => border
+	1 - 7 => border 1 for white, 2 for yellow
 	8 - 11 => attacks, with 8 being attacks currently happening (these are redblock also used for health bar)  (layer 11 can be equal to more than 1 to show delayed attacks later)
 	12 - 17 => junctions for borders
 	18 - 21 => stamina bar (these big dark blue blocks)
@@ -190,20 +201,55 @@ void print_screen(pixel **pixel_mat, int width, int height, text_section* all_te
 		for (int x = 0; x < width; x++){
 			if (pixel_mat[y][x].layer[LAYER_PLAYER] == 1) {
 				printf("%s%s", YELLOW, FULL_BLOCK);
-			} else if (pixel_mat[y][x].layer[LAYER_VERT_WALL_LEFT] == 1) {
-				printf("%s%s", WHITE, VERT_WALL_LEFT);
-			} else if (pixel_mat[y][x].layer[LAYER_VERT_WALL_RIGHT] == 1) {
-				printf("%s%s", WHITE, VERT_WALL_RIGHT);
-			} else if (pixel_mat[y][x].layer[LAYER_HORI_WALL] == 1) {
-				printf("%s%s", WHITE, HORI_WALL);
-			} else if (pixel_mat[y][x].layer[LAYER_TOP_LEFT_CORNER] == 1) {
-				printf("%s%s", WHITE, TOP_LEFT_CORNER);
-			} else if (pixel_mat[y][x].layer[LAYER_TOP_RIGHT_CORNER] == 1) {
-				printf("%s%s", WHITE, TOP_RIGHT_CORNER);
-			} else if (pixel_mat[y][x].layer[LAYER_BOTTOM_LEFT_CORNER] == 1) {
-				printf("%s%s", WHITE, BOTTOM_LEFT_CORNER);
-			} else if (pixel_mat[y][x].layer[LAYER_BOTTOM_RIGHT_CORNER] == 1) {
-				printf("%s%s", WHITE, BOTTOM_RIGHT_CORNER);
+			} else if (pixel_mat[y][x].layer[LAYER_VERT_WALL_LEFT] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_VERT_WALL_LEFT] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", VERT_WALL_LEFT);
+			} else if (pixel_mat[y][x].layer[LAYER_VERT_WALL_RIGHT] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_VERT_WALL_RIGHT] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", VERT_WALL_RIGHT);
+			} else if (pixel_mat[y][x].layer[LAYER_HORI_WALL] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_HORI_WALL] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", HORI_WALL);
+			} else if (pixel_mat[y][x].layer[LAYER_TOP_LEFT_CORNER] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_TOP_LEFT_CORNER] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", TOP_LEFT_CORNER);
+			} else if (pixel_mat[y][x].layer[LAYER_TOP_RIGHT_CORNER] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_TOP_RIGHT_CORNER] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", TOP_RIGHT_CORNER);
+			} else if (pixel_mat[y][x].layer[LAYER_BOTTOM_LEFT_CORNER] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_BOTTOM_LEFT_CORNER] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", BOTTOM_LEFT_CORNER);
+			} else if (pixel_mat[y][x].layer[LAYER_BOTTOM_RIGHT_CORNER] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_BOTTOM_RIGHT_CORNER] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", BOTTOM_RIGHT_CORNER);
 			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN0] == 1) {
 				printf("%s%s", RED, FULL_BLOCK);
 			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN1] == 1) {
@@ -212,18 +258,48 @@ void print_screen(pixel **pixel_mat, int width, int height, text_section* all_te
 				printf("%s%s", RED, HALF_BLOCK);
 			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN3] == 1) {
 				printf("%s%s", RED, QUART_BLOCK);
-			} else if (pixel_mat[y][x].layer[LAYER_RIGHT_JUNCTION] == 1) {
-				printf("%s%s", WHITE, RIGHT_JUNCTION);
-			} else if (pixel_mat[y][x].layer[LAYER_LEFT_JUNCTION] == 1) {
-				printf("%s%s", WHITE, LEFT_JUNCTION);
-			} else if (pixel_mat[y][x].layer[LAYER_UP_RIGHT_JUNCTION] == 1) {
-				printf("%s%s", WHITE, UP_RIGHT_JUNCTION);
-			} else if (pixel_mat[y][x].layer[LAYER_UP_LEFT_JUNCTION] == 1) {
-				printf("%s%s", WHITE, UP_LEFT_JUNCTION);
-			} else if (pixel_mat[y][x].layer[LAYER_DOWN_LEFT_JUNCTION] == 1) {
-				printf("%s%s", WHITE, DOWN_LEFT_JUNCTION);
-			} else if (pixel_mat[y][x].layer[LAYER_DOWN_RIGHT_JUNCTION] == 1) {
-				printf("%s%s", WHITE, DOWN_RIGHT_JUNCTION);
+			} else if (pixel_mat[y][x].layer[LAYER_RIGHT_JUNCTION] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_RIGHT_JUNCTION] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", RIGHT_JUNCTION);
+			} else if (pixel_mat[y][x].layer[LAYER_LEFT_JUNCTION] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_LEFT_JUNCTION] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", LEFT_JUNCTION);
+			} else if (pixel_mat[y][x].layer[LAYER_UP_RIGHT_JUNCTION] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_UP_RIGHT_JUNCTION] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", UP_RIGHT_JUNCTION);
+			} else if (pixel_mat[y][x].layer[LAYER_UP_LEFT_JUNCTION] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_UP_LEFT_JUNCTION] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", UP_LEFT_JUNCTION);
+			} else if (pixel_mat[y][x].layer[LAYER_DOWN_LEFT_JUNCTION] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_DOWN_LEFT_JUNCTION] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", DOWN_LEFT_JUNCTION);
+			} else if (pixel_mat[y][x].layer[LAYER_DOWN_RIGHT_JUNCTION] >= 1) {
+				if (pixel_mat[y][x].layer[LAYER_DOWN_RIGHT_JUNCTION] == 1){
+					printf("%s", WHITE);
+				} else {
+					printf("%s", YELLOW);
+				}
+				printf("%s", DOWN_RIGHT_JUNCTION);
 			} else if (pixel_mat[y][x].layer[LAYER_STAMINA_FULL] == 1) {
 				printf("%s%s", BLUE, FULL_BLOCK);
 			} else if (pixel_mat[y][x].layer[LAYER_STAMINA_THREE_QUART] == 1) {

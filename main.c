@@ -23,7 +23,7 @@ int main(){
 	player prota = init_player((play_area.x_max - play_area.x_min) / 2 + play_area.x_min, (play_area.y_max - play_area.y_min) / 2 + play_area.y_min, 20, 100);
  
 	pixel **screen = init_screen(width, height, play_area, enemy_locations);
-	screen[prota.y][prota.x].layer[0] = 1;
+	screen[prota.y][prota.x].layer[LAYER_PLAYER] = 1;
 
 	screen_section health_bar = init_screen_section(width - 8, 3, width - 1, 4);
 
@@ -49,11 +49,13 @@ int main(){
 		}
 	}
 
+	change_aim(screen, &prota, enemy_locations, 0);
+
 	while (prota.health > 0) {
 		print_screen(screen, width, height, all_text);
 		char input = getchar();
 		//scanf("%c",&input);
-		int has_moved = move_player(screen, &prota, input, width, height, play_area);
+		int has_moved = move_player(screen, &prota, input, width, height, play_area, enemy_locations);
 		if (has_moved) {
 			update_attacks(screen, width, height, &prota, play_area);
 			add_attack(screen, play_area);

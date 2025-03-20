@@ -1,37 +1,37 @@
 #include "player.h"
 
 
-int move_player(pixel **screen, player *prota, char input, int width, int height, screen_section play_area){
+int move_player(pixel **screen, player *prota, char input, int width, int height, screen_section play_area, screen_section enemy_locations[3]){
 	/*
 		returns 1 if move succesfull 
 		0 if not
 	*/
 	
 	if (input == 'z' && prota->y > play_area.y_min && prota->stamina > 0){
-		screen[prota->y][prota->x].layer[0] = 0;
+		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
 		prota->y -= 1;
-		screen[prota->y][prota->x].layer[0] = 1;
+		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
 		prota->stamina--;
 		return 1;
 	}
 	if (input == 's' && prota->y < play_area.y_max - 1 && prota->stamina > 0){
-		screen[prota->y][prota->x].layer[0] = 0;
+		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
 		prota->y += 1;
-		screen[prota->y][prota->x].layer[0] = 1;
+		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
 		prota->stamina--;
 		return 1;
 	}
 	if (input == 'd' && prota->x < play_area.x_max - 1 && prota->stamina > 0){
-		screen[prota->y][prota->x].layer[0] = 0;
+		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
 		prota->x += 1;
-		screen[prota->y][prota->x].layer[0] = 1;
+		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
 		prota->stamina--;
 		return 1;
 	}
 	if (input == 'q' && prota->x > play_area.x_min && prota->stamina > 0){
-		screen[prota->y][prota->x].layer[0] = 0;
+		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
 		prota->x -= 1;
-		screen[prota->y][prota->x].layer[0] = 1;
+		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
 		prota->stamina--;
 		return 1;
 	}
@@ -41,6 +41,14 @@ int move_player(pixel **screen, player *prota, char input, int width, int height
 		if (prota->stamina > prota->max_stamina){
 			prota->stamina = prota->max_stamina;
 		}
+		return 1;
+	}
+	if (input == 'a' && prota->aiming != 0){
+		change_aim(screen, prota, enemy_locations, -1);
+		return 1;
+	}
+	if (input == 'e' && prota->aiming != 2){
+		change_aim(screen, prota, enemy_locations, 1);
 		return 1;
 	}
 	return 0;
@@ -110,5 +118,42 @@ player init_player(int x, int y, int max_health, int max_stamina){
 	prota.health = max_health;
 	prota.stamina = max_stamina;
 
+	prota.aiming = 1;
+
 	return prota;
+}
+
+
+void change_aim(pixel **screen, player* prota, screen_section enemy_locations[3], int change){
+	/*
+	change is either -1 or 1 checked by move_player
+	*/
+
+	int is_selected;
+
+	prota->aiming += change;
+
+	for (int i = 0; i < 3; i++){
+
+		is_selected = 0;
+		if (prota->aiming == i) {
+			is_selected = 1;
+		}
+
+		screen[enemy_locations[i].y_min][enemy_locations[i].x_min].layer[LAYER_TOP_LEFT_CORNER] = 1 + is_selected;
+		screen[enemy_locations[i].y_min][enemy_locations[i].x_max].layer[LAYER_TOP_RIGHT_CORNER] = 1 + is_selected;
+		screen[enemy_locations[i].y_max][enemy_locations[i].x_max].layer[LAYER_BOTTOM_RIGHT_CORNER] = 1 + is_selected;
+		screen[enemy_locations[i].y_max][enemy_locations[i].x_min].layer[LAYER_BOTTOM_LEFT_CORNER] = 1 + is_selected;
+
+		for (int j = 1; j < enemy_locations[i].width; j++){
+			screen[enemy_locations[i].y_min][enemy_locations[i].x_min + j].layer[LAYER_HORI_WALL] = 1 + is_selected;
+			screen[enemy_locations[i].y_max][enemy_locations[i].x_min + j].layer[LAYER_HORI_WALL] = 1 + is_selected;
+		}
+
+		
+		for (int j = 1; j < enemy_locations[i].height; j++){
+			screen[enemy_locations[i].y_min + j][enemy_locations[i].x_min].layer[LAYER_VERT_WALL_RIGHT] = 1 + is_selected;
+			screen[enemy_locations[i].y_min + j][enemy_locations[i].x_max].layer[LAYER_VERT_WALL_LEFT] = 1 + is_selected;
+		}
+	}
 }
