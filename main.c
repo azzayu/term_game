@@ -51,6 +51,8 @@ int main(){
 
 	change_aim(screen, &prota, enemy_locations, 0);
 
+	enemy current_enemy = create_enemy();
+
 	while (prota.health > 0) {
 		print_screen(screen, width, height, all_text);
 		char input = getchar();
