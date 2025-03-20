@@ -111,7 +111,7 @@ void slash_attack(pixel **screen, screen_section play_area, enemy current_enemy)
 		if (left_right){
 			screen[line + play_area.y_min][x].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
 		} else {
-			screen[line + play_area.y_min][play_area.x_max - x + play_area.x_min].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
+			screen[line + play_area.y_min][play_area.x_max - x + play_area.x_min - 1].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
 		}
 		screen[line + play_area.y_min][x].local_damage = damage;
 	}
@@ -122,8 +122,8 @@ void spike_attack(pixel **screen, screen_section play_area, enemy current_enemy)
 	int damage = get_attack_damage(current_enemy, SPIKES);
 
 	int column = rand() % play_area.width;
-	for (int y = play_area.y_max - 1; y >= play_area.y_min; y--){
-		screen[play_area.y_max - y + play_area.y_min][play_area.x_min + column].layer[LAYER_ATTACK_IN3] = 1 + y;
+	for (int y = play_area.y_min; y < play_area.y_max; y++){
+		screen[play_area.x_max - y + play_area.y_min - 1][play_area.y_min + column].layer[LAYER_ATTACK_IN3] = 1 + (y - play_area.y_min);
 		screen[y][play_area.x_min + column].local_damage = damage;
 	}
 }
@@ -180,9 +180,6 @@ void twinkles_attack(pixel **screen, screen_section play_area, enemy current_ene
 		int x_center = rand() % play_area.width + play_area.x_min;
 		int y_center = rand() % play_area.height + play_area.y_min;
 
-		screen[y_center][x_center].layer[LAYER_ATTACK_IN3] = 1;
-		screen[y_center][x_center].local_damage = damage;
-
 		for (int x = -1; x < 2; x++){
 			for (int y = -1; y < 2; y++){
 				if (play_area.x_min <= x + x_center && x + x_center < play_area.x_max && play_area.y_min <= y + y_center && y + y_center < play_area.y_max ){
@@ -191,6 +188,8 @@ void twinkles_attack(pixel **screen, screen_section play_area, enemy current_ene
 				}
 			}
 		}
+
+		screen[y_center][x_center].layer[LAYER_ATTACK_IN3] = 1;
 	}
 }
 
@@ -205,13 +204,13 @@ void stab_attack(pixel **screen, screen_section play_area, enemy current_enemy){
 	screen[y_center][x_center].local_damage = damage;
 
 	for (int x = -1; x < 2; x++){
-		if (play_area.x_min <= x && x < play_area.x_max){
+		if (play_area.x_min <= x + x_center && x + x_center < play_area.x_max){
 			screen[y_center][x_center + x].layer[LAYER_ATTACK_IN3] = 1;
 			screen[y_center][x_center + x].local_damage = damage;
 		}	
 	}
 	for (int y = -1; y < 2; y++){
-		if (play_area.y_min <= y && y < play_area.y_max ){
+		if (play_area.y_min <= y + y_center && y + y_center < play_area.y_max ){
 			screen[y_center + y][x_center].layer[LAYER_ATTACK_IN3] = 1;
 			screen[y_center + y][x_center].local_damage = damage;
 		}
