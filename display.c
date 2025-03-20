@@ -79,6 +79,7 @@ pixel **init_screen(int width, int height, screen_section play_area, screen_sect
 			if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max){
 				screen[y][x].layer[LAYER_DEFAULT] = 1;
 			}
+			screen[y][x].local_damage = 0;
 		}
 	}
 

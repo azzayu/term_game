@@ -67,6 +67,7 @@
 
 typedef struct pixel_s {
 	int layer[100];
+	int local_damage;
 } pixel;
 
 

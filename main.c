@@ -60,7 +60,7 @@ int main(){
 		int has_moved = move_player(screen, &prota, input, width, height, play_area, enemy_locations);
 		if (has_moved) {
 			update_attacks(screen, width, height, &prota, play_area);
-			add_attack(screen, play_area);
+			add_attack(screen, play_area, current_enemy);
 			update_health_bar(screen, prota, health_bar);
 			update_stamina_bar(screen, prota, stamina_bar);
 		}

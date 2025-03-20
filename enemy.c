@@ -42,22 +42,6 @@ void update_attacks(pixel **screen, int width, int height, player *prota, screen
 }
 
 
-void column_attack(pixel **screen, screen_section play_area){
-	int column = rand() % play_area.width;
-	for (int y = play_area.y_min; y < play_area.y_max; y++){
-		screen[y][play_area.x_min + column].layer[LAYER_ATTACK_IN3] = 1;
-	}
-}
-
-
-void line_attack(pixel **screen, screen_section play_area){
-	int line = rand() % play_area.height;
-	for (int x = play_area.x_min; x < play_area.x_max; x++){
-		screen[line + play_area.y_min][x].layer[LAYER_ATTACK_IN3] = 1;
-	}
-}
-
-
 void circle_attack(pixel **screen, screen_section play_area){
 	int center_x = rand() % play_area.width;
 	int center_y = rand() % play_area.height;
@@ -88,20 +72,219 @@ void square_attack(pixel **screen, screen_section play_area){
 }
 
 
-void add_attack(pixel **screen, screen_section play_area){
-	int attack_type = rand() % 4;
-	switch (attack_type){
-		case 0:
-			column_attack(screen, play_area);
+enum attack_types choose_attack(enemy_type type){
+	int total_weight = 0;
+
+	for (int i = 0; i < type.different_attacks; i++){
+		total_weight += type.attack_weights[i];
+	}
+
+	int choice = rand() % total_weight;
+
+	for (int i = 0; i < type.different_attacks; i++){
+		choice -= type.attack_weights[i];
+		if (choice <= 0){
+			return type.attack_codes[i];
+		}
+	}
+
+	return type.attack_codes[type.different_attacks - 1];
+}
+
+
+int get_attack_damage(enemy current_enemy, enum attack_types attack){
+	for (int i = 0; i < current_enemy.enemy_type.different_attacks; i++){
+		if (current_enemy.enemy_type.attack_codes[i] == attack){
+			return current_enemy.enemy_type.attack_damages[i];
+		}
+	}
+	return 1;
+}
+
+
+void slash_attack(pixel **screen, screen_section play_area, enemy current_enemy){
+	int damage = get_attack_damage(current_enemy, SLASH);
+
+	int line = rand() % play_area.height;
+	int left_right = rand() % 2;
+	for (int x = play_area.x_min; x < play_area.x_max; x++){
+		if (left_right){
+			screen[line + play_area.y_min][x].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
+		} else {
+			screen[line + play_area.y_min][play_area.x_max - x + play_area.x_min].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
+		}
+		screen[line + play_area.y_min][x].local_damage = damage;
+	}
+}
+
+
+void spike_attack(pixel **screen, screen_section play_area, enemy current_enemy){
+	int damage = get_attack_damage(current_enemy, SPIKES);
+
+	int column = rand() % play_area.width;
+	for (int y = play_area.y_max - 1; y >= play_area.y_min; y--){
+		screen[play_area.y_max - y + play_area.y_min][play_area.x_min + column].layer[LAYER_ATTACK_IN3] = 1 + y;
+		screen[y][play_area.x_min + column].local_damage = damage;
+	}
+}
+
+
+void meteor_attack(pixel **screen, screen_section play_area, enemy current_enemy){
+	int damage = get_attack_damage(current_enemy, METEOR);
+
+	int column = rand() % play_area.width;
+	for (int y = play_area.y_min; y < play_area.y_max; y++){
+		screen[y][play_area.x_min + column].layer[LAYER_ATTACK_IN3] = 1 + y - play_area.y_min;
+		screen[y][play_area.x_min + column].local_damage = damage;
+	}
+}
+
+
+void bouncy_ball(pixel **screen, screen_section play_area, enemy current_enemy){
+	int damage = get_attack_damage(current_enemy, BOUNCY_BALL);
+
+	int x = rand() % play_area.width + play_area.x_min;
+	int y = rand() % play_area.height + play_area.y_min;
+	int x_dir = (rand() % 2) * 2 - 1;
+	int y_dir = (rand() % 2) * 2 - 1;
+
+	for (int i = 0; i < 200; i++){
+		screen[y][x].layer[LAYER_ATTACK_IN3] = i + 1;
+		screen[y][x].local_damage = damage;
+		
+		x += x_dir;
+		y += y_dir;
+
+		if (x < play_area.x_min || x > play_area.x_max){
+			x -= 2 * x_dir;
+			y -= 2 * y_dir;
+			x_dir *= -1;
+			y_dir *= -1;
+		}
+		if (y < play_area.y_min || y > play_area.y_max){
+			x -= 2 * x_dir;
+			y -= 2 * y_dir;
+			x_dir *= -1;
+			y_dir *= -1;
+		}
+	}
+}
+
+
+void twinkles_attack(pixel **screen, screen_section play_area, enemy current_enemy){
+	int damage = get_attack_damage(current_enemy, TWINKLES);
+
+
+	for (int i = 0; i < 5; i++){
+
+		int x_center = rand() % play_area.width + play_area.x_min;
+		int y_center = rand() % play_area.height + play_area.y_min;
+
+		screen[y_center][x_center].layer[LAYER_ATTACK_IN3] = 1;
+		screen[y_center][x_center].local_damage = damage;
+
+		for (int x = -1; x < 2; x++){
+			for (int y = -1; y < 2; y++){
+				if (play_area.x_min <= x + x_center && x + x_center < play_area.x_max && play_area.y_min <= y + y_center && y + y_center < play_area.y_max ){
+					screen[y_center + y][x_center + x].layer[LAYER_ATTACK_IN3] = 2;
+					screen[y_center + y][x_center + x].local_damage = damage;
+				}
+			}
+		}
+	}
+}
+
+
+void stab_attack(pixel **screen, screen_section play_area, enemy current_enemy){
+	int damage = get_attack_damage(current_enemy, STAB);
+
+	int x_center = rand() % play_area.width + play_area.x_min;
+	int y_center = rand() % play_area.height + play_area.y_min;
+
+	screen[y_center][x_center].layer[LAYER_ATTACK_IN3] = 1;
+	screen[y_center][x_center].local_damage = damage;
+
+	for (int x = -1; x < 2; x++){
+		if (play_area.x_min <= x && x < play_area.x_max){
+			screen[y_center][x_center + x].layer[LAYER_ATTACK_IN3] = 1;
+			screen[y_center][x_center + x].local_damage = damage;
+		}	
+	}
+	for (int y = -1; y < 2; y++){
+		if (play_area.y_min <= y && y < play_area.y_max ){
+			screen[y_center + y][x_center].layer[LAYER_ATTACK_IN3] = 1;
+			screen[y_center + y][x_center].local_damage = damage;
+		}
+	}
+}
+
+
+void tail_slap_attack(pixel **screen, screen_section play_area, enemy current_enemy){
+	int damage = get_attack_damage(current_enemy, TAIL_SLAP);
+
+	int line = rand() % play_area.height;
+	int left_right = rand() % 2;
+	for (int y = -1; y < 2; y++){
+		if (0 <= y + line && y + line < play_area.height){
+			for (int x = play_area.x_min; x < play_area.x_max; x++){
+				if (left_right){
+					screen[line + play_area.y_min + y][x].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
+				} else {
+					screen[line + play_area.y_min + y][play_area.x_max - x + play_area.x_min].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
+				}
+				screen[line + play_area.y_min][x].local_damage = damage;
+			}
+		}
+	}
+}
+
+
+void fire_breath_attack(pixel **screen, screen_section play_area, enemy current_enemy){
+	int damage = get_attack_damage(current_enemy, TAIL_SLAP);
+
+	int line = rand() % play_area.height;
+	int left_right = rand() % 2;
+	for (int y = -1; y < 2; y++){
+		if (0 <= y + line && y + line < play_area.height){
+			for (int x = play_area.x_min; x < play_area.x_max; x++){
+				if (left_right){
+					screen[line + play_area.y_min + y][x].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
+				} else {
+					screen[line + play_area.y_min + y][play_area.x_max - x + play_area.x_min].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
+				}
+				screen[line + play_area.y_min][x].local_damage = damage;
+			}
+		}
+	}
+}
+
+
+void add_attack(pixel **screen, screen_section play_area, enemy current_enemy){
+	enum attack_types chosen_attack = choose_attack(current_enemy.enemy_type);
+	switch (chosen_attack){
+		case SLASH:
+			slash_attack(screen, play_area, current_enemy);
 			break;
-		case 1:
-			line_attack(screen, play_area);
+		case SPIKES:
+			spike_attack(screen, play_area, current_enemy);
 			break;
-		case 2:
-			circle_attack(screen, play_area);
+		case METEOR:
+			meteor_attack(screen, play_area, current_enemy);
 			break;
-		case 3:
-			square_attack(screen, play_area);
+		case BOUNCY_BALL:
+			bouncy_ball(screen, play_area, current_enemy);
+			break;
+		case TWINKLES:
+			twinkles_attack(screen, play_area, current_enemy);
+			break;
+		case STAB:
+			stab_attack(screen, play_area, current_enemy);
+			break;
+		case TAIL_SLAP:
+			tail_slap_attack(screen, play_area, current_enemy);
+			break;
+		case FIRE_BREATH: 
+			fire_breath_attack(screen, play_area, current_enemy);
 			break;
 	}
 }
