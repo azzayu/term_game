@@ -42,38 +42,8 @@ void update_attacks(pixel **screen, int width, int height, player *prota, screen
 }
 
 
-void circle_attack(pixel **screen, screen_section play_area){
-	int center_x = rand() % play_area.width;
-	int center_y = rand() % play_area.height;
-	int radius = rand() % 6;
-	for (int x = center_x - radius + play_area.x_min; x < center_x + radius + play_area.x_min; x++){
-		for (int y = center_y - radius + play_area.y_min; y < center_y + radius + play_area.y_min; y++){
-			if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max){
-				if (distance_2(x, y, center_x + play_area.x_min, center_y + play_area.y_min) < radius * radius) {
-					screen[y][x].layer[LAYER_ATTACK_IN3] = 1;
-				}
-			}
-		}
-	}
-}
-
-
-void square_attack(pixel **screen, screen_section play_area){
-	int center_x = rand() % play_area.width;
-	int center_y = rand() % play_area.height;
-	int size = rand() % 4;
-	for (int x = center_x - size + play_area.x_min; x < center_x + size + play_area.x_min; x++){
-		for (int y = center_y - size + play_area.y_min; y < center_y + size + play_area.y_min; y++){
-			if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max){					
-				screen[y][x].layer[LAYER_ATTACK_IN3] = 1;
-			}
-		}
-	}
-}
-
-
 enum attack_types choose_attack(enemy_type type){
-	int total_weight = 0;
+	int total_weight = 1;
 
 	for (int i = 0; i < type.different_attacks; i++){
 		total_weight += type.attack_weights[i];
@@ -107,7 +77,7 @@ void slash_attack(pixel **screen, screen_section play_area, enemy current_enemy)
 
 	int line = rand() % play_area.height;
 	int left_right = rand() % 2;
-	for (int x = play_area.x_min; x < play_area.x_max; x++){
+	for (int x = play_area.x_min; x <= play_area.x_max; x++){
 		if (left_right){
 			screen[line + play_area.y_min][x].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
 		} else {
@@ -123,7 +93,7 @@ void spike_attack(pixel **screen, screen_section play_area, enemy current_enemy)
 
 	int column = rand() % play_area.width;
 	for (int y = play_area.y_min; y < play_area.y_max; y++){
-		screen[play_area.x_max - y + play_area.y_min - 1][play_area.y_min + column].layer[LAYER_ATTACK_IN3] = 1 + (y - play_area.y_min);
+		screen[play_area.y_max - y + play_area.y_min - 1][play_area.y_min + column].layer[LAYER_ATTACK_IN3] = 1 + (y - play_area.y_min);
 		screen[y][play_area.x_min + column].local_damage = damage;
 	}
 }
@@ -200,21 +170,20 @@ void stab_attack(pixel **screen, screen_section play_area, enemy current_enemy){
 	int x_center = rand() % play_area.width + play_area.x_min;
 	int y_center = rand() % play_area.height + play_area.y_min;
 
-	screen[y_center][x_center].layer[LAYER_ATTACK_IN3] = 1;
-	screen[y_center][x_center].local_damage = damage;
-
 	for (int x = -1; x < 2; x++){
 		if (play_area.x_min <= x + x_center && x + x_center < play_area.x_max){
-			screen[y_center][x_center + x].layer[LAYER_ATTACK_IN3] = 1;
+			screen[y_center][x_center + x].layer[LAYER_ATTACK_IN3] = 2;
 			screen[y_center][x_center + x].local_damage = damage;
 		}	
 	}
 	for (int y = -1; y < 2; y++){
 		if (play_area.y_min <= y + y_center && y + y_center < play_area.y_max ){
-			screen[y_center + y][x_center].layer[LAYER_ATTACK_IN3] = 1;
+			screen[y_center + y][x_center].layer[LAYER_ATTACK_IN3] = 2;
 			screen[y_center + y][x_center].local_damage = damage;
 		}
 	}
+
+	screen[y_center][x_center].layer[LAYER_ATTACK_IN3] = 1;
 }
 
 
@@ -225,7 +194,7 @@ void tail_slap_attack(pixel **screen, screen_section play_area, enemy current_en
 	int left_right = rand() % 2;
 	for (int y = -1; y < 2; y++){
 		if (0 <= y + line && y + line < play_area.height){
-			for (int x = play_area.x_min; x < play_area.x_max; x++){
+			for (int x = play_area.x_min; x <= play_area.x_max; x++){
 				if (left_right){
 					screen[line + play_area.y_min + y][x].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
 				} else {
@@ -239,19 +208,19 @@ void tail_slap_attack(pixel **screen, screen_section play_area, enemy current_en
 
 
 void fire_breath_attack(pixel **screen, screen_section play_area, enemy current_enemy){
-	int damage = get_attack_damage(current_enemy, TAIL_SLAP);
+	int damage = get_attack_damage(current_enemy, FIRE_BREATH);
 
-	int line = rand() % play_area.height;
-	int left_right = rand() % 2;
-	for (int y = -1; y < 2; y++){
-		if (0 <= y + line && y + line < play_area.height){
-			for (int x = play_area.x_min; x < play_area.x_max; x++){
-				if (left_right){
-					screen[line + play_area.y_min + y][x].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
-				} else {
-					screen[line + play_area.y_min + y][play_area.x_max - x + play_area.x_min].layer[LAYER_ATTACK_IN3] = 1 + (x - play_area.x_min) / 2;
+	int center_x = rand() % play_area.width;
+	int center_y = rand() % play_area.height;
+
+	for (int radius = 6; radius > 0 ; radius--){
+		for (int x = center_x - radius + play_area.x_min; x < center_x + radius + play_area.x_min; x++){
+			for (int y = center_y - radius + play_area.y_min; y < center_y + radius + play_area.y_min; y++){
+				if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max){
+					if (distance_2(x, y, center_x + play_area.x_min, center_y + play_area.y_min) < radius * radius) {
+						screen[y][x].layer[LAYER_ATTACK_IN3] = radius;
+					}
 				}
-				screen[line + play_area.y_min][x].local_damage = damage;
 			}
 		}
 	}
