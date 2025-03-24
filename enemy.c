@@ -119,6 +119,14 @@ void bouncy_ball(pixel **screen, screen_section play_area, enemy current_enemy){
 	int y_dir = (rand() % 2) * 2 - 1;
 
 	for (int i = 0; i < 200; i++){
+		for (int x_off_set = 0; x_off_set < 3; x_off_set++){
+			for (int y_off_set = 0; y_off_set < 3; y_off_set++){
+				if (play_area.x_min <= x + x_off_set && x + x_off_set < play_area.x_max && play_area.y_min <= y + y_off_set && y + y_off_set < play_area.y_max){
+					screen[y + y_off_set][x + x_off_set].layer[LAYER_ATTACK_IN3] = i + 1;
+					screen[y + y_off_set][x + x_off_set].local_damage = damage;
+				}
+			}
+		}
 		screen[y][x].layer[LAYER_ATTACK_IN3] = i + 1;
 		screen[y][x].local_damage = damage;
 		
@@ -301,7 +309,7 @@ enemy create_enemy_dark_mage(){
 
 	type_dark_mage.attack_weights[0] = 2;
 	type_dark_mage.attack_weights[1] = 4;
-	type_dark_mage.attack_weights[2] = 1;
+	type_dark_mage.attack_weights[2] = 100;
 
 	type_dark_mage.attack_damages[0] = 4;
 	type_dark_mage.attack_damages[1] = 2;
