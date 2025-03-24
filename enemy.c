@@ -122,13 +122,13 @@ void bouncy_ball(pixel **screen, screen_section play_area, enemy current_enemy){
 		for (int x_off_set = 0; x_off_set < 3; x_off_set++){
 			for (int y_off_set = 0; y_off_set < 3; y_off_set++){
 				if (play_area.x_min <= x + x_off_set && x + x_off_set < play_area.x_max && play_area.y_min <= y + y_off_set && y + y_off_set < play_area.y_max){
-					screen[y + y_off_set][x + x_off_set].layer[LAYER_ATTACK_IN3] = i + 1;
-					screen[y + y_off_set][x + x_off_set].local_damage = damage;
+					if (screen[y + y_off_set][x + x_off_set].layer[LAYER_ATTACK_IN3] == 0){
+						screen[y + y_off_set][x + x_off_set].layer[LAYER_ATTACK_IN3] = i + 1;
+						screen[y + y_off_set][x + x_off_set].local_damage = damage;
+					}
 				}
 			}
 		}
-		screen[y][x].layer[LAYER_ATTACK_IN3] = i + 1;
-		screen[y][x].local_damage = damage;
 		
 		x += x_dir;
 		y += y_dir;
