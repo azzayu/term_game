@@ -2,8 +2,6 @@
 
 Welcome to a small terminal game I made to pass the time.
 
-### !["THE GAME EXECUTABLE"](game) (Linux only)
-
 ## Getting started:
 
 1. Download the repo
