@@ -79,6 +79,9 @@ int main(){
 	printf("GAME OVER \n\n\n");
 
 	free_screen(screen, width, height);
+	for (int i = 0; i < nb_text_sections ; i++){
+		free(all_text[i]);
+	}
 	free(all_text);
 	return EXIT_SUCCESS;
 }
