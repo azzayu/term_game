@@ -68,16 +68,31 @@ void update_enemy_health_bar(pixel **screen, enemy monster, screen_section healt
 }
 
 
-text_section update_enemy_name(text_section name_place, enemy monster){
+void copy(char *src, char* dest, int length){
+	for (int i = 0; i < length ; i++){
+		dest[i] = src[i];
+	}
+}
+
+
+void update_enemy_name(text_section *name_place, enemy monster){
 	switch(monster.enemy_type.enemy_type_name){
 		case DARK_MAGE:
-			return init_text(name_place.x_min, name_place.x_max, name_place.y, "Dark Mage", 9);
+			copy("Dark Mage", name_place->text, 9);
+			name_place->length = 9;
+			break;
 		case DARK_KNIGHT:
-			return init_text(name_place.x_min, name_place.x_max, name_place.y, "Dark Knight", 11);
+			copy("Dark Knight", name_place->text, 11);
+			name_place->length = 11;
+			break;
 		case DRAGON:
-			return init_text(name_place.x_min, name_place.x_max, name_place.y, "Dragon", 6);
+			copy("Dragon", name_place->text, 6);
+			name_place->length = 6;
+			break;
 		case POSSESSED_TREE:
-			return init_text(name_place.x_min, name_place.x_max, name_place.y, "Possessed Tree", 14);
+			copy("Possessed Tree", name_place->text, 14);
+			name_place->length = 14;
+			break;
 	}
 }
 
@@ -315,6 +330,8 @@ enemy create_enemy_dark_knight(){
 
 	enemy_type type_dark_knight;
 
+	type_dark_knight.enemy_type_name = DARK_KNIGHT;
+
 	type_dark_knight.different_attacks = 2;
 
 	type_dark_knight.attack_codes[0] = SLASH;
@@ -340,6 +357,8 @@ enemy create_enemy_dark_mage(){
 	dark_mage.health = dark_mage.max_health;
 
 	enemy_type type_dark_mage;
+
+	type_dark_mage.enemy_type_name = DARK_MAGE;
 
 	type_dark_mage.different_attacks = 3;
 
@@ -370,6 +389,8 @@ enemy create_enemy_dragon(){
 
 	enemy_type type_dragon;
 
+	type_dragon.enemy_type_name = DRAGON;
+
 	type_dragon.different_attacks = 3;
 
 	type_dragon.attack_codes[0] = FIRE_BREATH;
@@ -398,6 +419,8 @@ enemy create_enemy_possessed_tree(){
 	possessed_tree.health = possessed_tree.max_health;
 
 	enemy_type type_possessed_tree;
+
+	type_possessed_tree.enemy_type_name = POSSESSED_TREE;
 
 	type_possessed_tree.different_attacks = 3;
 

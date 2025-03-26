@@ -46,6 +46,6 @@ void update_attacks(pixel **screen, int width, int height, player *prota, screen
 
 void update_enemy_health_bar(pixel **screen, enemy monster, screen_section health_bar);
 
-text_section update_enemy_name(text_section name_place, enemy monster);
+void update_enemy_name(text_section *name_place, enemy monster);
 
 enemy create_enemy();
