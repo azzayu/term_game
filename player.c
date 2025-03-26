@@ -35,7 +35,7 @@ int move_player(pixel **screen, player *prota, char input, int width, int height
 		prota->stamina--;
 		return 1;
 	}
-	if (input == 'w'){
+	if (input == 'w' || input == ' '){
 		//counts as resting
 		prota->stamina += 3;
 		if (prota->stamina > prota->max_stamina){

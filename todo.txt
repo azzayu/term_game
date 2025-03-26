@@ -31,7 +31,7 @@ make exp and health augmenting (base for upgrades)
 
 add text display on right as logs (or just info) => X
 
-do pretty mob name display 
+do pretty mob name display and health
 
 do the great seperation => it has been done, makefile is now working too
 

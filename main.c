@@ -34,13 +34,15 @@ int main(){
 
 	text_section health = init_text(width - 8, width - 1, 1, "HEALTH", 6);
 	text_section stamina = init_text(width - 8, width - 1, 5, "STAMINA", 7);
+	text_section enemy_name = init_text(1, 15, 1, "enemy name", 10);
 
-	int nb_text_sections = 3;
+	int nb_text_sections = 4;
 
 	text_section *all_text = malloc(sizeof(text_section) * nb_text_sections);
 
 	all_text[1] = health;
 	all_text[2] = stamina;
+	all_text[3] = enemy_name;
 
 	for (int i = 1; i < nb_text_sections; i++){
 		screen[all_text[i].y][all_text[i].x_min].layer[LAYER_TEXT] = i;
@@ -53,6 +55,14 @@ int main(){
 
 	enemy current_enemy = create_enemy();
 
+	screen_section enemy_health = init_screen_section(3, 18, 26, 19);
+	
+	update_enemy_health_bar(screen, current_enemy, enemy_health);
+
+	enemy_name = update_enemy_name(enemy_name, current_enemy);
+
+	all_text[3] = enemy_name;	
+
 	while (prota.health > 0) {
 		print_screen(screen, width, height, all_text);
 		char input = getchar();
@@ -63,6 +73,7 @@ int main(){
 			add_attack(screen, play_area, current_enemy);
 			update_health_bar(screen, prota, health_bar);
 			update_stamina_bar(screen, prota, stamina_bar);
+			update_enemy_health_bar(screen, current_enemy, enemy_health);
 		}
 	}
 

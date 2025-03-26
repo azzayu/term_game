@@ -68,6 +68,27 @@ void init_stamina_bar(pixel **screen, int width, int height){
 }
 
 
+void init_enemy_health(pixel **screen, int width, int height){
+	//top line
+	for (int x = 3; x < 27; x++){
+		screen[17][x].layer[LAYER_HORI_WALL] = 1;
+	}
+	//corners and junctions
+	screen[17][2].layer[LAYER_TOP_LEFT_CORNER] = 1;
+	screen[17][27].layer[LAYER_TOP_RIGHT_CORNER] = 1;
+
+	screen[19][2].layer[LAYER_HORI_WALL] = 0;
+	screen[19][2].layer[LAYER_UP_RIGHT_JUNCTION] = 1;
+
+	screen[19][27].layer[LAYER_HORI_WALL] = 0;
+	screen[19][27].layer[LAYER_UP_LEFT_JUNCTION] = 1;
+
+	//vert_wall
+	screen[18][27].layer[LAYER_VERT_WALL_LEFT] = 1;
+	screen[18][2].layer[LAYER_VERT_WALL_RIGHT] = 1;
+}
+
+
 pixel **init_screen(int width, int height, screen_section play_area, screen_section enemy_locations[3]){
 	pixel **screen = malloc(sizeof(pixel*) * height);
 	for (int y = 0; y < height; y++){
@@ -136,6 +157,10 @@ pixel **init_screen(int width, int height, screen_section play_area, screen_sect
 			screen[enemy_locations[i].y_min + j][enemy_locations[i].x_max].layer[LAYER_VERT_WALL_LEFT] = 1;
 		}
 	}
+
+	//init enemy health bar
+
+	init_enemy_health(screen, width, height);
 
 	return screen;
 }

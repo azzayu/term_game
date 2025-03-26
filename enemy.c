@@ -42,6 +42,46 @@ void update_attacks(pixel **screen, int width, int height, player *prota, screen
 }
 
 
+void update_enemy_health_bar(pixel **screen, enemy monster, screen_section health_bar){
+	double health_per_block = (double) monster.max_health / (double) health_bar.width;
+
+	for (int j = 0 ; j < health_bar.width ; j++){
+		screen[health_bar.y_min][health_bar.x_min + j].layer[8] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[9] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[10] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[11] = 0;
+	}
+
+	int i = 0;
+	while ((i + 1) * health_per_block <= monster.health){
+		screen[health_bar.y_min][health_bar.x_min + i].layer[8] = 1;
+		i++;
+	}
+
+	if((i + 0.75) * health_per_block <= monster.health){
+		screen[health_bar.y_min][health_bar.x_min + i].layer[9] = 1;
+	} else if((i + 0.5) * health_per_block <= monster.health){
+		screen[health_bar.y_min][health_bar.x_min + i].layer[10] = 1;
+	} else if((i + 0.25) * health_per_block * 0.25 <= monster.health){
+		screen[health_bar.y_min][health_bar.x_min + i].layer[11] = 1;
+		}
+}
+
+
+text_section update_enemy_name(text_section name_place, enemy monster){
+	switch(monster.enemy_type.enemy_type_name){
+		case DARK_MAGE:
+			return init_text(name_place.x_min, name_place.x_max, name_place.y, "Dark Mage", 9);
+		case DARK_KNIGHT:
+			return init_text(name_place.x_min, name_place.x_max, name_place.y, "Dark Knight", 11);
+		case DRAGON:
+			return init_text(name_place.x_min, name_place.x_max, name_place.y, "Dragon", 6);
+		case POSSESSED_TREE:
+			return init_text(name_place.x_min, name_place.x_max, name_place.y, "Possessed Tree", 14);
+	}
+}
+
+
 enum attack_types choose_attack(enemy_type type){
 	int total_weight = 1;
 
@@ -119,8 +159,8 @@ void bouncy_ball(pixel **screen, screen_section play_area, enemy current_enemy){
 	int y_dir = (rand() % 2) * 2 - 1;
 
 	for (int i = 0; i < 200; i++){
-		for (int x_off_set = 0; x_off_set < 3; x_off_set++){
-			for (int y_off_set = 0; y_off_set < 3; y_off_set++){
+		for (int x_off_set = 0; x_off_set < 2; x_off_set++){
+			for (int y_off_set = 0; y_off_set < 2; y_off_set++){
 				if (play_area.x_min <= x + x_off_set && x + x_off_set < play_area.x_max && play_area.y_min <= y + y_off_set && y + y_off_set < play_area.y_max){
 					if (screen[y + y_off_set][x + x_off_set].layer[LAYER_ATTACK_IN3] == 0){
 						screen[y + y_off_set][x + x_off_set].layer[LAYER_ATTACK_IN3] = i + 1;
@@ -309,7 +349,7 @@ enemy create_enemy_dark_mage(){
 
 	type_dark_mage.attack_weights[0] = 2;
 	type_dark_mage.attack_weights[1] = 4;
-	type_dark_mage.attack_weights[2] = 100;
+	type_dark_mage.attack_weights[2] = 1;
 
 	type_dark_mage.attack_damages[0] = 4;
 	type_dark_mage.attack_damages[1] = 2;
