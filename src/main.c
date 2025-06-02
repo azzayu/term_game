@@ -68,9 +68,9 @@ int main(){
 		print_screen(screen, width, height, all_text);
 		char input = getchar();
 		//scanf("%c",&input);
-		int has_moved = move_player(screen, &prota, input, width, height, play_area, enemy_locations);
+		int has_moved = move_player(screen, &prota, input, play_area, enemy_locations);
 		if (has_moved) {
-			update_attacks(screen, width, height, &prota, play_area);
+			update_attacks(screen, &prota, play_area);
 			add_attack(screen, play_area, current_enemy);
 			update_health_bar(screen, prota, health_bar);
 			update_stamina_bar(screen, prota, stamina_bar);
@@ -81,7 +81,7 @@ int main(){
 	system("clear");
 	printf("GAME OVER \n\n\n");
 
-	free_screen(screen, width, height);
+	free_screen(screen, height);
 	for (int i = 0; i < nb_text_sections ; i++){
 		free(all_text[i]);
 	}

@@ -14,7 +14,7 @@ int distance_man(int x1, int y1, int x2, int y2){
 }
 
 
-void update_attacks(pixel **screen, int width, int height, player *prota, screen_section play_area){
+void update_attacks(pixel **screen, player *prota, screen_section play_area){
 	for (int y = play_area.y_min; y < play_area.y_max; y++){
 		for (int x = play_area.x_min; x < play_area.x_max; x++){
 			if (screen[y][x].layer[LAYER_ATTACK_IN0] == 1){
@@ -47,25 +47,26 @@ void update_enemy_health_bar(pixel **screen, enemy monster, screen_section healt
 	double health_per_block = (double) monster.max_health / (double) health_bar.width;
 
 	for (int j = 0 ; j < health_bar.width ; j++){
-		screen[health_bar.y_min][health_bar.x_min + j].layer[8] = 0;
-		screen[health_bar.y_min][health_bar.x_min + j].layer[9] = 0;
-		screen[health_bar.y_min][health_bar.x_min + j].layer[10] = 0;
-		screen[health_bar.y_min][health_bar.x_min + j].layer[11] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_FULL] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_THREE_QUART] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_HALF] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_QUART] = 0;
 	}
 
 	int i = 0;
 	while ((i + 1) * health_per_block <= monster.health){
-		screen[health_bar.y_min][health_bar.x_min + i].layer[8] = 1;
+		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_FULL] = 1;
 		i++;
 	}
+	screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_FULL] = 1;
 
 	if((i + 0.75) * health_per_block <= monster.health){
-		screen[health_bar.y_min][health_bar.x_min + i].layer[9] = 1;
+		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_THREE_QUART] = 1;
 	} else if((i + 0.5) * health_per_block <= monster.health){
-		screen[health_bar.y_min][health_bar.x_min + i].layer[10] = 1;
+		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_HALF] = 1;
 	} else if((i + 0.25) * health_per_block * 0.25 <= monster.health){
-		screen[health_bar.y_min][health_bar.x_min + i].layer[11] = 1;
-		}
+		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_QUART] = 1;
+	}
 }
 
 
@@ -283,6 +284,7 @@ void fire_breath_attack(pixel **screen, screen_section play_area, enemy current_
 				if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max){
 					if (distance_2(x, y, center_x + play_area.x_min, center_y + play_area.y_min) < radius * radius) {
 						screen[y][x].layer[LAYER_ATTACK_IN3] = radius;
+						screen[y][x].local_damage = damage;
 					}
 				}
 			}
@@ -454,5 +456,7 @@ enemy create_enemy(){
 			return create_enemy_dragon();
 		case POSSESSED_TREE:
 			return create_enemy_possessed_tree();
+		default:
+			return create_enemy_dark_knight();
 	}
 }

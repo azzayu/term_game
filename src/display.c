@@ -5,7 +5,7 @@
 #include "display_cst.h"
 
 
-void init_health_bar(pixel **screen, int width, int height){
+void init_health_bar(pixel **screen, int width){
 
 	//bottom line and junctions
 
@@ -37,7 +37,7 @@ void init_health_bar(pixel **screen, int width, int height){
 }
 
 
-void init_stamina_bar(pixel **screen, int width, int height){
+void init_stamina_bar(pixel **screen, int width){
 
 	//bottom line and junctions
 
@@ -69,7 +69,7 @@ void init_stamina_bar(pixel **screen, int width, int height){
 }
 
 
-void init_enemy_health(pixel **screen, int width, int height){
+void init_enemy_health(pixel **screen){
 	//top line
 	for (int x = 3; x < 27; x++){
 		screen[17][x].layer[LAYER_HORI_WALL] = 1;
@@ -133,11 +133,11 @@ pixel **init_screen(int width, int height, screen_section play_area, screen_sect
 
 	//health bar display :
 
-	init_health_bar(screen, width, height);
+	init_health_bar(screen, width);
 
 	//stamina bar display :
 
-	init_stamina_bar(screen, width, height);
+	init_stamina_bar(screen, width);
 
 	//init enemy location boxes
 
@@ -161,7 +161,7 @@ pixel **init_screen(int width, int height, screen_section play_area, screen_sect
 
 	//init enemy health bar
 
-	init_enemy_health(screen, width, height);
+	init_enemy_health(screen);
 
 	return screen;
 }
@@ -190,7 +190,7 @@ void default_test_screen(){
 }
 
 
-void free_screen(pixel **pixel_mat, int width, int height){
+void free_screen(pixel **pixel_mat, int height){
 	for (int y = 0; y < height; y++){
 		free(pixel_mat[y]);
 	}

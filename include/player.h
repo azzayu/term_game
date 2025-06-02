@@ -14,7 +14,7 @@ typedef struct player_s{
 	int aiming;
 } player;
 
-int move_player(pixel **screen, player *prota, char input, int width, int height, screen_section play_area, screen_section enemy_locations[3]);
+int move_player(pixel **screen, player *prota, char input, screen_section play_area, screen_section enemy_locations[3]);
 
 void update_health_bar(pixel **screen, player prota, screen_section health_bar);
 

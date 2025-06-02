@@ -36,7 +36,7 @@ pixel **init_screen(int width, int height, screen_section play_area, screen_sect
 void default_test_screen();
 
 
-void free_screen(pixel **pixel_mat, int width, int height);
+void free_screen(pixel **pixel_mat, int height);
 
 
 void print_screen(pixel **pixel_mat, int width, int height, text_section** all_text);
