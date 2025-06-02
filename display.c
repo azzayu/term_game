@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "display.h"
+#include "display_cst.h"
 
 
 void init_health_bar(pixel **screen, int width, int height){

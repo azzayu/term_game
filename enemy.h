@@ -1,5 +1,8 @@
 #include "player.h"
 
+#ifndef ENEMY_H
+#define ENEMY_H
+
 #define NB_ENEMY_TYPES 4
 
 enum enemy_types_names{
@@ -49,3 +52,6 @@ void update_enemy_health_bar(pixel **screen, enemy monster, screen_section healt
 void update_enemy_name(text_section *name_place, enemy monster);
 
 enemy create_enemy();
+
+
+#endif

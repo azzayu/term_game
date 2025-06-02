@@ -1,5 +1,5 @@
 #include "player.h"
-
+#include "display_cst.h"
 
 int move_player(pixel **screen, player *prota, char input, int width, int height, screen_section play_area, screen_section enemy_locations[3]){
 	/*

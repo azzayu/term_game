@@ -4,6 +4,9 @@
 #include <unistd.h>
 
 #include "enemy.h"
+#include "display.h"
+#include "player.h"
+#include "display_cst.h"
 
 int main(){
 	
