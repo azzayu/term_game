@@ -1,18 +1,24 @@
-CC=gcc
+CC = gcc
+LD = gcc
+
+CFLAGS = -Wall -Wextra -std=c99 -Iinclude -g
+SFLAGS :=
+LDFLAGS = -lm
+
+SRC_FILES=$(wildcard src/*.c)
+
+OBJ_FILES=$(patsubst src/%.c,obj/%.o,$(SRC_FILES))
 
 all:game
 
-game: main.o display.o player.o enemy.o
-	gcc main.o display.o player.o enemy.o -o game
+game: $(OBJ_FILES) obj/main.o
+	$(LD) $^ $(LDFLAGS) $(SFLAGS) -o $@
 
-main.o: main.c enemy.h
+obj/%.o: src/%.c
+	$(CC) -c $(CFLAGS) $(SFLAGS) $< -o $@
 
-player.o: player.c display.h
-
-enemy.o: enemy.c player.h 
-
-display.o: display.c
+.PHONY: clean
 
 clean:
-	rm -f *.o
+	rm -f obj/*.o
 	rm game
