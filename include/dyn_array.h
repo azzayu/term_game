@@ -5,7 +5,7 @@
 
 typedef struct dyn_array {
 
-    int real_size;
+    int mem_size;
     int size;
     int* data;
 
@@ -18,7 +18,5 @@ void append(dyn_array tab, int value);
 int pop(dyn_array tab);
 
 void free_dyn_array(dyn_array tab);
-
-void fill(dyn_array tab, int* value, int nb);
 
 #endif
