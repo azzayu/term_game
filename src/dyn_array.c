@@ -1,5 +1,6 @@
 #include "dyn_array.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 dyn_array create_empty_dyn_array(){
 
