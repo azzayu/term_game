@@ -14,16 +14,13 @@ dyn_array create_empty_dyn_array(){
 }
 
 void append(dyn_array *tab, int value){
-    //printf("%i %i %i \n", tab->size, tab->mem_size, value);
     if (tab->size < tab->mem_size){
-        printf("%i %i %i \n", tab->size, tab->mem_size, value);
         tab->data[tab->size] = value;
         tab->size++;
         return;
     }
-    //printf("%i %i %i \n", tab->size, tab->mem_size, value);
 
-    tab->data = realloc((void *) tab->data, tab->mem_size * 2);
+    tab->data = realloc((void *) tab->data, tab->mem_size * 2 * sizeof(int));
     tab->data[tab->size] = value;
     tab->mem_size *= 2;
     tab->size++;

@@ -25,6 +25,4 @@ obj/%.o: src/%.c
 .PHONY: clean
 
 clean:
-	rm -f obj/*.o
-	rm game
-	rm test
+	rm -f obj/*.o game test
