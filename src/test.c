@@ -13,6 +13,7 @@ void print_dyn_array(dyn_array tab){
         }
         printf("%i ", tab.data[i]);
     }
+    printf("\n \n");
 }
 
 
@@ -21,15 +22,15 @@ int main(){
     dyn_array tab = create_empty_dyn_array();
     print_dyn_array(tab);
     for (int i = 0; i < 21; i++){
-        append(tab, i);
+        append(&tab, i);
         print_dyn_array(tab);
     }
 
     for (int i = 0; i < 11; i++){
-        pop(tab);
+        pop(&tab);
         print_dyn_array(tab);
     }
 
-
+    free_dyn_array(tab);
     return EXIT_SUCCESS;
 }

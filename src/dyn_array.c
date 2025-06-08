@@ -13,28 +13,33 @@ dyn_array create_empty_dyn_array(){
     return out;
 }
 
-void append(dyn_array tab, int value){
-    if (tab.size < tab.mem_size){
-        tab.data[tab.size] = value;
-        tab.size++;
+void append(dyn_array *tab, int value){
+    //printf("%i %i %i \n", tab->size, tab->mem_size, value);
+    if (tab->size < tab->mem_size){
+        printf("%i %i %i \n", tab->size, tab->mem_size, value);
+        tab->data[tab->size] = value;
+        tab->size++;
         return;
     }
+    //printf("%i %i %i \n", tab->size, tab->mem_size, value);
 
-    tab.data = realloc((void *) tab.data, tab.mem_size * 2);
-    tab.data[tab.size] = value;
-    tab.size++;
+    tab->data = realloc((void *) tab->data, tab->mem_size * 2);
+    tab->data[tab->size] = value;
+    tab->mem_size *= 2;
+    tab->size++;
 }
 
-int pop(dyn_array tab){
+int pop(dyn_array *tab){
     /*pops the last element of the given dynamic array*/
-    if (tab.size == 0){
+    if (tab->size == 0){
         perror("trying to remove element from empty dynamic array\n");
         exit(EXIT_FAILURE);
     }
-    int value = tab.data[tab.size - 1];
-    tab.size--;
-    if (tab.size * 2 < tab.mem_size && tab.mem_size > 5){
-        tab.data = realloc((void *) tab.data, tab.mem_size * 2);
+    int value = tab->data[tab->size - 1];
+    tab->size--;
+    if (tab->size * 2 < tab->mem_size && tab->mem_size > 5){
+        tab->data = realloc((void *) tab->data, tab->mem_size * 2);
+        tab->mem_size /= 2;
     }
     return value;
 }
