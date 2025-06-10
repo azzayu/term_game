@@ -34,7 +34,7 @@ int pop(dyn_array *tab){
     }
     int value = tab->data[tab->size - 1];
     tab->size--;
-    if (tab->size * 2 < tab->mem_size && tab->mem_size > 5){
+    if (tab->size * 4 < tab->mem_size && tab->mem_size > 5){
         tab->data = realloc((void *) tab->data, tab->mem_size * 2);
         tab->mem_size /= 2;
     }

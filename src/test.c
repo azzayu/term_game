@@ -26,7 +26,7 @@ int main(){
         print_dyn_array(tab);
     }
 
-    for (int i = 0; i < 11; i++){
+    for (int i = 0; i < 21; i++){
         pop(&tab);
         print_dyn_array(tab);
     }
