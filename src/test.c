@@ -5,20 +5,6 @@
 #include <stdlib.h>
 
 
-void print_dyn_array(dyn_array tab){
-
-    printf("%s size : %d, mem size : %d\n", WHITE, tab.size, tab.mem_size);
-    for (int i = 0; i < tab.mem_size; i++){
-        if (tab.size == i){
-            printf("%s", RED);
-        }
-        printf("%i ", tab.attack_queue[i].turn);
-    }
-    printf("%s", WHITE);
-    printf("\n \n");
-}
-
-
 int main(){
     
     dyn_array tab = create_empty_dyn_array();

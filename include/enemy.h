@@ -44,9 +44,9 @@ typedef struct enemy_s{
 } enemy;
 
 
-void add_attack(screen_section play_area, enemy current_enemy, dyn_array tab, int current_turn);
+void add_attack(screen_section play_area, enemy current_enemy, dyn_array *tab, int current_turn);
 
-void update_attacks(pixel **screen, player *prota, screen_section play_area, dyn_array tab, int current_turn);
+void update_attacks(pixel **screen, player *prota, screen_section play_area, dyn_array *tab, int current_turn);
 
 void update_enemy_health_bar(pixel **screen, enemy monster, screen_section health_bar);
 

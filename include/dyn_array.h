@@ -24,6 +24,8 @@ attack pop(dyn_array *tab);
 
 void free_dyn_array(dyn_array tab);
 
-void sort(dyn_array tab);
+void sort(dyn_array *tab);
+
+void print_dyn_array(dyn_array tab);
 
 #endif
