@@ -7,6 +7,7 @@
 #include "display.h"
 #include "player.h"
 #include "display_cst.h"
+#include "dyn_array.h"
 
 int main(){
 	
@@ -14,6 +15,7 @@ int main(){
 
 	int width = 30;
 	int height = 40;
+	int turn = 0;
 
 	screen_section enemy_locations[3];
 
@@ -64,14 +66,17 @@ int main(){
 
 	update_enemy_name(enemy_name, current_enemy);
 
+	dyn_array tab = create_empty_dyn_array();
+
 	while (prota.health > 0) {
 		print_screen(screen, width, height, all_text);
 		char input = getchar();
 		//scanf("%c",&input);
 		int has_moved = move_player(screen, &prota, input, play_area, enemy_locations);
+		turn += has_moved;
 		if (has_moved) {
-			update_attacks(screen, &prota, play_area);
-			add_attack(screen, play_area, current_enemy);
+			update_attacks(screen, &prota, play_area, tab, turn); // needs to be redone with better ordering
+			add_attack(play_area, current_enemy, tab, turn); //needs to use new attack system
 			update_health_bar(screen, prota, health_bar);
 			update_stamina_bar(screen, prota, stamina_bar);
 			update_enemy_health_bar(screen, current_enemy, enemy_health);

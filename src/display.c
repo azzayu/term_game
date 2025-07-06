@@ -277,18 +277,18 @@ void print_screen(pixel **pixel_mat, int width, int height, text_section** all_t
 					printf("%s", YELLOW);
 				}
 				printf("%s", BOTTOM_RIGHT_CORNER);
-			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN0] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN0] >= 1) {
 				printf("%s%s", RED, FULL_BLOCK);
-			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN1] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN1] >= 1) {
 				printf("%s%s", RED, THREE_QUART_BLOCK);
-			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN2] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN2] >= 1) {
 				printf("%s%s", RED, HALF_BLOCK);
-			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN3] == 1) {
+			} else if (pixel_mat[y][x].layer[LAYER_ATTACK_IN3] >= 1) {
 				printf("%s%s", RED, QUART_BLOCK);
 			} else if (pixel_mat[y][x].layer[LAYER_RIGHT_JUNCTION] >= 1) {
 				if (pixel_mat[y][x].layer[LAYER_RIGHT_JUNCTION] == 1){
 					printf("%s", WHITE);
-				} else {
+				} else {	
 					printf("%s", YELLOW);
 				}
 				printf("%s", RIGHT_JUNCTION);

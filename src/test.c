@@ -14,7 +14,8 @@ void print_dyn_array(dyn_array tab){
         }
         printf("%i ", tab.attack_queue[i].turn);
     }
-    printf("WHITE \n \n");
+    printf("%s", WHITE);
+    printf("\n \n");
 }
 
 
@@ -27,10 +28,13 @@ int main(){
         data.x = 0;
         data.y = 0;
         data.damage = 0;
-        data.turn = i;
+        data.turn = (i * 21) % 4;
         append(&tab, data);
         print_dyn_array(tab);
     }
+
+    sort(tab);
+    print_dyn_array(tab);
 
     for (int i = 0; i < 21; i++){
         pop(&tab);
