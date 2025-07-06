@@ -1,40 +1,109 @@
 #include "player.h"
 #include "display_cst.h"
+#include "enemy.h"
 
-int move_player(pixel **screen, player *prota, char input, screen_section play_area, screen_section enemy_locations[3]){
+int move_player(pixel **screen, player *prota, char input, screen_section play_area, screen_section enemy_locations[3], enemy *current_enemy){
 	/*
 		returns 1 if move succesfull 
 		0 if not
 	*/
 	
 	if (input == 'z' && prota->y > play_area.y_min && prota->stamina > 0){
-		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
-		prota->y -= 1;
-		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
-		prota->stamina--;
-		return 1;
+		if (prota->charged == 1){
+			prota->charged = 0;
+			if (prota->y - 3 > play_area.y_min){
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				prota->y -= 3;
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				prota->stamina--;
+			} else {
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				prota->y = play_area.y_min;
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				prota->stamina--;
+			}
+			return 1;
+		} else {
+			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+			prota->y -= 1;
+			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+			prota->stamina--;
+			return 1;
+		}
 	}
+
 	if (input == 's' && prota->y < play_area.y_max - 1 && prota->stamina > 0){
-		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
-		prota->y += 1;
-		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
-		prota->stamina--;
-		return 1;
+		if (prota->charged == 1){
+			prota->charged = 0;
+			if (prota->y + 3 < play_area.y_max - 1 ){
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				prota->y += 3;
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				prota->stamina--;
+			} else {
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				prota->y =  play_area.y_max - 1;
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				prota->stamina--;
+			}
+			return 1;
+		} else {
+			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+			prota->y += 1;
+			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+			prota->stamina--;
+			return 1;
+		}
 	}
+
 	if (input == 'd' && prota->x < play_area.x_max - 1 && prota->stamina > 0){
-		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
-		prota->x += 1;
-		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
-		prota->stamina--;
-		return 1;
+		if (prota->charged == 1){
+			prota->charged = 0;
+			if (prota->x + 3 < play_area.x_max - 1 ){
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				prota->x += 3;
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				prota->stamina--;
+			} else {
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				prota->x =  play_area.x_max - 1;
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				prota->stamina--;
+			}
+			return 1;
+		} else {
+			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+			prota->x += 1;
+			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+			prota->stamina--;
+			return 1;
+		}
 	}
+
 	if (input == 'q' && prota->x > play_area.x_min && prota->stamina > 0){
-		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
-		prota->x -= 1;
-		screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
-		prota->stamina--;
-		return 1;
+		if (prota->charged == 1){
+			prota->charged = 0;
+			if (prota->x - 3 > play_area.x_min){
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				prota->x -= 3;
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				prota->stamina--;
+			} else {
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				prota->x = play_area.x_min + 1;
+				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				prota->stamina--;
+			}
+			return 1;
+		} else {
+			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+			prota->x -= 1;
+			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+			prota->stamina--;
+			return 1;
+		}
 	}
+
 	if (input == 'w' || input == ' '){
 		//counts as resting
 		prota->stamina += 3;
@@ -43,13 +112,33 @@ int move_player(pixel **screen, player *prota, char input, screen_section play_a
 		}
 		return 1;
 	}
+
 	if (input == 'a' && prota->aiming != 0){
 		change_aim(screen, prota, enemy_locations, -1);
 		return 1;
 	}
+
 	if (input == 'e' && prota->aiming != 2){
 		change_aim(screen, prota, enemy_locations, 1);
 		return 1;
+	}
+
+	if (input == 'r' && prota->stamina > 0 && prota->aiming == current_enemy->location){
+		current_enemy->health--;
+		prota->stamina--;
+		return 1;
+	}
+
+	if (input == 'f' && prota->stamina > 5){
+		prota->charged = 1;
+		prota->stamina -= 4;
+		return 0;
+	}
+
+	if (input == 'c' && prota->stamina > 10 && prota->health < prota->max_health){
+		prota->stamina -= 10;
+		prota->health += 2;
+		return 3;
 	}
 	return 0;
 }
@@ -114,6 +203,7 @@ player init_player(int x, int y, int max_health, int max_stamina){
 	prota.y = y;
 	prota.max_health = max_health;
 	prota.max_stamina = max_stamina;
+	prota.charged = 0;
 
 	prota.health = max_health;
 	prota.stamina = max_stamina;

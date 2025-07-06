@@ -1,9 +1,9 @@
 CC = gcc
 LD = gcc
 
-CFLAGS = -Wall -Wextra -std=c99 -Iinclude -g
-SFLAGS :=
-LDFLAGS = -lm
+CFLAGS = -Wall -Wextra -std=c99 -Iinclude -g 
+SFLAGS := 
+LDFLAGS = -lm 
 
 TEST_SRC_FILES=$(wildcard src/test.c)
 SRC_FILES=$(filter-out $(TEST_SRC_FILES) src/main.c, $(wildcard src/*.c))

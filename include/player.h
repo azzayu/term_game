@@ -1,20 +1,10 @@
-#include "display.h"
-
 #ifndef PLAYER_H
 #define PLAYER_H
 
-typedef struct player_s{
-	int x;
-	int y;
-	int max_health;
-	int health;
-	int max_stamina;
-	int stamina;
+#include "display.h"
+#include "structs.h"
 
-	int aiming;
-} player;
-
-int move_player(pixel **screen, player *prota, char input, screen_section play_area, screen_section enemy_locations[3]);
+int move_player(pixel **screen, player *prota, char input, screen_section play_area, screen_section enemy_locations[3], enemy *current_enemy);
 
 void update_health_bar(pixel **screen, player prota, screen_section health_bar);
 

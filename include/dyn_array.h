@@ -3,18 +3,7 @@
 
 #define MIN_SIZE 5
 
-typedef struct attack_s{
-    int x;
-    int y;
-    int damage;
-    int turn;
-} attack;
-
-typedef struct dyn_array_s {
-    int mem_size;
-    int size;
-    attack* attack_queue;
-} dyn_array;
+#include "structs.h"
 
 dyn_array create_empty_dyn_array();
 

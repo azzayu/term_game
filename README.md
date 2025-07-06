@@ -12,6 +12,9 @@ Welcome to a small terminal game I made to pass the time.
 ## Controls :
 - Use z, q, s, d to move around (costs 1 stamina)
 - Use w or space to rest turn (attacks still advance) (restores 3 stamina)
-- Usa a, e to change your aim to the left or right (ticks forward but does not cost or recover stamina)
+- Use a, e to change your aim to the left or right (ticks forward but does not cost or recover stamina)
+- Use r to attack the current spot you are aiming at for 1 stamina
+- Use f to charge a dash for your next move to be 3 tiles long for 5 stamina
+- Use c to heal 2 health for 10 stamina and 3 turns advance
 - All other characters on input are ignored
 

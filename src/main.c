@@ -8,6 +8,7 @@
 #include "player.h"
 #include "display_cst.h"
 #include "dyn_array.h"
+#include "structs.h"
 
 int main(){
 	
@@ -74,16 +75,17 @@ int main(){
 		//printf("turn : %i\n", turn);
 		char input = getchar();
 		//scanf("%c",&input);
-		int has_moved = move_player(screen, &prota, input, play_area, enemy_locations);
-		turn += has_moved;
-		if (has_moved) {
+		int has_moved = move_player(screen, &prota, input, play_area, enemy_locations, &current_enemy);
+		while (has_moved > 0) {
+			turn += 1;
 			print_screen(screen, width, height, all_text);
-			update_attacks(screen, &prota, play_area, &tab, turn); // needs to be redone with better ordering
-			add_attack(play_area, current_enemy, &tab, turn); //needs to use new attack system
+			update_attacks(screen, &prota, play_area, &tab, turn);
+			add_attack(play_area, current_enemy, &tab, turn);
 			update_health_bar(screen, prota, health_bar);
 			update_stamina_bar(screen, prota, stamina_bar);
 			update_enemy_health_bar(screen, current_enemy, enemy_health);
 			//print_dyn_array(tab);
+			has_moved--;
 		}
 	}
 

@@ -19,13 +19,13 @@ phase 2 :
 
 make heads up display => frame made => health bar made, stamina bar and text display still needs implem => text display is done
 
-add attacking and passing turn => passing has been added, attacking can just be added with an extra if => add the 4 basic abilities : attack, dash, shield, heal 
+add attacking and passing turn => passing has been added, attacking can just be added with an extra if => add the 4 basic abilities : attack, dash, shield, heal => shield isn't done but the rest implemented
 
 add stamina => done
 
 add aiming => done
 
-make enemies cycle in and out => when enemy dies make a new enemy appear
+make enemies cycle in and out => when enemy dies make a new enemy appear (enemy health bar needs to be fixed too)
 
 make exp and health augmenting (base for upgrades)
 
@@ -35,6 +35,8 @@ do pretty mob name display and health => done
 
 do the great seperation => it has been done, makefile is now working too
 
-add basic playing instruction in README.md => basic controls are there, to be added as more features are added in
+add basic playing instruction in README.md => basic controls are there, to be added as more features are added in => updated
 
 make a better attack stocking system to handle attacks coverig each other => implemented
+
+display where the enemy is (custom ascii arts?)

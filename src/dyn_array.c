@@ -1,6 +1,7 @@
 #include "dyn_array.h"
 #include "enemy.h"
 #include "display_cst.h"
+#include "structs.h"
 #include <stdlib.h>
 #include <stdio.h>
 

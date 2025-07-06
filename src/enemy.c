@@ -2,6 +2,7 @@
 #include "display_cst.h"
 #include "dyn_array.h"
 #include "player.h"
+#include "structs.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -22,30 +23,21 @@ void update_attacks(pixel **screen, player *prota, screen_section play_area, dyn
 	//resets the screen to remove all attacks
 	for (int y = play_area.y_min; y < play_area.y_max; y++){
 		for (int x = play_area.x_min; x < play_area.x_max; x++){
-			if (screen[y][x].layer[LAYER_ATTACK_IN0] != 0){
-				/*
-				if (prota->y == y && prota->x == x){
-					prota->health -= screen[y][x].layer[LAYER_ATTACK_IN0];
-				}
-				*/
-				screen[y][x].layer[LAYER_ATTACK_IN0] = 0;
-			}
-			if (screen[y][x].layer[LAYER_ATTACK_IN1] != 0){
-				//screen[y][x].layer[LAYER_ATTACK_IN0] = screen[y][x].layer[LAYER_ATTACK_IN1];
-				screen[y][x].layer[LAYER_ATTACK_IN1] = 0;
-			}
-			if (screen[y][x].layer[LAYER_ATTACK_IN2] != 0){
-				//screen[y][x].layer[LAYER_ATTACK_IN1] = screen[y][x].layer[LAYER_ATTACK_IN2];
-				screen[y][x].layer[LAYER_ATTACK_IN2] = 0;
-			}
-			if (screen[y][x].layer[LAYER_ATTACK_IN3] != 0){
-				//screen[y][x].layer[LAYER_ATTACK_IN2] = screen[y][x].layer[LAYER_ATTACK_IN3];
-				screen[y][x].layer[LAYER_ATTACK_IN3] = 0;
-			}
+			screen[y][x].layer[LAYER_ATTACK_IN0] = 0;
+			screen[y][x].layer[LAYER_ATTACK_IN1] = 0;
+			screen[y][x].layer[LAYER_ATTACK_IN2] = 0;
+			screen[y][x].layer[LAYER_ATTACK_IN3] = 0;
+
 		}
 	}
 
-	//print_dyn_array(tab);
+	//print_dyn_array(*tab);
+
+	if (tab->size == 0){
+		return;
+	}
+
+	//print_dyn_array(*tab);
 
 	while (tab->attack_queue[tab->size - 1].turn == current_turn){
 		attack current_damage = pop(tab);
@@ -56,9 +48,15 @@ void update_attacks(pixel **screen, player *prota, screen_section play_area, dyn
 		}
 	}
 
+	//print_dyn_array(*tab);
+
+	if (tab->size == 0){
+		return;
+	}
+
 	int i = tab->size - 1;
 
-	while(tab->attack_queue[i].turn - current_turn < 5){
+	while(tab->attack_queue[i].turn - current_turn < 5 && i > 0){
 		screen[tab->attack_queue[i].y][tab->attack_queue[i].x].layer[LAYER_ATTACK_IN0 - 1 + tab->attack_queue[i].turn - current_turn] = 1;
 		i--;
 	}
@@ -220,12 +218,12 @@ void bouncy_ball(screen_section play_area, enemy current_enemy, dyn_array *tab, 
 			x -= 2 * x_dir;
 			y -= 2 * y_dir;
 			x_dir *= -1;
-			y_dir *= -1;
+			//y_dir *= -1;
 		}
 		if (y < play_area.y_min || y > play_area.y_max){
 			x -= 2 * x_dir;
 			y -= 2 * y_dir;
-			x_dir *= -1;
+			//x_dir *= -1;
 			y_dir *= -1;
 		}
 	}
