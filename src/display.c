@@ -223,7 +223,7 @@ void print_screen(pixel **pixel_mat, int width, int height, text_section** all_t
 	50 => background of play area
 	none to 1 => general black background (normal terminal screen)
 	*/
-	//system("clear");
+	system("clear");
 	for (int y = 0; y < height; y++){
 		for (int x = 0; x < width; x++){
 			if (pixel_mat[y][x].layer[LAYER_PLAYER] == 1) {

@@ -2,6 +2,7 @@
 #include "display_cst.h"
 #include "dyn_array.h"
 #include "player.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -49,13 +50,15 @@ void update_attacks(pixel **screen, player *prota, screen_section play_area, dyn
 	while (tab->attack_queue[tab->size - 1].turn == current_turn){
 		attack current_damage = pop(tab);
 		if (current_damage.x == prota->x && current_damage.y == prota->y){
+			//printf("%i, %i \n", prota->health, current_damage.damage);
+			//printf("x: %i y: %i turn: %i damage: %i\n", current_damage.x, current_damage.y, current_damage.turn, current_damage.damage);
 			prota->health -= current_damage.damage;
 		}
 	}
 
 	int i = tab->size - 1;
 
-	while(tab->attack_queue[i].turn - current_turn < 4){
+	while(tab->attack_queue[i].turn - current_turn < 5){
 		screen[tab->attack_queue[i].y][tab->attack_queue[i].x].layer[LAYER_ATTACK_IN0 - 1 + tab->attack_queue[i].turn - current_turn] = 1;
 		i--;
 	}
@@ -178,7 +181,7 @@ void spike_attack(screen_section play_area, enemy current_enemy, dyn_array *tab,
 
 	int column = rand() % play_area.width;
 	for (int y = play_area.y_min; y < play_area.y_max; y++){
-		append_attack(tab, play_area.y_min + column, play_area.y_max - y + play_area.y_min - 1, current_turn + 4 + (y - play_area.y_min), damage);
+		append_attack(tab, play_area.x_min + column, play_area.y_max - y + play_area.y_min - 1, current_turn + 4 + y - play_area.y_min, damage);
 	}
 }
 
@@ -393,7 +396,7 @@ enemy create_enemy_dark_mage(){
 
 	type_dark_mage.attack_damages[0] = 4;
 	type_dark_mage.attack_damages[1] = 2;
-	type_dark_mage.attack_damages[1] = 1;
+	type_dark_mage.attack_damages[2] = 1;
 
 	dark_mage.enemy_type = type_dark_mage;
 
@@ -424,7 +427,7 @@ enemy create_enemy_dragon(){
 
 	type_dragon.attack_damages[0] = 4;
 	type_dragon.attack_damages[1] = 2;
-	type_dragon.attack_damages[1] = 2;
+	type_dragon.attack_damages[2] = 2;
 
 	dragon.enemy_type = type_dragon;
 
@@ -455,7 +458,7 @@ enemy create_enemy_possessed_tree(){
 
 	type_possessed_tree.attack_damages[0] = 2;
 	type_possessed_tree.attack_damages[1] = 3;
-	type_possessed_tree.attack_damages[1] = 2;
+	type_possessed_tree.attack_damages[2] = 2;
 
 	possessed_tree.enemy_type = type_possessed_tree;
 

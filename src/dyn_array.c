@@ -118,7 +118,7 @@ void print_dyn_array(dyn_array tab){
         if (tab.size == i){
             printf("%s", RED);
         }
-        printf("%i ", tab.attack_queue[i].turn);
+        printf("(t: %i, d: %i)", tab.attack_queue[i].turn, tab.attack_queue[i].damage);
     }
     printf("%s", WHITE);
     printf("\n \n");
