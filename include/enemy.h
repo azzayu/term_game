@@ -42,6 +42,13 @@ typedef struct enemy_s{
     enemy_type enemy_type;
 } enemy;
 
+typedef struct attack_s{
+    int x;
+    int y;
+    int damage;
+    int turn;
+} attack;
+
 
 void add_attack(pixel **screen, screen_section play_area, enemy current_enemy);
 
