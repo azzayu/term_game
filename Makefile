@@ -26,3 +26,4 @@ obj/%.o: src/%.c
 
 clean:
 	rm -f obj/*.o game test
+

@@ -19,7 +19,7 @@ int main(){
         print_dyn_array(tab);
     }
 
-    sort(tab);
+    sort(&tab);
     print_dyn_array(tab);
 
     for (int i = 0; i < 21; i++){
