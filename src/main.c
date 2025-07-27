@@ -20,20 +20,37 @@ int main(){
 
 	screen_section enemy_locations[3];
 
+	//initialises the enemy display boxes' location on the screen
 	for (int i = 0 ; i < 3; i++){
-		enemy_locations[i] = init_screen_section(3 + 8 * i, 9, 2 + 8 * (i + 1), 16);
+		int x_min = 3 + 8 * i;
+		int y_min = 9;
+		int x_max = 2 + 8 * (i + 1);
+		int y_max = 16;
+		enemy_locations[i] = init_screen_section(x_min, y_min, x_max, y_max);
 	}
 
 	screen_section play_area = init_screen_section(1, height / 2, width - 1, height - 1);
 
-	player prota = init_player((play_area.x_max - play_area.x_min) / 2 + play_area.x_min, (play_area.y_max - play_area.y_min) / 2 + play_area.y_min, 20, 100);
+	int middle_play_area_x = (play_area.x_max - play_area.x_min) / 2 + play_area.x_min;
+	int middle_play_area_y = (play_area.y_max - play_area.y_min) / 2 + play_area.y_min;
+	int max_health = 20;
+	int max_stamina = 100;
+	player prota = init_player(middle_play_area_x, middle_play_area_y, max_health, max_stamina);
  
 	pixel **screen = init_screen(width, height, play_area, enemy_locations);
 	screen[prota.y][prota.x].layer[LAYER_PLAYER] = 1;
 
-	screen_section health_bar = init_screen_section(width - 8, 3, width - 1, 4);
+	int health_bar_x_min = width - 8;
+	int health_bar_y_min = 3;
+	int health_bar_x_max = width - 1;
+	int health_bar_y_max = 4;
+	screen_section health_bar = init_screen_section(health_bar_x_min, health_bar_y_min, health_bar_x_max, health_bar_y_max);
 
-	screen_section stamina_bar = init_screen_section(width - 8, 7, width - 1, 8);
+	int stamina_bar_x_min = width - 8;
+	int stamina_bar_y_min = 7;
+	int stamina_bar_x_max = width - 1;
+	int stamina_bar_y_max = 8;
+	screen_section stamina_bar = init_screen_section(stamina_bar_x_min, stamina_bar_y_min, stamina_bar_x_max, stamina_bar_y_max);
 
 	update_health_bar(screen, prota, health_bar);
 	update_stamina_bar(screen, prota, stamina_bar);
@@ -61,7 +78,11 @@ int main(){
 
 	enemy current_enemy = create_enemy();
 
-	screen_section enemy_health = init_screen_section(3, 18, 26, 19);
+	int enemy_health_bar_x_min = 3;
+	int enemy_health_bar_y_min = 18;
+	int enemy_health_bar_x_max = 26;
+	int enemy_health_bar_y_max = 19;
+	screen_section enemy_health = init_screen_section(enemy_health_bar_x_min, enemy_health_bar_y_min, enemy_health_bar_x_max, enemy_health_bar_y_max);
 	
 	update_enemy_health_bar(screen, current_enemy, enemy_health);
 
