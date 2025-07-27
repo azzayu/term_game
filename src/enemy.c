@@ -64,27 +64,30 @@ void update_attacks(pixel **screen, player *prota, screen_section play_area, dyn
 
 
 void update_enemy_health_bar(pixel **screen, enemy monster, screen_section health_bar){
-	double health_per_block = (double) monster.max_health / (double) health_bar.width;
+	double health_per_block = (double) monster.max_health / (double) (health_bar.width + 1);
 
-	for (int j = 0 ; j < health_bar.width ; j++){
+	//resets the bar to empty
+	for (int j = 0 ; j <= health_bar.width ; j++){
 		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_FULL] = 0;
 		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_THREE_QUART] = 0;
 		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_HALF] = 0;
 		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_QUART] = 0;
 	}
 
+
+	//displays the full blocks
 	int i = 0;
 	while ((i + 1) * health_per_block <= monster.health){
 		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_FULL] = 1;
 		i++;
 	}
-	screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_FULL] = 1;
 
+	//displays the last partial bar
 	if((i + 0.75) * health_per_block <= monster.health){
 		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_THREE_QUART] = 1;
 	} else if((i + 0.5) * health_per_block <= monster.health){
 		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_HALF] = 1;
-	} else if((i + 0.25) * health_per_block * 0.25 <= monster.health){
+	} else if((i + 0.25) * health_per_block <= monster.health){
 		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_QUART] = 1;
 	}
 }
