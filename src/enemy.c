@@ -475,8 +475,35 @@ enemy create_enemy_possessed_tree(){
 }
 
 
+void reset_enemy_location(pixel **screen, screen_section *enemy_location){
+
+	for (int x = enemy_location->x_min + 1; x < enemy_location->x_max; x++){
+		for (int y = enemy_location->y_min + 1; y < enemy_location->y_max; y++){
+			screen[y][x].layer[LAYER_HORI_WALL] = 0;
+			screen[y][x].layer[LAYER_VERT_WALL_LEFT] = 0;
+			screen[y][x].layer[LAYER_VERT_WALL_RIGHT] = 0;
+			screen[y][x].layer[LAYER_TOP_LEFT_CORNER] = 0;
+			screen[y][x].layer[LAYER_TOP_RIGHT_CORNER] = 0;
+			screen[y][x].layer[LAYER_BOTTOM_LEFT_CORNER] = 0;
+			screen[y][x].layer[LAYER_BOTTOM_RIGHT_CORNER] = 0;
+			screen[y][x].layer[LAYER_UP_LEFT_JUNCTION] = 0;
+			screen[y][x].layer[LAYER_UP_RIGHT_JUNCTION] = 0;
+			screen[y][x].layer[LAYER_DOWN_LEFT_JUNCTION] = 0;
+			screen[y][x].layer[LAYER_DOWN_RIGHT_JUNCTION] = 0;
+			screen[y][x].layer[LAYER_LEFT_JUNCTION] = 0;
+			screen[y][x].layer[LAYER_RIGHT_JUNCTION] = 0;
+		}
+	}
+
+}
+
+
 enemy create_enemy(pixel** screen, screen_section enemy_locations[3]){
 	enum enemy_types_names new_enemy_type = rand() % NB_ENEMY_TYPES;
+
+	for (int i = 0; i < 3; i++){
+		reset_enemy_location(screen, &(enemy_locations[i]));
+	}
 
 	//drawing the enemy
 
@@ -510,6 +537,7 @@ enemy create_enemy(pixel** screen, screen_section enemy_locations[3]){
 	}
 }
 
+
 void update_enemy_location(pixel **screen, enemy *current_enemy, screen_section enemy_locations[3]){
 	int random_selection = rand() % 100;
 
@@ -517,21 +545,7 @@ void update_enemy_location(pixel **screen, enemy *current_enemy, screen_section 
 
 		int enemy_location = current_enemy->location;
 
-		int center_x = (enemy_locations[enemy_location].x_min + enemy_locations[enemy_location].x_max) / 2;
-		int center_y = (enemy_locations[enemy_location].y_min + enemy_locations[enemy_location].y_max) / 2;
-
-		screen[center_y][center_x].layer[LAYER_HORI_WALL] = 0;
-		screen[center_y - 1][center_x].layer[LAYER_HORI_WALL] = 0;
-		screen[center_y + 1][center_x].layer[LAYER_HORI_WALL] = 0;
-		screen[center_y][center_x + 1].layer[LAYER_HORI_WALL] = 0;
-		screen[center_y - 1][center_x + 1].layer[LAYER_HORI_WALL] = 0;
-		screen[center_y + 1][center_x + 1].layer[LAYER_HORI_WALL] = 0;
-		screen[center_y][center_x + 2].layer[LAYER_LEFT_JUNCTION] = 0;
-		screen[center_y][center_x - 1].layer[LAYER_RIGHT_JUNCTION] = 0;
-		screen[center_y - 1][center_x - 1].layer[LAYER_TOP_LEFT_CORNER] = 0;
-		screen[center_y - 1][center_x + 2].layer[LAYER_TOP_RIGHT_CORNER] = 0;
-		screen[center_y + 1][center_x - 1].layer[LAYER_BOTTOM_LEFT_CORNER] = 0;
-		screen[center_y + 1][center_x + 2].layer[LAYER_BOTTOM_RIGHT_CORNER] = 0;
+		reset_enemy_location(screen, &(enemy_locations[enemy_location]));
 
 		if (enemy_location == 0) {
 			current_enemy->location = 1;
@@ -549,8 +563,8 @@ void update_enemy_location(pixel **screen, enemy *current_enemy, screen_section 
 			}
 		}
 
-		center_x = (enemy_locations[enemy_location].x_min + enemy_locations[enemy_location].x_max) / 2;
-		center_y = (enemy_locations[enemy_location].y_min + enemy_locations[enemy_location].y_max) / 2;
+		int center_x = (enemy_locations[enemy_location].x_min + enemy_locations[enemy_location].x_max) / 2;
+		int center_y = (enemy_locations[enemy_location].y_min + enemy_locations[enemy_location].y_max) / 2;
 
 		screen[center_y][center_x].layer[LAYER_HORI_WALL] = 1;
 		screen[center_y - 1][center_x].layer[LAYER_HORI_WALL] = 1;
@@ -567,4 +581,20 @@ void update_enemy_location(pixel **screen, enemy *current_enemy, screen_section 
 
 	}
 
+}
+
+
+void clear_attacks(pixel **screen, screen_section play_area, dyn_array *tab){
+	while (tab->size > 0){
+		pop(tab);
+	}
+
+	for (int x = play_area.x_min; x < play_area.x_max; x++){
+		for (int y = play_area.y_min; y < play_area.y_max; y++){
+			screen[y][x].layer[LAYER_ATTACK_IN0] = 0;
+			screen[y][x].layer[LAYER_ATTACK_IN1] = 0;
+			screen[y][x].layer[LAYER_ATTACK_IN2] = 0;
+			screen[y][x].layer[LAYER_ATTACK_IN3] = 0;
+		}
+	}
 }

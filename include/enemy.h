@@ -19,4 +19,6 @@ void update_enemy_location(pixel **screen, enemy *current_enemy, screen_section 
 
 enemy create_enemy(pixel **screen, screen_section enemy_locations[3]);
 
+void clear_attacks(pixel **screen, screen_section play_area, dyn_array *tab);
+
 #endif

@@ -25,7 +25,7 @@ add stamina => done
 
 add aiming => done
 
-make enemies cycle in and out => when enemy dies make a new enemy appear (enemy health bar needs to be fixed too)
+make enemies cycle in and out => when enemy dies make a new enemy appear => done but with no transition so it's a bit weird
 
 make exp and health augmenting (base for upgrades)
 

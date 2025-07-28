@@ -108,22 +108,28 @@ int main(){
 	print_screen(screen, width, height, all_text);
 
 	while (prota.health > 0) {
-		//printf("turn : %i\n", turn);
-		char input = getchar();
-		//scanf("%c",&input);
-		int has_moved = move_player(screen, &prota, input, play_area, enemy_locations, &current_enemy);
-		while (has_moved > 0) {
-			turn += 1;
-			update_attacks(screen, &prota, play_area, &tab, turn);
-			add_attack(play_area, current_enemy, &tab, turn);
-			update_health_bar(screen, prota, health_bar);
-			update_stamina_bar(screen, prota, stamina_bar);
-			update_enemy_health_bar(screen, current_enemy, enemy_health);
-			update_enemy_location(screen, &current_enemy, enemy_locations);
-			print_screen(screen, width, height, all_text);
-			//print_dyn_array(tab);
-			has_moved--;
+		while (current_enemy.health > 0) {
+			//printf("turn : %i\n", turn);
+			char input = getchar();
+			//scanf("%c",&input);
+			int has_moved = move_player(screen, &prota, input, play_area, enemy_locations, &current_enemy);
+			while (has_moved > 0) {
+				turn += 1;
+				update_attacks(screen, &prota, play_area, &tab, turn);
+				add_attack(play_area, current_enemy, &tab, turn);
+				update_health_bar(screen, prota, health_bar);
+				update_stamina_bar(screen, prota, stamina_bar);
+				update_enemy_health_bar(screen, current_enemy, enemy_health);
+				update_enemy_location(screen, &current_enemy, enemy_locations);
+				print_screen(screen, width, height, all_text);
+				//print_dyn_array(tab);
+				has_moved--;
+			}
 		}
+		clear_attacks(screen, play_area, &tab);
+		current_enemy = create_enemy(screen, enemy_locations);
+		update_enemy_health_bar(screen, current_enemy, enemy_health);
+		update_enemy_name(enemy_name, current_enemy);
 	}
 
 	system("clear");
