@@ -55,9 +55,24 @@ int main(){
 	update_health_bar(screen, prota, health_bar);
 	update_stamina_bar(screen, prota, stamina_bar);
 
-	text_section *health = init_text(width - 8, width - 1, 1, "HEALTH", 6);
-	text_section *stamina = init_text(width - 8, width - 1, 5, "STAMINA", 7);
-	text_section *enemy_name = init_text(1, 20, 1, "enemy name", 10);
+	int health_text_x_min = width - 8;
+	int health_text_x_max = width - 1;
+	int health_text_y = 1;
+	int health_text_length = 6;
+
+	int stamina_text_x_min = width - 8;
+	int stamina_text_x_max = width - 1;
+	int stamina_text_y = 5;
+	int stamina_text_length = 7;
+
+	int enemy_name_x_min = 1;
+	int enemy_name_x_max = 20;
+	int enemy_name_y = 1;
+	int enemy_name_length = 10;
+
+	text_section *health = init_text(health_text_x_min, health_bar_x_max, health_text_y, "HEALTH", health_text_length);
+	text_section *stamina = init_text(stamina_bar_x_min, stamina_bar_x_max, stamina_text_y, "STAMINA", stamina_text_length);
+	text_section *enemy_name = init_text(enemy_name_x_min, enemy_name_x_max, enemy_name_y, "enemy name", enemy_name_length);
 
 	int nb_text_sections = 4;
 
