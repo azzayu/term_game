@@ -70,8 +70,8 @@ int main(){
 	int enemy_name_y = 1;
 	int enemy_name_length = 10;
 
-	text_section *health = init_text(health_text_x_min, health_bar_x_max, health_text_y, "HEALTH", health_text_length);
-	text_section *stamina = init_text(stamina_bar_x_min, stamina_bar_x_max, stamina_text_y, "STAMINA", stamina_text_length);
+	text_section *health = init_text(health_text_x_min, health_text_x_max, health_text_y, "HEALTH", health_text_length);
+	text_section *stamina = init_text(stamina_text_x_min, stamina_text_x_max, stamina_text_y, "STAMINA", stamina_text_length);
 	text_section *enemy_name = init_text(enemy_name_x_min, enemy_name_x_max, enemy_name_y, "enemy name", enemy_name_length);
 
 	int nb_text_sections = 4;
@@ -91,7 +91,7 @@ int main(){
 
 	change_aim(screen, &prota, enemy_locations, 0);
 
-	enemy current_enemy = create_enemy();
+	enemy current_enemy = create_enemy(screen, enemy_locations);
 
 	int enemy_health_bar_x_min = 3;
 	int enemy_health_bar_y_min = 18;
@@ -114,12 +114,13 @@ int main(){
 		int has_moved = move_player(screen, &prota, input, play_area, enemy_locations, &current_enemy);
 		while (has_moved > 0) {
 			turn += 1;
-			print_screen(screen, width, height, all_text);
 			update_attacks(screen, &prota, play_area, &tab, turn);
 			add_attack(play_area, current_enemy, &tab, turn);
 			update_health_bar(screen, prota, health_bar);
 			update_stamina_bar(screen, prota, stamina_bar);
 			update_enemy_health_bar(screen, current_enemy, enemy_health);
+			update_enemy_location(screen, &current_enemy, enemy_locations);
+			print_screen(screen, width, height, all_text);
 			//print_dyn_array(tab);
 			has_moved--;
 		}

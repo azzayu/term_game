@@ -368,6 +368,8 @@ enemy create_enemy_dark_knight(){
 	type_dark_knight.attack_damages[0] = 1;
 	type_dark_knight.attack_damages[1] = 3;
 
+	type_dark_knight.enemy_move_chance = 40;
+
 	dark_knight.enemy_type = type_dark_knight;
 
 	return dark_knight;
@@ -398,6 +400,8 @@ enemy create_enemy_dark_mage(){
 	type_dark_mage.attack_damages[0] = 4;
 	type_dark_mage.attack_damages[1] = 2;
 	type_dark_mage.attack_damages[2] = 1;
+
+	type_dark_mage.enemy_move_chance = 5;
 
 	dark_mage.enemy_type = type_dark_mage;
 
@@ -430,6 +434,8 @@ enemy create_enemy_dragon(){
 	type_dragon.attack_damages[1] = 2;
 	type_dragon.attack_damages[2] = 2;
 
+	type_dragon.enemy_move_chance = 30;
+
 	dragon.enemy_type = type_dragon;
 
 	return dragon;
@@ -461,14 +467,35 @@ enemy create_enemy_possessed_tree(){
 	type_possessed_tree.attack_damages[1] = 3;
 	type_possessed_tree.attack_damages[2] = 2;
 
+	type_possessed_tree.enemy_move_chance = 1;
+
 	possessed_tree.enemy_type = type_possessed_tree;
 
 	return possessed_tree;
 }
 
 
-enemy create_enemy(){
+enemy create_enemy(pixel** screen, screen_section enemy_locations[3]){
 	enum enemy_types_names new_enemy_type = rand() % NB_ENEMY_TYPES;
+
+	//drawing the enemy
+
+	int center_x = (enemy_locations[1].x_min + enemy_locations[1].x_max) / 2;
+	int center_y = (enemy_locations[1].y_min + enemy_locations[1].y_max) / 2;
+
+	screen[center_y][center_x].layer[LAYER_HORI_WALL] = 1;
+	screen[center_y - 1][center_x].layer[LAYER_HORI_WALL] = 1;
+	screen[center_y + 1][center_x].layer[LAYER_HORI_WALL] = 1;
+	screen[center_y][center_x + 1].layer[LAYER_HORI_WALL] = 1;
+	screen[center_y - 1][center_x + 1].layer[LAYER_HORI_WALL] = 1;
+	screen[center_y + 1][center_x + 1].layer[LAYER_HORI_WALL] = 1;
+	screen[center_y][center_x + 2].layer[LAYER_LEFT_JUNCTION] = 1;
+	screen[center_y][center_x - 1].layer[LAYER_RIGHT_JUNCTION] = 1;
+	screen[center_y - 1][center_x - 1].layer[LAYER_TOP_LEFT_CORNER] = 1;
+	screen[center_y - 1][center_x + 2].layer[LAYER_TOP_RIGHT_CORNER] = 1;
+	screen[center_y + 1][center_x - 1].layer[LAYER_BOTTOM_LEFT_CORNER] = 1;
+	screen[center_y + 1][center_x + 2].layer[LAYER_BOTTOM_RIGHT_CORNER] = 1;
+	
 	switch (new_enemy_type){
 		case DARK_KNIGHT:
 			return create_enemy_dark_knight();
@@ -481,4 +508,63 @@ enemy create_enemy(){
 		default:
 			return create_enemy_dark_knight();
 	}
+}
+
+void update_enemy_location(pixel **screen, enemy *current_enemy, screen_section enemy_locations[3]){
+	int random_selection = rand() % 100;
+
+	if (random_selection < current_enemy->enemy_type.enemy_move_chance){
+
+		int enemy_location = current_enemy->location;
+
+		int center_x = (enemy_locations[enemy_location].x_min + enemy_locations[enemy_location].x_max) / 2;
+		int center_y = (enemy_locations[enemy_location].y_min + enemy_locations[enemy_location].y_max) / 2;
+
+		screen[center_y][center_x].layer[LAYER_HORI_WALL] = 0;
+		screen[center_y - 1][center_x].layer[LAYER_HORI_WALL] = 0;
+		screen[center_y + 1][center_x].layer[LAYER_HORI_WALL] = 0;
+		screen[center_y][center_x + 1].layer[LAYER_HORI_WALL] = 0;
+		screen[center_y - 1][center_x + 1].layer[LAYER_HORI_WALL] = 0;
+		screen[center_y + 1][center_x + 1].layer[LAYER_HORI_WALL] = 0;
+		screen[center_y][center_x + 2].layer[LAYER_LEFT_JUNCTION] = 0;
+		screen[center_y][center_x - 1].layer[LAYER_RIGHT_JUNCTION] = 0;
+		screen[center_y - 1][center_x - 1].layer[LAYER_TOP_LEFT_CORNER] = 0;
+		screen[center_y - 1][center_x + 2].layer[LAYER_TOP_RIGHT_CORNER] = 0;
+		screen[center_y + 1][center_x - 1].layer[LAYER_BOTTOM_LEFT_CORNER] = 0;
+		screen[center_y + 1][center_x + 2].layer[LAYER_BOTTOM_RIGHT_CORNER] = 0;
+
+		if (enemy_location == 0) {
+			current_enemy->location = 1;
+			enemy_location = 1;
+		} else if (enemy_location == 2) {
+			current_enemy->location = 1;
+			enemy_location = 1;	
+		} else {
+			if (random_selection % 2 == 0) {
+				current_enemy->location = 0;
+				enemy_location = 0;
+			} else {
+				current_enemy->location = 2;
+				enemy_location = 2;
+			}
+		}
+
+		center_x = (enemy_locations[enemy_location].x_min + enemy_locations[enemy_location].x_max) / 2;
+		center_y = (enemy_locations[enemy_location].y_min + enemy_locations[enemy_location].y_max) / 2;
+
+		screen[center_y][center_x].layer[LAYER_HORI_WALL] = 1;
+		screen[center_y - 1][center_x].layer[LAYER_HORI_WALL] = 1;
+		screen[center_y + 1][center_x].layer[LAYER_HORI_WALL] = 1;
+		screen[center_y][center_x + 1].layer[LAYER_HORI_WALL] = 1;
+		screen[center_y - 1][center_x + 1].layer[LAYER_HORI_WALL] = 1;
+		screen[center_y + 1][center_x + 1].layer[LAYER_HORI_WALL] = 1;
+		screen[center_y][center_x + 2].layer[LAYER_LEFT_JUNCTION] = 1;
+		screen[center_y][center_x - 1].layer[LAYER_RIGHT_JUNCTION] = 1;
+		screen[center_y - 1][center_x - 1].layer[LAYER_TOP_LEFT_CORNER] = 1;
+		screen[center_y - 1][center_x + 2].layer[LAYER_TOP_RIGHT_CORNER] = 1;
+		screen[center_y + 1][center_x - 1].layer[LAYER_BOTTOM_LEFT_CORNER] = 1;
+		screen[center_y + 1][center_x + 2].layer[LAYER_BOTTOM_RIGHT_CORNER] = 1;
+
+	}
+
 }

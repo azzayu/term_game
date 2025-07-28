@@ -38,6 +38,8 @@ typedef struct enemy_type_s{
     int attack_weights[10];
     int attack_damages[10];
 
+    int enemy_move_chance; // as a percentage chance
+
     enum enemy_types_names enemy_type_name;
 } enemy_type;
 

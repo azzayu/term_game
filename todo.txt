@@ -39,4 +39,4 @@ add basic playing instruction in README.md => basic controls are there, to be ad
 
 make a better attack stocking system to handle attacks coverig each other => implemented
 
-display where the enemy is (custom ascii arts?)
+display where the enemy is (custom ascii arts?) => all enmies have the same sprite but they are now displayed and can move around

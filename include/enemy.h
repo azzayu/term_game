@@ -15,6 +15,8 @@ void update_enemy_health_bar(pixel **screen, enemy monster, screen_section healt
 
 void update_enemy_name(text_section *name_place, enemy monster);
 
-enemy create_enemy();
+void update_enemy_location(pixel **screen, enemy *current_enemy, screen_section enemy_locations[3]);
+
+enemy create_enemy(pixel **screen, screen_section enemy_locations[3]);
 
 #endif
