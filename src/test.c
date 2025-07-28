@@ -28,5 +28,8 @@ int main(){
     }
 
     free_dyn_array(tab);
+
+    default_test_screen();
+
     return EXIT_SUCCESS;
 }
