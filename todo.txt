@@ -27,7 +27,7 @@ add aiming => done
 
 make enemies cycle in and out => when enemy dies make a new enemy appear => done but with no transition so it's a bit weird
 
-make exp and health augmenting (base for upgrades)
+make exp and health augmenting (base for upgrades) => implemented with no messaging on level up
 
 add text display on right as logs (or just info) => X
 
@@ -40,3 +40,11 @@ add basic playing instruction in README.md => basic controls are there, to be ad
 make a better attack stocking system to handle attacks coverig each other => implemented
 
 display where the enemy is (custom ascii arts?) => all enmies have the same sprite but they are now displayed and can move around
+
+better transition in between battling monsters
+
+exp bar
+
+monster leveling
+
+save file system

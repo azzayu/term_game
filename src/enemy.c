@@ -370,6 +370,8 @@ enemy create_enemy_dark_knight(){
 
 	type_dark_knight.enemy_move_chance = 40;
 
+	type_dark_knight.base_exp_reward = 1;
+
 	dark_knight.enemy_type = type_dark_knight;
 
 	return dark_knight;
@@ -402,6 +404,8 @@ enemy create_enemy_dark_mage(){
 	type_dark_mage.attack_damages[2] = 1;
 
 	type_dark_mage.enemy_move_chance = 5;
+
+	type_dark_mage.base_exp_reward = 3;
 
 	dark_mage.enemy_type = type_dark_mage;
 
@@ -436,6 +440,8 @@ enemy create_enemy_dragon(){
 
 	type_dragon.enemy_move_chance = 30;
 
+	type_dragon.base_exp_reward = 5;
+
 	dragon.enemy_type = type_dragon;
 
 	return dragon;
@@ -468,6 +474,8 @@ enemy create_enemy_possessed_tree(){
 	type_possessed_tree.attack_damages[2] = 2;
 
 	type_possessed_tree.enemy_move_chance = 1;
+
+	type_possessed_tree.base_exp_reward = 2;
 
 	possessed_tree.enemy_type = type_possessed_tree;
 

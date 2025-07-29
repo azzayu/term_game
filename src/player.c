@@ -210,6 +210,10 @@ player init_player(int x, int y, int max_health, int max_stamina){
 
 	prota.aiming = 1;
 
+	prota.level = 1;
+	prota.exp = 0;
+	prota.exp_to_next_level = 5;
+
 	return prota;
 }
 
@@ -245,5 +249,23 @@ void change_aim(pixel **screen, player* prota, screen_section enemy_locations[3]
 			screen[enemy_locations[i].y_min + j][enemy_locations[i].x_min].layer[LAYER_VERT_WALL_RIGHT] = 1 + is_selected;
 			screen[enemy_locations[i].y_min + j][enemy_locations[i].x_max].layer[LAYER_VERT_WALL_LEFT] = 1 + is_selected;
 		}
+	}
+}
+
+
+void gain_exp(player *prota, int exp){
+	prota->exp += exp;
+
+	while (prota->exp_to_next_level <= prota->exp){
+		prota->level += 1;
+		int exp_left_to_gain = prota->exp - prota->exp_to_next_level;
+
+		prota->exp_to_next_level += prota->level;
+		prota->exp = exp_left_to_gain;
+
+		prota->max_health += 1;
+		prota->health += 1;
+		prota->max_stamina += 5;
+		prota->stamina += 5;
 	}
 }

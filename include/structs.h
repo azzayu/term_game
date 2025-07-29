@@ -4,12 +4,18 @@
 typedef struct player_s{
 	int x;
 	int y;
+
 	int max_health;
 	int health;
+
 	int max_stamina;
 	int stamina;
-	int charged;
 
+    int level;
+    int exp;
+    int exp_to_next_level;
+
+    int charged;
 	int aiming;
 } player;
 
@@ -39,6 +45,8 @@ typedef struct enemy_type_s{
     int attack_damages[10];
 
     int enemy_move_chance; // as a percentage chance
+
+    int base_exp_reward;
 
     enum enemy_types_names enemy_type_name;
 } enemy_type;

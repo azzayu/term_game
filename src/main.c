@@ -172,6 +172,7 @@ int main(){
 				has_moved--;
 			}
 		}
+		gain_exp(&prota, current_enemy.enemy_type.base_exp_reward);
 		clear_attacks(screen, play_area, &tab);
 		current_enemy = create_enemy(screen, enemy_locations);
 		update_enemy_health_bar(screen, current_enemy, enemy_health);
