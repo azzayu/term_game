@@ -10,15 +10,10 @@
 #include "dyn_array.h"
 #include "structs.h"
 
-int main(){
-	
-	srand(time(NULL));
 
-	int width = 30;
-	int height = 40;
-	int turn = 0;
+screen_section *create_enemy_locations(){
 
-	screen_section enemy_locations[3];
+	screen_section *enemy_locations = malloc(sizeof(screen_section) * 3);
 
 	//initialises the enemy display boxes' location on the screen
 	for (int i = 0 ; i < 3; i++){
@@ -29,32 +24,47 @@ int main(){
 		enemy_locations[i] = init_screen_section(x_min, y_min, x_max, y_max);
 	}
 
-	screen_section play_area = init_screen_section(1, height / 2, width - 1, height - 1);
+	return enemy_locations;
+}
 
+
+player initialise_player(screen_section play_area){
 	int middle_play_area_x = (play_area.x_max - play_area.x_min) / 2 + play_area.x_min;
 	int middle_play_area_y = (play_area.y_max - play_area.y_min) / 2 + play_area.y_min;
 	int max_health = 20;
 	int max_stamina = 100;
-	player prota = init_player(middle_play_area_x, middle_play_area_y, max_health, max_stamina);
- 
-	pixel **screen = init_screen(width, height, play_area, enemy_locations);
-	screen[prota.y][prota.x].layer[LAYER_PLAYER] = 1;
 
+	player prota = init_player(middle_play_area_x, middle_play_area_y, max_health, max_stamina);
+
+	return prota;
+}
+
+
+screen_section initialise_health_bar(int width){
 	int health_bar_x_min = width - 8;
 	int health_bar_y_min = 3;
 	int health_bar_x_max = width - 1;
 	int health_bar_y_max = 4;
+
 	screen_section health_bar = init_screen_section(health_bar_x_min, health_bar_y_min, health_bar_x_max, health_bar_y_max);
 
+	return health_bar;
+}
+
+
+screen_section initialise_stamina_bar(int width){
 	int stamina_bar_x_min = width - 8;
 	int stamina_bar_y_min = 7;
 	int stamina_bar_x_max = width - 1;
 	int stamina_bar_y_max = 8;
+
 	screen_section stamina_bar = init_screen_section(stamina_bar_x_min, stamina_bar_y_min, stamina_bar_x_max, stamina_bar_y_max);
 
-	update_health_bar(screen, prota, health_bar);
-	update_stamina_bar(screen, prota, stamina_bar);
+	return stamina_bar;
+}
 
+
+text_section **initialise_all_text(pixel **screen, int width){
 	int health_text_x_min = width - 8;
 	int health_text_x_max = width - 1;
 	int health_text_y = 1;
@@ -89,19 +99,55 @@ int main(){
 		}
 	}
 
-	change_aim(screen, &prota, enemy_locations, 0);
+	return all_text;
+}
 
-	enemy current_enemy = create_enemy(screen, enemy_locations);
 
+screen_section initialise_enemy_health_bar(){
 	int enemy_health_bar_x_min = 3;
 	int enemy_health_bar_y_min = 18;
 	int enemy_health_bar_x_max = 26;
 	int enemy_health_bar_y_max = 19;
+
 	screen_section enemy_health = init_screen_section(enemy_health_bar_x_min, enemy_health_bar_y_min, enemy_health_bar_x_max, enemy_health_bar_y_max);
+
+	return enemy_health;
+}
+
+int main(){
+	
+	srand(time(NULL));
+
+	int width = 30;
+	int height = 40;
+	int turn = 0;
+
+	screen_section *enemy_locations = create_enemy_locations();
+
+	screen_section play_area = init_screen_section(1, height / 2, width - 1, height - 1);
+
+	player prota = initialise_player(play_area);
+ 
+	pixel **screen = init_screen(width, height, play_area, enemy_locations);
+	screen[prota.y][prota.x].layer[LAYER_PLAYER] = 1;
+
+	screen_section health_bar = initialise_health_bar(width);
+	screen_section stamina_bar = initialise_stamina_bar(width);
+
+	update_health_bar(screen, prota, health_bar);
+	update_stamina_bar(screen, prota, stamina_bar);
+
+	text_section **all_text = initialise_all_text(screen, width);
+
+	change_aim(screen, &prota, enemy_locations, 0);
+
+	enemy current_enemy = create_enemy(screen, enemy_locations);
+
+	screen_section enemy_health = initialise_enemy_health_bar();
 	
 	update_enemy_health_bar(screen, current_enemy, enemy_health);
 
-	update_enemy_name(enemy_name, current_enemy);
+	update_enemy_name(all_text[3], current_enemy);
 
 	dyn_array tab = create_empty_dyn_array();
 
@@ -129,14 +175,16 @@ int main(){
 		clear_attacks(screen, play_area, &tab);
 		current_enemy = create_enemy(screen, enemy_locations);
 		update_enemy_health_bar(screen, current_enemy, enemy_health);
-		update_enemy_name(enemy_name, current_enemy);
+		update_enemy_name(all_text[3], current_enemy);
 	}
 
 	system("clear");
 	printf("GAME OVER \n\n\n");
 
+
+	free(enemy_locations);
 	free_screen(screen, height);
-	for (int i = 0; i < nb_text_sections ; i++){
+	for (int i = 0; i < 3 ; i++){
 		free(all_text[i]);
 	}
 	free(all_text);
