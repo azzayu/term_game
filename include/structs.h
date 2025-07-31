@@ -1,6 +1,34 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
+typedef struct pixel_s {
+	int layer[100];
+	int local_damage;
+} pixel;
+
+
+typedef struct screen_section_s{
+	int x_min;
+	int y_min;
+	int x_max;
+	int y_max;
+
+	int width;
+	int height;
+} screen_section;
+
+
+typedef struct text_section_s{
+	int x_min;
+	int x_max;
+	int y;
+
+	char text[100];
+	int length;
+
+	int width;
+} text_section;
+
 typedef struct player_s{
 	int x;
 	int y;
