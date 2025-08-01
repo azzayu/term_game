@@ -137,6 +137,7 @@ int main(){
 	update_health_bar(screen, prota, health_bar);
 	update_stamina_bar(screen, prota, stamina_bar);
 
+	int nb_text_sections = 4;
 	text_section **all_text = initialise_all_text(screen, width);
 
 	change_aim(screen, &prota, enemy_locations, 0);
@@ -182,10 +183,10 @@ int main(){
 	system("clear");
 	printf("GAME OVER \n\n\n");
 
-
+	free_dyn_array(tab);
 	free(enemy_locations);
 	free_screen(screen, height);
-	for (int i = 0; i < 3 ; i++){
+	for (int i = 0; i < nb_text_sections; i++){
 		free(all_text[i]);
 	}
 	free(all_text);
