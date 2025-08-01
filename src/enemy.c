@@ -270,8 +270,8 @@ enemy create_enemy_dragon(){
 	type_dragon.attack_codes[2] = TWINKLES;
 
 	type_dragon.attack_weights[0] = 1;
-	type_dragon.attack_weights[1] = 2;
-	type_dragon.attack_weights[2] = 1;
+	type_dragon.attack_weights[1] = 4;
+	type_dragon.attack_weights[2] = 2;
 
 	type_dragon.attack_damages[0] = 4;
 	type_dragon.attack_damages[1] = 2;
