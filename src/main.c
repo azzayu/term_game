@@ -154,7 +154,7 @@ int main(){
 	print_screen(screen, width, height, all_text);
 
 	while (prota.health > 0) {
-		while (current_enemy.health > 0) {
+		while (current_enemy.health > 0 && prota.health > 0) {
 			//printf("turn : %i\n", turn);
 			char input = getchar();
 			//scanf("%c",&input);
