@@ -43,7 +43,7 @@ display where the enemy is (custom ascii arts?) => all enmies have the same spri
 
 better transition in between battling monsters
 
-exp bar
+exp bar => done
 
 monster leveling
 
