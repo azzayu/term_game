@@ -148,24 +148,51 @@ void update_health_bar(pixel **screen, player prota, screen_section health_bar){
 	double health_per_block = (double) prota.max_health / (double) health_bar.width;
 
 	for (int j = 0 ; j < health_bar.width ; j++){
-		screen[health_bar.y_min][health_bar.x_min + j].layer[8] = 0;
-		screen[health_bar.y_min][health_bar.x_min + j].layer[9] = 0;
-		screen[health_bar.y_min][health_bar.x_min + j].layer[10] = 0;
-		screen[health_bar.y_min][health_bar.x_min + j].layer[11] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_FULL] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_THREE_QUART] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_HALF] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_QUART] = 0;
 	}
 
 	int i = 0;
 	while ((i + 1) * health_per_block <= prota.health){
-		screen[health_bar.y_min][health_bar.x_min + i].layer[8] = 1;
+		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_FULL] = 1;
 		i++;
 	}
 
 	if((i + 0.75) * health_per_block <= prota.health){
-		screen[health_bar.y_min][health_bar.x_min + i].layer[9] = 1;
+		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_THREE_QUART] = 1;
 	} else if((i + 0.5) * health_per_block <= prota.health){
-		screen[health_bar.y_min][health_bar.x_min + i].layer[10] = 1;
+		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_HALF] = 1;
 	} else if((i + 0.25) * health_per_block * 0.25 <= prota.health){
-		screen[health_bar.y_min][health_bar.x_min + i].layer[11] = 1;
+		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_QUART] = 1;
+	}
+}
+
+
+void update_exp_bar(pixel **screen, player prota, screen_section exp_bar){
+	double exp_per_block = (double) prota.exp_to_next_level / (double) exp_bar.width;
+
+	for (int j = 0 ; j < exp_bar.width ; j++){
+		screen[exp_bar.y_min][exp_bar.x_min + j].layer[LAYER_EXP_FULL] = 0;
+		screen[exp_bar.y_min][exp_bar.x_min + j].layer[LAYER_EXP_THREE_QUART] = 0;
+		screen[exp_bar.y_min][exp_bar.x_min + j].layer[LAYER_EXP_HALF] = 0;
+		screen[exp_bar.y_min][exp_bar.x_min + j].layer[LAYER_EXP_QUART] = 0;
+	}
+
+	int i = 0;
+	while ((i + 1) * exp_per_block <= prota.exp){
+		screen[exp_bar.y_min][exp_bar.x_min + i].layer[LAYER_EXP_FULL] = 1;
+		//printf("%i\n", i);
+		i++;
+	}
+
+	if((i + 0.75) * exp_per_block <= prota.exp){
+		screen[exp_bar.y_min][exp_bar.x_min + i].layer[LAYER_EXP_THREE_QUART] = 1;
+	} else if((i + 0.5) * exp_per_block <= prota.exp){
+		screen[exp_bar.y_min][exp_bar.x_min + i].layer[LAYER_EXP_HALF] = 1;
+	} else if((i + 0.25) * exp_per_block * 0.25 <= prota.exp){
+		screen[exp_bar.y_min][exp_bar.x_min + i].layer[LAYER_EXP_QUART] = 1;
 	}
 }
 
@@ -174,24 +201,24 @@ void update_stamina_bar(pixel **screen, player prota, screen_section stamina_bar
 	double stamina_per_block = (double) prota.max_stamina / (double) stamina_bar.width;
 
 	for (int j = 0 ; j < stamina_bar.width ; j++){
-		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[18] = 0;
-		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[19] = 0;
-		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[20] = 0;
-		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[21] = 0;
+		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[LAYER_STAMINA_FULL] = 0;
+		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[LAYER_STAMINA_THREE_QUART] = 0;
+		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[LAYER_STAMINA_HALF] = 0;
+		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[LAYER_STAMINA_QUART] = 0;
 	}
 
 	int i = 0;
 	while ((i + 1) * stamina_per_block <= prota.stamina){
-		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[18] = 1;
+		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[LAYER_STAMINA_FULL] = 1;
 		i++;
 	}
 
 	if((i + 0.75) * stamina_per_block <= prota.stamina){
-		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[19] = 1;
+		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[LAYER_STAMINA_THREE_QUART] = 1;
 	} else if((i + 0.5) * stamina_per_block <= prota.stamina){
-		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[20] = 1;
+		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[LAYER_STAMINA_HALF] = 1;
 	} else if((i + 0.25) * stamina_per_block * 0.25 <= prota.stamina){
-		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[21] = 1;
+		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[LAYER_STAMINA_QUART] = 1;
 	}
 }
 

@@ -64,6 +64,18 @@ screen_section initialise_stamina_bar(int width){
 }
 
 
+screen_section initialise_exp_bar(int width){
+	int exp_bar_x_min = width - 16;
+	int exp_bar_y_min = 3;
+	int exp_bar_x_max = width - 8;
+	int exp_bar_y_max = 4;
+
+	screen_section stamina_bar = init_screen_section(exp_bar_x_min, exp_bar_y_min, exp_bar_x_max, exp_bar_y_max);
+
+	return stamina_bar;
+}
+
+
 text_section **initialise_all_text(pixel **screen, int width){
 	int health_text_x_min = width - 8;
 	int health_text_x_max = width - 1;
@@ -76,21 +88,28 @@ text_section **initialise_all_text(pixel **screen, int width){
 	int stamina_text_length = 7;
 
 	int enemy_name_x_min = 1;
-	int enemy_name_x_max = 20;
+	int enemy_name_x_max = 10;
 	int enemy_name_y = 1;
 	int enemy_name_length = 10;
+
+	int exp_text_x_min = width - 16;
+	int exp_text_x_max = width - 14;
+	int exp_text_y = 1;
+	int exp_text_length = 3;
 
 	text_section *health = init_text(health_text_x_min, health_text_x_max, health_text_y, "HEALTH", health_text_length);
 	text_section *stamina = init_text(stamina_text_x_min, stamina_text_x_max, stamina_text_y, "STAMINA", stamina_text_length);
 	text_section *enemy_name = init_text(enemy_name_x_min, enemy_name_x_max, enemy_name_y, "enemy name", enemy_name_length);
+	text_section *exp = init_text(exp_text_x_min, exp_text_x_max, exp_text_y, "EXP", exp_text_length);
 
-	int nb_text_sections = 4;
+	int nb_text_sections = 5;
 
 	text_section **all_text = malloc(sizeof(text_section) * nb_text_sections);
 
 	all_text[1] = health;
 	all_text[2] = stamina;
 	all_text[3] = enemy_name;
+	all_text[4] = exp;
 
 	for (int i = 1; i < nb_text_sections; i++){
 		screen[all_text[i]->y][all_text[i]->x_min].layer[LAYER_TEXT] = i;
@@ -133,11 +152,13 @@ int main(){
 
 	screen_section health_bar = initialise_health_bar(width);
 	screen_section stamina_bar = initialise_stamina_bar(width);
+	screen_section exp_bar = initialise_exp_bar(width);
 
 	update_health_bar(screen, prota, health_bar);
 	update_stamina_bar(screen, prota, stamina_bar);
+	update_exp_bar(screen, prota, exp_bar);
 
-	int nb_text_sections = 4;
+	int nb_text_sections = 5;
 	text_section **all_text = initialise_all_text(screen, width);
 
 	change_aim(screen, &prota, enemy_locations, 0);
@@ -174,6 +195,7 @@ int main(){
 			}
 		}
 		gain_exp(&prota, current_enemy.enemy_type.base_exp_reward);
+		update_exp_bar(screen, prota, exp_bar);
 		clear_attacks(screen, play_area, &tab);
 		current_enemy = create_enemy(screen, enemy_locations);
 		update_enemy_health_bar(screen, current_enemy, enemy_health);

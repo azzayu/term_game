@@ -18,7 +18,8 @@
 #define UP_LEFT_JUNCTION "╩═"
 #define DOWN_LEFT_JUNCTION "╦═"
 #define DOWN_RIGHT_JUNCTION "═╦"
-
+#define LEFT_CROSS_JUNCTION "╬═"
+#define RIGHT_CROSS_JUNCTION "═╬"
 
 #define BLACK "\033[0;30m"
 #define RED "\033[0;31m"
@@ -65,6 +66,12 @@
 #define LAYER_STAMINA_QUART 21
 #define LAYER_TEXT 22
 #define LAYER_TEXT_BEFORE 23
+#define LAYER_LEFT_CROSS_JUNCTION 24
+#define LAYER_RIGHT_CROSS_JUNCTION 25
+#define LAYER_EXP_FULL 26
+#define LAYER_EXP_THREE_QUART 27
+#define LAYER_EXP_HALF 28
+#define LAYER_EXP_QUART 29
 #define LAYER_DEFAULT 50
 
 #endif

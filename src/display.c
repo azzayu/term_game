@@ -18,12 +18,12 @@ void init_health_bar(pixel **screen, int width){
 
 	//bottom left junction
 
-	screen[4][width - 9].layer[LAYER_RIGHT_JUNCTION] = 1;
+	screen[4][width - 9].layer[LAYER_RIGHT_CROSS_JUNCTION] = 1;
 
 	//left wall and junctions
 
 	screen[1][width - 9].layer[LAYER_VERT_WALL_RIGHT] = 1;
-	screen[2][width - 9].layer[LAYER_RIGHT_JUNCTION] = 1;
+	screen[2][width - 9].layer[LAYER_RIGHT_CROSS_JUNCTION] = 1;
 	screen[3][width - 9].layer[LAYER_VERT_WALL_RIGHT] = 1;
 	screen[2][width - 8].layer[LAYER_HORI_WALL] = 1;
 	screen[0][width - 9].layer[LAYER_HORI_WALL] = 0;
@@ -59,7 +59,6 @@ void init_stamina_bar(pixel **screen, int width){
 	screen[7][width - 9].layer[LAYER_VERT_WALL_RIGHT] = 1;
 	screen[6][width - 8].layer[LAYER_HORI_WALL] = 1;
 	screen[4][width - 9].layer[LAYER_HORI_WALL] = 0;
-	screen[4][width - 9].layer[LAYER_DOWN_RIGHT_JUNCTION] = 1;
 
 	//seperation between text and bar
 
@@ -87,6 +86,34 @@ void init_enemy_health(pixel **screen){
 	//vert_wall
 	screen[18][27].layer[LAYER_VERT_WALL_LEFT] = 1;
 	screen[18][2].layer[LAYER_VERT_WALL_RIGHT] = 1;
+}
+
+
+void init_exp_bar(pixel **screen, int width){
+
+	//bottom line
+
+	for (int x = width - 10; x > width - 17; x--){
+		screen[4][x].layer[LAYER_HORI_WALL] = 1;
+	}
+
+	//bottom left junction
+
+	screen[4][width - 17].layer[LAYER_BOTTOM_LEFT_CORNER] = 1;
+
+	//left wall and junctions
+
+	screen[1][width - 17].layer[LAYER_VERT_WALL_RIGHT] = 1;
+	screen[2][width - 17].layer[LAYER_RIGHT_JUNCTION] = 1;
+	screen[3][width - 17].layer[LAYER_VERT_WALL_RIGHT] = 1;
+	screen[2][width - 16].layer[LAYER_HORI_WALL] = 1;
+	screen[0][width - 17].layer[LAYER_HORI_WALL] = 0;
+	screen[0][width - 17].layer[LAYER_DOWN_RIGHT_JUNCTION] = 1;
+
+	//seperation between text and bar
+
+	screen[2][width - 10].layer[LAYER_VERT_WALL_LEFT] = 0;
+	screen[2][width - 10].layer[LAYER_HORI_WALL] = 1;
 }
 
 
@@ -138,6 +165,10 @@ pixel **init_screen(int width, int height, screen_section play_area, screen_sect
 	//stamina bar display :
 
 	init_stamina_bar(screen, width);
+
+	//exp bar display :
+
+	init_exp_bar(screen, width);
 
 	//init enemy location boxes
 
@@ -338,6 +369,18 @@ void print_screen(pixel **pixel_mat, int width, int height, text_section** all_t
 				print_text_section(all_text[pixel_mat[y][x].layer[LAYER_TEXT]]);
 			} else if (pixel_mat[y][x].layer[LAYER_TEXT_BEFORE] > 0){
 				continue;
+			} else if (pixel_mat[y][x].layer[LAYER_LEFT_CROSS_JUNCTION] == 1){
+				printf("%s%s", WHITE, LEFT_CROSS_JUNCTION);
+			} else if (pixel_mat[y][x].layer[LAYER_RIGHT_CROSS_JUNCTION] == 1){
+				printf("%s%s", WHITE, RIGHT_CROSS_JUNCTION);
+			} else if (pixel_mat[y][x].layer[LAYER_EXP_FULL] == 1){
+				printf("%s%s", BRIGHT_YELLOW, FULL_BLOCK);
+			} else if (pixel_mat[y][x].layer[LAYER_EXP_THREE_QUART] == 1){
+				printf("%s%s", BRIGHT_YELLOW, THREE_QUART_BLOCK);
+			} else if (pixel_mat[y][x].layer[LAYER_EXP_HALF] == 1){
+				printf("%s%s", BRIGHT_YELLOW, HALF_BLOCK);
+			} else if (pixel_mat[y][x].layer[LAYER_EXP_QUART] == 1){
+				printf("%s%s", BRIGHT_YELLOW, QUART_BLOCK);
 			} else if (pixel_mat[y][x].layer[LAYER_DEFAULT] == 1) {
 				printf("%s%s", BRIGHT_BLUE, FULL_BLOCK);
 			} else {
