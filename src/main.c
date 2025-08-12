@@ -194,12 +194,38 @@ int main(){
 				has_moved--;
 			}
 		}
+
+		int current_level = prota.level;
+
 		gain_exp(&prota, current_enemy.enemy_type.base_exp_reward);
 		update_exp_bar(screen, prota, exp_bar);
 		clear_attacks(screen, play_area, &tab);
+		print_screen(screen, width, height, all_text);
+
+		if (current_level != prota.level){
+			printf("you leveled up! level : %i -> %i\n", current_level, prota.level);
+		}
+
+		printf("You won enter q to quit and c to continue\n");
+
+		int chose_to_continue = 1;
+		while (chose_to_continue){
+			char input = getchar();
+
+			if (input == 'q'){
+				printf("Hope you had fun!\n");
+				return EXIT_SUCCESS;
+			} else if (input == 'c'){
+				chose_to_continue = 0;
+			} else {
+				continue;
+			}
+		}
+
 		current_enemy = create_enemy(screen, enemy_locations);
-		update_enemy_health_bar(screen, current_enemy, enemy_health);
+		update_enemy_health_bar(screen, current_enemy, enemy_health);print_screen(screen, width, height, all_text);
 		update_enemy_name(all_text[3], current_enemy);
+		print_screen(screen, width, height, all_text);
 	}
 
 	system("clear");

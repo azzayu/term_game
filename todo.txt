@@ -41,7 +41,7 @@ make a better attack stocking system to handle attacks coverig each other => imp
 
 display where the enemy is (custom ascii arts?) => all enmies have the same sprite but they are now displayed and can move around
 
-better transition in between battling monsters
+better transition in between battling monsters => now asks for if you want to continue or quit 
 
 exp bar => done
 
