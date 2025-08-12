@@ -14,7 +14,7 @@ void update_exp_bar(pixel **screen, player prota, screen_section exp_bar);
 
 player init_player(int x, int y, int max_health, int max_stamina);
 
-void change_aim(pixel **screen, player* prota, screen_section enemy_locations[3], int change);
+void change_aim(pixel **screen, player *prota, screen_section enemy_locations[3], int change);
 
 void gain_exp(player *prota, int exp);
 

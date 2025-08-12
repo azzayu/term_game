@@ -4,12 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int main()
+{
 
-int main(){
-    
     dyn_array tab = create_empty_dyn_array();
     print_dyn_array(tab);
-    for (int i = 0; i < 21; i++){
+    for (int i = 0; i < 21; i++)
+    {
         attack data;
         data.x = 0;
         data.y = 0;
@@ -22,7 +23,8 @@ int main(){
     sort(&tab);
     print_dyn_array(tab);
 
-    for (int i = 0; i < 21; i++){
+    for (int i = 0; i < 21; i++)
+    {
         pop(&tab);
         print_dyn_array(tab);
     }

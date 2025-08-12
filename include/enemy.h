@@ -17,7 +17,7 @@ void update_enemy_name(text_section *name_place, enemy monster);
 
 void update_enemy_location(pixel **screen, enemy *current_enemy, screen_section enemy_locations[3]);
 
-enemy create_enemy(pixel **screen, screen_section enemy_locations[3]);
+enemy create_enemy(pixel **screen, screen_section enemy_locations[3], int enemies_defeated);
 
 void clear_attacks(pixel **screen, screen_section play_area, dyn_array *tab);
 

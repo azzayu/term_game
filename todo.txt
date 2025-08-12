@@ -45,6 +45,6 @@ better transition in between battling monsters => now asks for if you want to co
 
 exp bar => done
 
-monster leveling
+monster leveling => done but maybe will need rebalancing one day
 
 save file system
