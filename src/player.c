@@ -158,7 +158,7 @@ int move_player(pixel **screen, player *prota, char input, screen_section play_a
 
 	if (input == 'r' && prota->stamina > 0 && prota->aiming == current_enemy->location)
 	{
-		current_enemy->health--;
+		current_enemy->health -= prota->attack;
 		prota->stamina--;
 		return 1;
 	}
@@ -298,6 +298,8 @@ player init_player(int x, int y, int max_health, int max_stamina)
 	prota.exp = 0;
 	prota.exp_to_next_level = 5;
 
+	prota.attack = 1;
+
 	return prota;
 }
 
@@ -353,7 +355,18 @@ void gain_exp(player *prota, int exp)
 
 		prota->max_health += 1;
 		prota->health += 1;
+		if (prota->health > prota->max_health){
+			prota->health = prota->max_health;
+		}
 		prota->max_stamina += 5;
 		prota->stamina += 5;
+		if (prota->stamina > prota->max_stamina){
+			prota->stamina = prota->max_stamina;
+		}
+
+		if (prota->level % 3 == 0)
+		{
+			prota->attack += 1;
+		}
 	}
 }

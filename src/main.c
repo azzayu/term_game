@@ -9,6 +9,7 @@
 #include "display_cst.h"
 #include "dyn_array.h"
 #include "structs.h"
+#include "save_file.h"
 
 screen_section *create_enemy_locations()
 {
@@ -26,18 +27,6 @@ screen_section *create_enemy_locations()
 	}
 
 	return enemy_locations;
-}
-
-player initialise_player(screen_section play_area)
-{
-	int middle_play_area_x = (play_area.x_max - play_area.x_min) / 2 + play_area.x_min;
-	int middle_play_area_y = (play_area.y_max - play_area.y_min) / 2 + play_area.y_min;
-	int max_health = 20;
-	int max_stamina = 100;
-
-	player prota = init_player(middle_play_area_x, middle_play_area_y, max_health, max_stamina);
-
-	return prota;
 }
 
 screen_section initialise_health_bar(int width)
@@ -136,39 +125,59 @@ screen_section initialise_enemy_health_bar()
 	return enemy_health;
 }
 
-int main()
+int main(int argc, char **argv)
 {
 
-	srand(time(NULL));
+	game_state game;
+
+	if (argc == 1)
+	{
+		printf("using default.txt \n");
+		game = load_from_file("default.txt");
+	}
+
+	if (argc > 2)
+	{
+		printf("please only input one savefile name");
+		return EXIT_FAILURE;
+	}
+
+	if (argc == 2)
+	{
+		game = load_from_file(argv[1]);
+	}
 
 	int width = 30;
 	int height = 40;
 	int turn = 0;
-	int enemies_defeated = 0;
+
+	srand(time(NULL));
 
 	screen_section *enemy_locations = create_enemy_locations();
 
 	screen_section play_area = init_screen_section(1, height / 2, width - 1, height - 1);
 
-	player prota = initialise_player(play_area);
+	player *prota;
+
+	prota = game.prota;
 
 	pixel **screen = init_screen(width, height, play_area, enemy_locations);
-	screen[prota.y][prota.x].layer[LAYER_PLAYER] = 1;
+	screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
 
 	screen_section health_bar = initialise_health_bar(width);
 	screen_section stamina_bar = initialise_stamina_bar(width);
 	screen_section exp_bar = initialise_exp_bar(width);
 
-	update_health_bar(screen, prota, health_bar);
-	update_stamina_bar(screen, prota, stamina_bar);
-	update_exp_bar(screen, prota, exp_bar);
+	update_health_bar(screen, *prota, health_bar);
+	update_stamina_bar(screen, *prota, stamina_bar);
+	update_exp_bar(screen, *prota, exp_bar);
 
 	int nb_text_sections = 5;
 	text_section **all_text = initialise_all_text(screen, width);
 
-	change_aim(screen, &prota, enemy_locations, 0);
+	change_aim(screen, prota, enemy_locations, 0);
 
-	enemy current_enemy = create_enemy(screen, enemy_locations, enemies_defeated);
+	enemy current_enemy = create_enemy(screen, enemy_locations, game.enemies_defeated);
 
 	screen_section enemy_health = initialise_enemy_health_bar();
 
@@ -180,21 +189,21 @@ int main()
 
 	print_screen(screen, width, height, all_text);
 
-	while (prota.health > 0)
+	while (prota->health > 0)
 	{
-		while (current_enemy.health > 0 && prota.health > 0)
+		while (current_enemy.health > 0 && prota->health > 0)
 		{
 			// printf("turn : %i\n", turn);
 			char input = getchar();
 			// scanf("%c",&input);
-			int has_moved = move_player(screen, &prota, input, play_area, enemy_locations, &current_enemy);
+			int has_moved = move_player(screen, prota, input, play_area, enemy_locations, &current_enemy);
 			while (has_moved > 0)
 			{
 				turn += 1;
-				update_attacks(screen, &prota, play_area, &tab, turn);
+				update_attacks(screen, prota, play_area, &tab, turn);
 				add_attack(play_area, current_enemy, &tab, turn);
-				update_health_bar(screen, prota, health_bar);
-				update_stamina_bar(screen, prota, stamina_bar);
+				update_health_bar(screen, *prota, health_bar);
+				update_stamina_bar(screen, *prota, stamina_bar);
 				update_enemy_health_bar(screen, current_enemy, enemy_health);
 				update_enemy_location(screen, &current_enemy, enemy_locations);
 				print_screen(screen, width, height, all_text);
@@ -203,25 +212,26 @@ int main()
 			}
 		}
 
-		if (prota.health <= 0)
+		if (prota->health <= 0)
 		{
 			break;
 		}
 
-		enemies_defeated++;
-		int current_level = prota.level;
+		game.enemies_defeated++;
+		turn = 0;
+		int current_level = prota->level;
 
-		gain_exp(&prota, current_enemy.enemy_type.base_exp_reward);
-		update_exp_bar(screen, prota, exp_bar);
+		gain_exp(prota, current_enemy.enemy_type.base_exp_reward);
+		update_exp_bar(screen, *prota, exp_bar);
 		clear_attacks(screen, play_area, &tab);
 		print_screen(screen, width, height, all_text);
 
-		if (current_level != prota.level)
+		if (current_level != prota->level)
 		{
-			printf("you leveled up! level : %i -> %i\n", current_level, prota.level);
+			printf("you leveled up! level : %i -> %i\n", current_level, prota->level);
 		}
 
-		printf("You won enter q to quit and c to continue\n");
+		printf("You won enter q to quit and save and c to continue and save\n");
 
 		int chose_to_continue = 1;
 		while (chose_to_continue)
@@ -231,10 +241,12 @@ int main()
 			if (input == 'q')
 			{
 				printf("Hope you had fun!\n");
+				save_to_file(game);
 				return EXIT_SUCCESS;
 			}
 			else if (input == 'c')
 			{
+				save_to_file(game);
 				chose_to_continue = 0;
 			}
 			else
@@ -243,13 +255,15 @@ int main()
 			}
 		}
 
-		current_enemy = create_enemy(screen, enemy_locations, enemies_defeated);
+		current_enemy = create_enemy(screen, enemy_locations, game.enemies_defeated);
 		update_enemy_health_bar(screen, current_enemy, enemy_health);
 		update_enemy_name(all_text[3], current_enemy);
 		print_screen(screen, width, height, all_text);
 	}
 
 	printf("GAME OVER \n\n");
+	FILE *save_file = fopen(game.save_file_name, "w");
+	fclose(save_file);
 
 	free_dyn_array(tab);
 	free(enemy_locations);
@@ -259,5 +273,8 @@ int main()
 		free(all_text[i]);
 	}
 	free(all_text);
+
+	free(game.prota);
+
 	return EXIT_SUCCESS;
 }

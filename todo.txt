@@ -47,4 +47,4 @@ exp bar => done
 
 monster leveling => done but maybe will need rebalancing one day
 
-save file system
+save file system => savefiles are implemented but without a confirmation menu

@@ -47,6 +47,8 @@ typedef struct player_s
 
     int charged;
     int aiming;
+
+    int attack;
 } player;
 
 enum enemy_types_names
@@ -110,5 +112,14 @@ typedef struct enemy_s
 
     enemy_type enemy_type;
 } enemy;
+
+typedef struct game_state_s
+{
+    player *prota;
+
+    int enemies_defeated;
+
+    char *save_file_name;
+} game_state;
 
 #endif
