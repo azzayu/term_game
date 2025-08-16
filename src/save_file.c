@@ -105,15 +105,18 @@ game_state load_from_file(char *save_file_name)
 
     fclose(save_file);
 
-    if (game.prota->health > game.prota->max_health){
+    if (game.prota->health > game.prota->max_health)
+    {
         game.prota->health = game.prota->max_health;
     }
 
-    if (game.prota->stamina > game.prota->max_stamina){
+    if (game.prota->stamina > game.prota->max_stamina)
+    {
         game.prota->stamina = game.prota->max_stamina;
     }
 
-    if (game.prota->exp > game.prota->exp_to_next_level){
+    if (game.prota->exp > game.prota->exp_to_next_level)
+    {
         game.prota->exp = game.prota->exp_to_next_level;
     }
 

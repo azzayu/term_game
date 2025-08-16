@@ -48,3 +48,11 @@ exp bar => done
 monster leveling => done but maybe will need rebalancing one day
 
 save file system => savefiles are implemented but without a confirmation menu
+
+better onboarding and tutorial
+
+better readme instructions
+
+reminder for dashes and heals if they are not used ? 
+
+more enemies and more attacks (design them)
