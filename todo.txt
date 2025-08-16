@@ -27,7 +27,7 @@ add aiming => done
 
 make enemies cycle in and out => when enemy dies make a new enemy appear => done but with no transition so it's a bit weird
 
-make exp and health augmenting (base for upgrades) => implemented with no messaging on level up
+make exp and health augmenting (base for upgrades) => implemented with no messaging on level up => has level up message now
 
 add text display on right as logs (or just info) => X
 
@@ -48,6 +48,8 @@ exp bar => done
 monster leveling => done but maybe will need rebalancing one day
 
 save file system => savefiles are implemented but without a confirmation menu
+
+phase 3:
 
 better onboarding and tutorial
 
