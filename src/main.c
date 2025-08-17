@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include <unistd.h>
 
 #include "enemy.h"
 #include "display.h"
