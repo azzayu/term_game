@@ -5,9 +5,9 @@
 #include "dyn_array.h"
 #include "structs.h"
 
-#define NB_ENEMY_TYPES 4
+#define NB_ENEMY_TYPES 9
 
-void add_attack(screen_section play_area, enemy current_enemy, dyn_array *tab, int current_turn);
+void add_attack(screen_section play_area, enemy current_enemy, dyn_array *tab, player prota, int current_turn);
 
 void update_attacks(pixel **screen, player *prota, screen_section play_area, dyn_array *tab, int current_turn);
 

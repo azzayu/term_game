@@ -11,4 +11,14 @@ enemy create_enemy_dragon(int enemies_defeated);
 
 enemy create_enemy_possessed_tree(int enemies_defeated);
 
+enemy create_enemy_golem(int enemies_defeated);
+
+enemy create_enemy_sea_serpent(int enemies_defeated);
+
+enemy create_enemy_mystery(int enemies_defeated);
+
+enemy create_enemy_arch_mage(int enemies_defeated);
+
+enemy create_enemy_shaman(int enemies_defeated);
+
 #endif

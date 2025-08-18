@@ -56,19 +56,39 @@ enum enemy_types_names
     DARK_KNIGHT = 0,
     POSSESSED_TREE = 1,
     DARK_MAGE = 2,
-    DRAGON = 3
+    DRAGON = 3,
+    GOLEM = 4,
+    SEA_SERPENT = 5,
+    MYSTERY = 6,
+    ARCH_MAGE = 7,
+    SHAMAN = 8
 };
 
 enum attack_types
 {
-    SLASH = 0,
-    SPIKES = 1,
-    METEOR = 2,
-    BOUNCY_BALL = 3,
-    TWINKLES = 4,
-    STAB = 5,
-    TAIL_SLAP = 6,
-    FIRE_BREATH = 7
+    SLASH = 0,          // dark_knight,
+    SPIKES = 1,         // possessed_tree, golem
+    METEOR = 2,         // dark_mage, possessed_tree, golem
+    BOUNCY_BALL = 3,    // dark_mage,
+    TWINKLES = 4,       // dark_mage, dragon, possessed_tree
+    STAB = 5,           // dark_knight,
+    TAIL_SLAP = 6,      // dragon
+    FIRE_BREATH = 7,    // dragon
+    SMALL_SMASH = 8,    // golem
+    BIG_SMASH = 9,      // golem
+    SIMPLE_SPIRAL = 10, // sea_serpent
+    DOUBLE_SPIRAL = 11, // sea_serpent
+    WAVE = 12,          // sea_serpent, shaman
+    DIRECT_SLASH = 13,  // dark_knight,
+    CLOSE_IN = 14,      // arch_mage
+    CRUMBLE = 15,       // golem
+    SHATTER = 16,       // arch_mage
+    MIST = 17,          // sea_serpent, mystery
+    EXPLOSION = 18,     // arch_mage
+    TETRIS_FALL = 19,   // mystery
+    PLAYER_CIRCLE = 20, // arch_mage, shaman
+    PLAYER_SQUARE = 21, // arch_mage, shaman
+    SNAKE = 22          // shaman
 };
 
 typedef struct enemy_type_s

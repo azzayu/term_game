@@ -124,6 +124,30 @@ void update_enemy_name(text_section *name_place, enemy monster)
 		copy("Possessed Tree", name_place->text, 14);
 		name_place->length = 14;
 		break;
+	case GOLEM:
+		copy("Golem", name_place->text, 5);
+		name_place->length = 5;
+		break;
+	case SEA_SERPENT:
+		copy("Sea Serpent", name_place->text, 11);
+		name_place->length = 11;
+		break;
+	case MYSTERY:
+		copy("Mystery", name_place->text, 7);
+		name_place->length = 7;
+		break;
+	case ARCH_MAGE:
+		copy("Arch Mage", name_place->text, 9);
+		name_place->length = 9;
+		break;
+	case SHAMAN:
+		copy("Shaman", name_place->text, 6);
+		name_place->length = 6;
+		break;
+	default:
+		copy("NO NAME ERROR", name_place->text, 14);
+		name_place->length = 14;
+		break;
 	}
 }
 
@@ -172,7 +196,7 @@ void append_attack(dyn_array *tab, int x, int y, int turn, int damage)
 	append(tab, new_attack);
 }
 
-void add_attack(screen_section play_area, enemy current_enemy, dyn_array *tab, int current_turn)
+void add_attack(screen_section play_area, enemy current_enemy, dyn_array *tab, player prota, int current_turn)
 {
 	enum attack_types chosen_attack = choose_attack(current_enemy.enemy_type);
 	switch (chosen_attack)
@@ -200,6 +224,53 @@ void add_attack(screen_section play_area, enemy current_enemy, dyn_array *tab, i
 		break;
 	case FIRE_BREATH:
 		fire_breath_attack(play_area, current_enemy, tab, current_turn);
+		break;
+	case SMALL_SMASH:
+		small_smash_attack(play_area, current_enemy, tab, current_turn);
+		break;
+	case BIG_SMASH:
+		big_smash_attack(play_area, current_enemy, tab, current_turn);
+		break;
+	case SIMPLE_SPIRAL:
+		simple_spiral_attack(play_area, current_enemy, tab, current_turn);
+		break;
+	case DOUBLE_SPIRAL:
+		double_spiral_attack(play_area, current_enemy, tab, current_turn);
+		break;
+	case WAVE:
+		wave_attack(play_area, current_enemy, tab, current_turn);
+		break;
+	case DIRECT_SLASH:
+		direct_slash_attack(play_area, current_enemy, tab, prota, current_turn);
+		break;
+	case CLOSE_IN:
+		close_in_attack(play_area, current_enemy, tab, prota, current_turn);
+		break;
+	case CRUMBLE:
+		crumble_attack(play_area, current_enemy, tab, current_turn);
+		break;
+	case SHATTER:
+		shatter_attack(play_area, current_enemy, tab, current_turn);
+		break;
+	case MIST:
+		mist_attack(play_area, current_enemy, tab, current_turn);
+		break;
+	case EXPLOSION:
+		explosion_attack(play_area, current_enemy, tab, current_turn);
+		break;
+	case TETRIS_FALL:
+		tetris_fall_attack(play_area, current_enemy, tab, current_turn);
+		break;
+	case PLAYER_CIRCLE:
+		player_circle_attack(play_area, current_enemy, tab, prota, current_turn);
+		break;
+	case PLAYER_SQUARE:
+		player_square_attack(play_area, current_enemy, tab, prota, current_turn);
+		break;
+	case SNAKE:
+		snake_attack(play_area, current_enemy, tab, current_turn);
+		break;
+	default:
 		break;
 	}
 	sort(tab);
@@ -266,6 +337,16 @@ enemy create_enemy(pixel **screen, screen_section enemy_locations[3], int enemie
 		return create_enemy_dragon(enemies_defeated);
 	case POSSESSED_TREE:
 		return create_enemy_possessed_tree(enemies_defeated);
+	case GOLEM:
+		return create_enemy_golem(enemies_defeated);
+	case SEA_SERPENT:
+		return create_enemy_sea_serpent(enemies_defeated);
+	case MYSTERY:
+		return create_enemy_mystery(enemies_defeated);
+	case ARCH_MAGE:
+		return create_enemy_arch_mage(enemies_defeated);
+	case SHAMAN:
+		return create_enemy_shaman(enemies_defeated);
 	default:
 		return create_enemy_dark_knight(enemies_defeated);
 	}

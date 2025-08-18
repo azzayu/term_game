@@ -200,7 +200,7 @@ int main(int argc, char **argv)
 			{
 				turn += 1;
 				update_attacks(screen, prota, play_area, &tab, turn);
-				add_attack(play_area, current_enemy, &tab, turn);
+				add_attack(play_area, current_enemy, &tab, *prota, turn);
 				update_health_bar(screen, *prota, health_bar);
 				update_stamina_bar(screen, *prota, stamina_bar);
 				update_enemy_health_bar(screen, current_enemy, enemy_health);

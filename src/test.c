@@ -107,7 +107,6 @@ void play_out_attack(pixel **screen, player prota, screen_section play_area, dyn
             turn += 1;
             sort(tab);
             update_attacks(screen, &prota, play_area, tab, turn);
-            sort(tab);
             print_screen(screen, width, height, all_text);
             // printf("turn : %i \n", turn);
             // print_dyn_array(*tab);
@@ -210,6 +209,8 @@ void see_all_attacks(char **argv)
 
     print_screen(screen, width, height, all_text);
 
+    /*
+
     printf("test slash_attack \n");
     current_enemy = create_enemy_dark_knight(0);
     slash_attack(play_area, current_enemy, &tab, turn);
@@ -248,6 +249,83 @@ void see_all_attacks(char **argv)
     printf("test fire_breath_attack \n");
     current_enemy = create_enemy_dragon(0);
     fire_breath_attack(play_area, current_enemy, &tab, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test small_smash attack \n");
+    current_enemy = create_enemy_golem(0);
+    small_smash_attack(play_area, current_enemy, &tab, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test big_smash attack \n");
+    current_enemy = create_enemy_golem(0);
+    big_smash_attack(play_area, current_enemy, &tab, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test simple_spiral attack \n");
+    current_enemy = create_enemy_sea_serpent(0);
+    simple_spiral_attack(play_area, current_enemy, &tab, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test double_spiral attack \n");
+    current_enemy = create_enemy_sea_serpent(0);
+    double_spiral_attack(play_area, current_enemy, &tab, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test wave attack \n");
+    current_enemy = create_enemy_sea_serpent(0);
+    wave_attack(play_area, current_enemy, &tab, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test direct_slash attack \n");
+    current_enemy = create_dark_knight(0);
+    direct_slash_attack(play_area, current_enemy, &tab, *prota, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test close_in attack \n");
+    current_enemy = create_enemy_arch_mage(0);
+    close_in_attack(play_area, current_enemy, &tab, *prota, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test crumble attack \n");
+    current_enemy = create_enemy_golem(0);
+    crumble_attack(play_area, current_enemy, &tab, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test shatter attack \n");
+    current_enemy = create_enemy_arch_mage(0);
+    shatter_attack(play_area, current_enemy, &tab, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test mist attack \n");
+    current_enemy = create_enemy_sea_serpent(0);
+    mist_attack(play_area, current_enemy, &tab, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test explosion attack \n");
+    current_enemy = create_enemy_arch_mage(0);
+    explosion_attack(play_area, current_enemy, &tab, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test tetris_fall attack \n");
+    current_enemy = create_enemy_mystery(0);
+    tetris_fall_attack(play_area, current_enemy, &tab, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test player_circle attack \n");
+    current_enemy = create_enemy_arch_mage(0);
+    player_circle_attack(play_area, current_enemy, &tab, *prota, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+    
+    */
+
+    printf("test square_circle attack \n");
+    current_enemy = create_enemy_arch_mage(0);
+    player_square_attack(play_area, current_enemy, &tab, *prota, turn);
+    play_out_attack(screen, *prota, play_area, &tab);
+
+    printf("test snake attack \n");
+    current_enemy = create_enemy_shaman(0);
+    snake_attack(play_area, current_enemy, &tab, turn);
     play_out_attack(screen, *prota, play_area, &tab);
 }
 
