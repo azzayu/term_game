@@ -465,7 +465,7 @@ void crumble_attack(screen_section play_area, enemy current_enemy, dyn_array *ta
 {
 	int damage = get_attack_damage(current_enemy, CRUMBLE);
 
-	for (int x = play_area.x_min + 9 * current_enemy.location + 1; x <= play_area.x_min + 9 * (1 + current_enemy.location); x++)
+	for (int x = play_area.x_min + 9 * current_enemy.location; x <= play_area.x_min + 9 * (1 + current_enemy.location); x++)
 	{
 		for (int y = play_area.y_min; y < play_area.y_max; y += 3)
 		{
