@@ -184,7 +184,7 @@ enemy create_enemy_golem(int enemies_defeated)
 	type_golem.attack_damages[3] = 2 * (1 + (double)golem.level / 3.0);
 	type_golem.attack_damages[4] = 2 * (1 + (double)golem.level / 3.0);
 
-	type_golem.enemy_move_chance = 15;
+	type_golem.enemy_move_chance = 7;
 
 	type_golem.base_exp_reward = 4 * (1 + (double)golem.level / 2.0);
 
@@ -287,13 +287,13 @@ enemy create_enemy_arch_mage(int enemies_defeated)
 	type_arch_mage.attack_codes[1] = SHATTER;
 	type_arch_mage.attack_codes[2] = EXPLOSION;
 	type_arch_mage.attack_codes[3] = PLAYER_CIRCLE;
-	type_arch_mage.attack_codes[4] = PLAYER_SQUARE;
+	type_arch_mage.attack_codes[4] = BOUNCY_BALL;
 
 	type_arch_mage.attack_weights[0] = 1;
-	type_arch_mage.attack_weights[1] = 1;
-	type_arch_mage.attack_weights[2] = 1;
+	type_arch_mage.attack_weights[1] = 3;
+	type_arch_mage.attack_weights[2] = 2;
 	type_arch_mage.attack_weights[3] = 1;
-	type_arch_mage.attack_weights[4] = 1;
+	type_arch_mage.attack_weights[4] = 2;
 
 	type_arch_mage.attack_damages[0] = 3 * (1 + (double)arch_mage.level / 3.0);
 	type_arch_mage.attack_damages[1] = 3 * (1 + (double)arch_mage.level / 3.0);
@@ -326,17 +326,17 @@ enemy create_enemy_shaman(int enemies_defeated)
 
 	type_shaman.different_attacks = 4;
 
-	type_shaman.attack_codes[0] = PLAYER_CIRCLE;
+	type_shaman.attack_codes[0] = TAIL_SLAP;
 	type_shaman.attack_codes[1] = PLAYER_SQUARE;
 	type_shaman.attack_codes[2] = SNAKE;
 	type_shaman.attack_codes[3] = WAVE;
 
-	type_shaman.attack_weights[0] = 1;
+	type_shaman.attack_weights[0] = 3;
 	type_shaman.attack_weights[1] = 1;
 	type_shaman.attack_weights[2] = 2;
 	type_shaman.attack_weights[3] = 3;
 
-	type_shaman.attack_damages[0] = 1 * (1 + (double)shaman.level / 3.0);
+	type_shaman.attack_damages[0] = 2 * (1 + (double)shaman.level / 3.0);
 	type_shaman.attack_damages[1] = 1 * (1 + (double)shaman.level / 3.0);
 	type_shaman.attack_damages[2] = 2 * (1 + (double)shaman.level / 3.0);
 	type_shaman.attack_damages[3] = 1 * (1 + (double)shaman.level / 3.0);

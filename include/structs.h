@@ -69,10 +69,10 @@ enum attack_types
     SLASH = 0,          // dark_knight,
     SPIKES = 1,         // possessed_tree, golem
     METEOR = 2,         // dark_mage, possessed_tree, golem
-    BOUNCY_BALL = 3,    // dark_mage,
+    BOUNCY_BALL = 3,    // dark_mage, arch_mage
     TWINKLES = 4,       // dark_mage, dragon, possessed_tree
     STAB = 5,           // dark_knight,
-    TAIL_SLAP = 6,      // dragon
+    TAIL_SLAP = 6,      // dragon, shaman
     FIRE_BREATH = 7,    // dragon
     SMALL_SMASH = 8,    // golem
     BIG_SMASH = 9,      // golem
@@ -86,8 +86,8 @@ enum attack_types
     MIST = 17,          // sea_serpent, mystery
     EXPLOSION = 18,     // arch_mage
     TETRIS_FALL = 19,   // mystery
-    PLAYER_CIRCLE = 20, // arch_mage, shaman
-    PLAYER_SQUARE = 21, // arch_mage, shaman
+    PLAYER_CIRCLE = 20, // arch_mage
+    PLAYER_SQUARE = 21, // shaman
     SNAKE = 22          // shaman
 };
 

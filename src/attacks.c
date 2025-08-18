@@ -465,7 +465,7 @@ void crumble_attack(screen_section play_area, enemy current_enemy, dyn_array *ta
 {
 	int damage = get_attack_damage(current_enemy, CRUMBLE);
 
-	for (int x = play_area.x_min + 9 * current_enemy.location; x < play_area.x_min + 9 * (1 + current_enemy.location); x++)
+	for (int x = play_area.x_min + 9 * current_enemy.location + 1; x <= play_area.x_min + 9 * (1 + current_enemy.location); x++)
 	{
 		for (int y = play_area.y_min; y < play_area.y_max; y += 3)
 		{
@@ -654,11 +654,13 @@ void tetris_fall_attack(screen_section play_area, enemy current_enemy, dyn_array
 		{{1, 1, 0, 0}, {1, 0, 0, 0}, {1, 0, 0, 0}, {0, 0, 0, 0}},
 	};
 
+	int pattern_y_offset[18] = {1, 4, 2, 2, 3, 3, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 3, 3};
+
 	int step = 0;
 
 	int pattern = rand() % 18;
 
-	for (int y = play_area.y_min; y < play_area.y_max; y++)
+	for (int y = play_area.y_min; y < play_area.y_max; y += pattern_y_offset[pattern])
 	{
 		for (int pattern_x = 0; pattern_x < 4; pattern_x++)
 		{
