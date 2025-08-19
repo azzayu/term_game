@@ -531,11 +531,6 @@ void shatter_attack(screen_section play_area, enemy current_enemy, dyn_array *ta
 			break;
 		}
 
-		while (x_end == x_start)
-		{
-			x_end = rand() % play_area.width + play_area.x_min;
-		}
-
 		double slope = (double)(y_end - y_start) / (double)(x_end - x_start);
 
 		for (int x = play_area.x_min; x < play_area.x_max; x++)
