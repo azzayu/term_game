@@ -531,23 +531,71 @@ void shatter_attack(screen_section play_area, enemy current_enemy, dyn_array *ta
 			break;
 		}
 
-		double slope = (double)(y_end - y_start) / (double)(x_end - x_start);
+		int x = x_start;
+		int y = y_start;
 
-		for (int x = play_area.x_min; x < play_area.x_max; x++)
+		int step = 0;
+
+		while (x != x_end || y != y_end)
 		{
-			if (x == x_start)
+
+			append_attack(tab, x, y, current_turn + 4 + (step / 3), damage);
+
+			int best_x = x;
+			int best_y = y;
+
+			int best_distance = distance_2(x, y, x_end, y_end);
+
+			for (int is_best_x = x - 1; is_best_x <= x + 1; is_best_x++)
 			{
-				continue;
-			}
-			for (int y = play_area.y_min; y < play_area.y_max; y++)
-			{
-				double current_slope = (double)(y - y_start) / (double)(x - x_start);
-				if (double_abs(current_slope - slope) < 0.1)
+				for (int is_best_y = y - 1; is_best_y <= y + 1; is_best_y++)
 				{
-					int distance = sqrt(distance_2(x, y, x_start, y_start));
-					append_attack(tab, x, y, current_turn + 4 + distance, damage);
+					int is_best_distance = distance_2(is_best_x, is_best_y, x_end, y_end);
+					if (is_best_distance < best_distance)
+					{
+						best_x = is_best_x;
+						best_y = is_best_y;
+						best_distance = is_best_distance;
+					}
 				}
 			}
+
+			x = best_x;
+			y = best_y;
+			step++;
+		}
+
+		step = 0;
+		x = x_end;
+		y = y_end;
+
+		while (x != x_start || y != y_start)
+		{
+
+			append_attack(tab, x, y, current_turn + 4 + (step / 3), damage);
+
+			int best_x = x;
+			int best_y = y;
+
+			int best_distance = distance_2(x, y, x_start, y_start);
+
+			for (int is_best_x = x - 1; is_best_x <= x + 1; is_best_x++)
+			{
+				for (int is_best_y = y - 1; is_best_y <= y + 1; is_best_y++)
+				{
+					int is_best_distance = distance_2(is_best_x, is_best_y, x_start, y_start);
+					if (is_best_distance < best_distance)
+					{
+						best_x = is_best_x;
+						best_y = is_best_y;
+						best_distance = is_best_distance;
+					}
+				}
+			}
+
+			x = best_x;
+			y = best_y;
+			step++;
 		}
 	}
 }

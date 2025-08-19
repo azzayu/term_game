@@ -291,10 +291,14 @@ void see_all_attacks(char **argv)
     crumble_attack(play_area, current_enemy, &tab, turn);
     play_out_attack(screen, *prota, play_area, &tab);
 
+    */
+
     printf("test shatter attack \n");
     current_enemy = create_enemy_arch_mage(0);
     shatter_attack(play_area, current_enemy, &tab, turn);
     play_out_attack(screen, *prota, play_area, &tab);
+
+    /*
 
     printf("test mist attack \n");
     current_enemy = create_enemy_sea_serpent(0);
@@ -315,8 +319,6 @@ void see_all_attacks(char **argv)
     current_enemy = create_enemy_arch_mage(0);
     player_circle_attack(play_area, current_enemy, &tab, *prota, turn);
     play_out_attack(screen, *prota, play_area, &tab);
-    
-    */
 
     printf("test square_circle attack \n");
     current_enemy = create_enemy_arch_mage(0);
@@ -327,6 +329,8 @@ void see_all_attacks(char **argv)
     current_enemy = create_enemy_shaman(0);
     snake_attack(play_area, current_enemy, &tab, turn);
     play_out_attack(screen, *prota, play_area, &tab);
+
+    */
 }
 
 int main(int argc, char **argv)
@@ -335,6 +339,7 @@ int main(int argc, char **argv)
     if (argc == 2)
     {
         see_all_attacks(argv);
+        return EXIT_SUCCESS;
     }
 
     dyn_array tab = create_empty_dyn_array();
