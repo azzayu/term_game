@@ -53,10 +53,14 @@ phase 3:
 
 better onboarding and tutorial
 
-better readme instructions
+better readme instructions => done
 
 reminder for dashes and heals if they are not used ? 
 
 more enemies and more attacks (design them) => some attacks and enemies and attacks were added
 
 make attack being added to the queue always go through a check with play area
+
+store current enemy in savefile
+
+save between each move?
