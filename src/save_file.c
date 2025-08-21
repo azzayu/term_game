@@ -2,6 +2,7 @@
 #include "save_file_cst.h"
 #include "structs.h"
 #include "player.h"
+#include "display_cst.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -27,6 +28,171 @@ player initialise_new_player(screen_section play_area)
     return prota;
 }
 
+void check_with_player(game_state game)
+{
+    printf("loaded a save file with %i enemies defeated \n", game.enemies_defeated);
+    printf("and with a protagonist with %i/%i health and %i/%i stamina \n", game.prota->health, game.prota->max_health, game.prota->stamina, game.prota->max_stamina);
+    printf("that is level : %i and has %i exp \n", game.prota->level, game.prota->exp);
+
+    printf("does that seem correct to you? enter y for YES or n for NO \n");
+
+    char input = getchar();
+
+    while (input != 'y')
+    {
+        if (input == 'n')
+        {
+            fprintf(stderr, "incorrect save file \n");
+            exit(EXIT_FAILURE);
+        }
+        if (input == '\n')
+        {
+            input = getchar();
+            continue;
+        }
+        printf("enter y for YES or n for NO \n");
+        input = getchar();
+    }
+}
+
+void tutorial()
+{
+
+    printf("it seems this play file is new do you wish to go through a tutorial? \n");
+    printf("enter y for YES or n for NO \n");
+
+    char input = getchar();
+
+    while (input != 'y')
+    {
+        if (input == 'n')
+        {
+            return;
+        }
+        if (input == '\n')
+        {
+            input = getchar();
+            continue;
+        }
+        printf("enter y for YES or n for NO \n");
+        input = getchar();
+    }
+
+    input = getchar();
+
+    printf("starting tutorial \n");
+
+    printf("You will notice the screen is split in 2 halves, the top half is the heads up display where helpful information is available to you, \n");
+    printf("the bottom half is the play area. The heads up display contains the enemy type on the top left, \n");
+    printf("your current exp progress to the next level, your health bar and stamina bar, \n");
+    printf("and finally the enemy health, location, and which area you are targetting. the enemy is displayed by the small double rectangle asciii art, \n");
+    printf("while where you are aiming is indicated by the colour of the frame (you're aiming at the yellow frame), \n");
+    printf("to attack the enemy aim at it using 'a' or 'e' to align the yellow frame with the enemy location then attack with 'r'. \n");
+
+    printf("press ENTER to continue \n");
+
+    input = getchar();
+
+    while (input != '\n')
+    {
+        input = getchar();
+    }
+
+    printf("for the bottom part of the screen you are the yellow square \n");
+
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+
+    printf("%spressing 'z' then ENTER will make you go up \n", WHITE);
+
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+
+    printf("%s'd'\n", WHITE);
+
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+
+    printf("%s's'\n", WHITE);
+
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+
+    printf("%s'q'\n", WHITE);
+
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+
+    printf("%spress ENTER to continue\n", WHITE);
+
+    input = getchar();
+
+    while (input != '\n')
+    {
+        input = getchar();
+    }
+
+    printf("you have to use these controls in order to dodge attacks \n");
+    printf("printf attacks are shown using : \n");
+    printf("%s%s%s for an iminent attack this means staying on this tile will hurt you \n", RED, FULL_BLOCK, WHITE);
+    printf("%s%s%s for an attack in 1 turn\n", RED, THREE_QUART_BLOCK, WHITE);
+    printf("%s%s%s for an attack in 2 turn \n", RED, HALF_BLOCK, WHITE);
+    printf("%s%s%s for an attack in 3 turn \n", RED, QUART_BLOCK, WHITE);
+
+    printf("%spress ENTER to continue\n", WHITE);
+
+    input = getchar();
+
+    while (input != '\n')
+    {
+        input = getchar();
+    }
+
+    printf("finally you can use 'c' to heal (careful this costs 10 stamina and passes 3 turns)\n");
+    printf("and if you find yourself in a tough position you can input 'f' to charge a dash then dash in which ever direction\n");
+
+    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, YELLOW, FULL_BLOCK, RED, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
+
+    printf("%s'fd'\n", WHITE);
+
+    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, YELLOW, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
+
+    printf("%spress ENTER to continue\n", WHITE);
+
+    input = getchar();
+
+    while (input != '\n')
+    {
+        input = getchar();
+    }
+
+    printf("That is all you need to know to start playing\n ");
+    printf("I suggest studying carefully each enemies different attack patterns and move chances in order to better eliminate them.\n");
+    printf("That and to have tons of fun!\n");
+
+    printf("%spress ENTER to finish this tutorial\n", WHITE);
+
+    input = getchar();
+
+    while (input != '\n')
+    {
+        input = getchar();
+    }
+}
+
 game_state load_from_file(char *save_file_name)
 {
     game_state game;
@@ -49,6 +215,7 @@ game_state load_from_file(char *save_file_name)
     if (save_file == NULL)
     {
         printf("save file not found creating new save file \n");
+        tutorial();
         return game;
     }
 
@@ -120,9 +287,12 @@ game_state load_from_file(char *save_file_name)
         game.prota->exp = game.prota->exp_to_next_level;
     }
 
-    printf("loaded a save file with %i enemies defeated \n", game.enemies_defeated);
-    printf("and with a protagonist with %i/%i health and %i/%i stamina \n", game.prota->health, game.prota->max_health, game.prota->stamina, game.prota->max_stamina);
-    printf("that is level : %i and has %i exp \n", game.prota->level, game.prota->exp);
+    if (game.enemies_defeated == 0)
+    {
+        tutorial();
+    }
+
+    check_with_player(game);
 
     return game;
 }

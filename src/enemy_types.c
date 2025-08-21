@@ -286,14 +286,14 @@ enemy create_enemy_arch_mage(int enemies_defeated)
 	type_arch_mage.attack_codes[0] = CLOSE_IN;
 	type_arch_mage.attack_codes[1] = SHATTER;
 	type_arch_mage.attack_codes[2] = EXPLOSION;
-	type_arch_mage.attack_codes[3] = PLAYER_CIRCLE;
+	type_arch_mage.attack_codes[3] = PLAYER_CIRCLE; // replace with a heal
 	type_arch_mage.attack_codes[4] = BOUNCY_BALL;
 
 	type_arch_mage.attack_weights[0] = 1;
 	type_arch_mage.attack_weights[1] = 3;
 	type_arch_mage.attack_weights[2] = 2;
 	type_arch_mage.attack_weights[3] = 1;
-	type_arch_mage.attack_weights[4] = 2;
+	type_arch_mage.attack_weights[4] = 3;
 
 	type_arch_mage.attack_damages[0] = 3 * (1 + (double)arch_mage.level / 3.0);
 	type_arch_mage.attack_damages[1] = 3 * (1 + (double)arch_mage.level / 3.0);

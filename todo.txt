@@ -51,16 +51,12 @@ save file system => savefiles are implemented but without a confirmation menu
 
 phase 3:
 
-better onboarding and tutorial
+better onboarding and tutorial => first attempt of it done
 
 better readme instructions => done
 
 reminder for dashes and heals if they are not used ? 
 
-more enemies and more attacks (design them) => some attacks and enemies and attacks were added
+more enemies and more attacks (design them) => some attacks and enemies and attacks were added => some ajusting has been done
 
 make attack being added to the queue always go through a check with play area
-
-store current enemy in savefile
-
-save between each move?
