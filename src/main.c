@@ -230,6 +230,10 @@ int main(int argc, char **argv)
 			printf("you leveled up! level : %i -> %i\n", current_level, prota->level);
 		}
 
+		if (prota->health < prota->max_health){
+			printf("reminder you can heal using 'c' \n");
+		}
+
 		printf("You won enter q to quit and save and c to continue and save\n");
 
 		int chose_to_continue = 1;
