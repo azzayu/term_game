@@ -59,4 +59,4 @@ reminder for dashes and heals if they are not used ? => only heal reminder is in
 
 more enemies and more attacks (design them) => some attacks and enemies and attacks were added => some ajusting has been done
 
-make attack being added to the queue always go through a check with play area
+make attack being added to the queue always go through a check with play area => done

@@ -186,14 +186,17 @@ int get_attack_damage(enemy current_enemy, enum attack_types attack)
 	return 1;
 }
 
-void append_attack(dyn_array *tab, int x, int y, int turn, int damage)
+void append_attack(screen_section play_area, dyn_array *tab, int x, int y, int turn, int damage)
 {
-	attack new_attack;
-	new_attack.x = x;
-	new_attack.y = y;
-	new_attack.turn = turn;
-	new_attack.damage = damage;
-	append(tab, new_attack);
+	if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max)
+	{
+		attack new_attack;
+		new_attack.x = x;
+		new_attack.y = y;
+		new_attack.turn = turn;
+		new_attack.damage = damage;
+		append(tab, new_attack);
+	}
 }
 
 void add_attack(screen_section play_area, enemy current_enemy, dyn_array *tab, player prota, int current_turn)

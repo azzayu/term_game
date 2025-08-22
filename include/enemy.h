@@ -23,6 +23,6 @@ void clear_attacks(pixel **screen, screen_section play_area, dyn_array *tab);
 
 int get_attack_damage(enemy current_enemy, enum attack_types attack);
 
-void append_attack(dyn_array *tab, int x, int y, int turn, int damage);
+void append_attack(screen_section play_area, dyn_array *tab, int x, int y, int turn, int damage);
 
 #endif
