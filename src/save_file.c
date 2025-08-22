@@ -154,7 +154,7 @@ void tutorial()
     }
 
     printf("finally you can use 'c' to heal (careful this costs 10 stamina and passes 3 turns)\n");
-    printf("and if you find yourself in a tough position you can input 'f' to charge a dash then dash in which ever direction\n");
+    printf("and if you find yourself in a tough position you can input 'f' to charge a dash (for 5 stamina) then dash in which ever direction\n");
 
     printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
     printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
