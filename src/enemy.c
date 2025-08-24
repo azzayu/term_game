@@ -53,7 +53,7 @@ void update_attacks(pixel **screen, player *prota, screen_section play_area, dyn
 
 	int i = tab->size - 1;
 
-	while (tab->attack_queue[i].turn - current_turn < 5 && i > 0)
+	while (tab->attack_queue[i].turn - current_turn < 5 && i >= 0)
 	{
 		screen[tab->attack_queue[i].y][tab->attack_queue[i].x].layer[LAYER_ATTACK_IN0 - 1 + tab->attack_queue[i].turn - current_turn] = 1;
 		i--;
