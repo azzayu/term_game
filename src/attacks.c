@@ -35,11 +35,11 @@ void slash_attack(screen_section play_area, enemy current_enemy, dyn_array *tab,
 	{
 		if (left_right)
 		{
-			append_attack(play_area, tab, x, line + play_area.y_min, current_turn + 4 + ((x - play_area.x_min) / 2), damage);
+			append_attack(play_area, tab, x, line + play_area.y_min, current_turn + 5 + ((x - play_area.x_min) / 2), damage);
 		}
 		else
 		{
-			append_attack(play_area, tab, play_area.x_max - x + play_area.x_min - 1, line + play_area.y_min, current_turn + 4 + (x - play_area.x_min) / 2, damage);
+			append_attack(play_area, tab, play_area.x_max - x + play_area.x_min - 1, line + play_area.y_min, current_turn + 5 + (x - play_area.x_min) / 2, damage);
 		}
 	}
 }
@@ -51,7 +51,7 @@ void spike_attack(screen_section play_area, enemy current_enemy, dyn_array *tab,
 	int column = rand() % play_area.width;
 	for (int y = play_area.y_min; y <= play_area.y_max; y++)
 	{
-		append_attack(play_area, tab, play_area.x_min + column, play_area.y_max - y + play_area.y_min - 1, current_turn + 4 + y - play_area.y_min, damage);
+		append_attack(play_area, tab, play_area.x_min + column, play_area.y_max - y + play_area.y_min - 1, current_turn + 5 + y - play_area.y_min, damage);
 	}
 }
 
@@ -62,7 +62,7 @@ void meteor_attack(screen_section play_area, enemy current_enemy, dyn_array *tab
 	int column = rand() % play_area.width;
 	for (int y = play_area.y_min; y <= play_area.y_max; y++)
 	{
-		append_attack(play_area, tab, play_area.x_min + column, y, current_turn + 4 + y - play_area.y_min, damage);
+		append_attack(play_area, tab, play_area.x_min + column, y, current_turn + 5 + y - play_area.y_min, damage);
 	}
 }
 
@@ -82,7 +82,7 @@ void bouncy_ball(screen_section play_area, enemy current_enemy, dyn_array *tab, 
 			for (int y_off_set = 0; y_off_set < 2; y_off_set++)
 			{
 
-				append_attack(play_area, tab, x + x_off_set, y + y_off_set, current_turn + i + 4, damage);
+				append_attack(play_area, tab, x + x_off_set, y + y_off_set, current_turn + i + 5, damage);
 			}
 		}
 
@@ -121,10 +121,10 @@ void twinkles_attack(screen_section play_area, enemy current_enemy, dyn_array *t
 			for (int y = -1; y < 2; y++)
 			{
 
-				append_attack(play_area, tab, x + x_center, y + y_center, current_turn + 5, damage);
+				append_attack(play_area, tab, x + x_center, y + y_center, current_turn + 6, damage);
 			}
 		}
-		append_attack(play_area, tab, x_center, y_center, current_turn + 4, damage);
+		append_attack(play_area, tab, x_center, y_center, current_turn + 5, damage);
 	}
 }
 
@@ -146,7 +146,7 @@ void stab_attack(screen_section play_area, enemy current_enemy, dyn_array *tab, 
 		append_attack(play_area, tab, x_center, y_center + y, current_turn + 5, damage);
 	}
 
-	append_attack(play_area, tab, x_center, y_center, current_turn + 4, damage);
+	append_attack(play_area, tab, x_center, y_center, current_turn + 5, damage);
 }
 
 void tail_slap_attack(screen_section play_area, enemy current_enemy, dyn_array *tab, int current_turn)
@@ -162,11 +162,11 @@ void tail_slap_attack(screen_section play_area, enemy current_enemy, dyn_array *
 		{
 			if (left_right)
 			{
-				append_attack(play_area, tab, x, line + play_area.y_min + y, current_turn + 4 + (x - play_area.x_min) / 2, damage);
+				append_attack(play_area, tab, x, line + play_area.y_min + y, current_turn + 5 + (x - play_area.x_min) / 2, damage);
 			}
 			else
 			{
-				append_attack(play_area, tab, play_area.x_max - x + play_area.x_min, line + play_area.y_min + y, current_turn + 4 + (x - play_area.x_min) / 2, damage);
+				append_attack(play_area, tab, play_area.x_max - x + play_area.x_min, line + play_area.y_min + y, current_turn + 5 + (x - play_area.x_min) / 2, damage);
 			}
 		}
 	}
@@ -188,7 +188,7 @@ void fire_breath_attack(screen_section play_area, enemy current_enemy, dyn_array
 
 				if (distance_2(x, y, center_x + play_area.x_min, center_y + play_area.y_min) < radius * radius)
 				{
-					append_attack(play_area, tab, x, y, current_turn + radius + 4, damage);
+					append_attack(play_area, tab, x, y, current_turn + radius + 5, damage);
 				}
 			}
 		}
@@ -213,7 +213,7 @@ void small_smash_attack(screen_section play_area, enemy current_enemy, dyn_array
 				{
 					if (distance_2(x, y, center_x + play_area.x_min, center_y + play_area.y_min) >= (radius - 1) * (radius - 1))
 					{
-						append_attack(play_area, tab, x, y, current_turn + radius + 4, damage);
+						append_attack(play_area, tab, x, y, current_turn + radius + 5, damage);
 					}
 				}
 			}
@@ -239,7 +239,7 @@ void big_smash_attack(screen_section play_area, enemy current_enemy, dyn_array *
 				{
 					if (distance_2(x, y, center_x + play_area.x_min, center_y + play_area.y_min) >= (radius - 1) * (radius - 1))
 					{
-						append_attack(play_area, tab, x, y, current_turn + (radius / 2) + 4, damage);
+						append_attack(play_area, tab, x, y, current_turn + (radius / 2) + 5, damage);
 					}
 				}
 			}
@@ -277,7 +277,7 @@ void simple_spiral_attack(screen_section play_area, enemy current_enemy, dyn_arr
 
 			if (attack_pattern[y][x] != 0)
 			{
-				append_attack(play_area, tab, screen_x, screen_y, current_turn + 4 + attack_pattern[y][x], damage);
+				append_attack(play_area, tab, screen_x, screen_y, current_turn + 5 + attack_pattern[y][x], damage);
 			}
 		}
 	}
@@ -313,7 +313,7 @@ void double_spiral_attack(screen_section play_area, enemy current_enemy, dyn_arr
 
 			if (attack_pattern[y][x] != 0)
 			{
-				append_attack(play_area, tab, screen_x, screen_y, current_turn + 4 + attack_pattern[y][x], damage);
+				append_attack(play_area, tab, screen_x, screen_y, current_turn + 5 + attack_pattern[y][x], damage);
 			}
 		}
 	}
@@ -334,8 +334,8 @@ void wave_attack(screen_section play_area, enemy current_enemy, dyn_array *tab, 
 	{
 		int y = center_y + y_offset;
 
-		append_attack(play_area, tab, x, y, current_turn + 4 + counter, damage);
-		append_attack(play_area, tab, x + 1, y, current_turn + 4 + counter, damage);
+		append_attack(play_area, tab, x, y, current_turn + 5 + counter, damage);
+		append_attack(play_area, tab, x + 1, y, current_turn + 5 + counter, damage);
 
 		counter++;
 
@@ -403,7 +403,7 @@ void direct_slash_attack(screen_section play_area, enemy current_enemy, dyn_arra
 			if (double_abs(current_slope - slope) < 0.1)
 			{
 				int distance = sqrt(distance_2(x, y, x_start, y_start));
-				append_attack(play_area, tab, x, y, current_turn + 4 + distance, damage);
+				append_attack(play_area, tab, x, y, current_turn + 5 + distance, damage);
 			}
 		}
 	}
@@ -427,7 +427,7 @@ void close_in_attack(screen_section play_area, enemy current_enemy, dyn_array *t
 				{
 					if (distance_2(x, y, center_x, center_y) >= (radius - 1) * (radius - 1))
 					{
-						append_attack(play_area, tab, x, y, current_turn + (7 - radius) + 4, damage);
+						append_attack(play_area, tab, x, y, current_turn + (7 - radius) + 5, damage);
 					}
 				}
 			}
@@ -444,15 +444,15 @@ void crumble_attack(screen_section play_area, enemy current_enemy, dyn_array *ta
 		for (int y = play_area.y_min; y < play_area.y_max; y += 3)
 		{
 
-			append_attack(play_area, tab, x, y, current_turn + 4 + ((y - play_area.y_min) / 3), damage);
+			append_attack(play_area, tab, x, y, current_turn + 5 + ((y - play_area.y_min) / 3), damage);
 			if (y + 1 < play_area.y_max)
 			{
-				append_attack(play_area, tab, x, y + 1, current_turn + 4 + ((y - play_area.y_min) / 3), damage);
+				append_attack(play_area, tab, x, y + 1, current_turn + 5 + ((y - play_area.y_min) / 3), damage);
 			}
 			if (y + 2 < play_area.y_max)
 			{
 
-				append_attack(play_area, tab, x, y + 2, current_turn + 4 + ((y - play_area.y_min) / 3), damage);
+				append_attack(play_area, tab, x, y + 2, current_turn + 5 + ((y - play_area.y_min) / 3), damage);
 			}
 		}
 	}
@@ -511,7 +511,7 @@ void shatter_attack(screen_section play_area, enemy current_enemy, dyn_array *ta
 		while (x != x_end || y != y_end)
 		{
 
-			append_attack(play_area, tab, x, y, current_turn + 4 + (step / 3), damage);
+			append_attack(play_area, tab, x, y, current_turn + 5 + (step / 3), damage);
 
 			int best_x = x;
 			int best_y = y;
@@ -544,7 +544,7 @@ void shatter_attack(screen_section play_area, enemy current_enemy, dyn_array *ta
 		while (x != x_start || y != y_start)
 		{
 
-			append_attack(play_area, tab, x, y, current_turn + 4 + (step / 3), damage);
+			append_attack(play_area, tab, x, y, current_turn + 5 + (step / 3), damage);
 
 			int best_x = x;
 			int best_y = y;
@@ -580,7 +580,7 @@ void mist_attack(screen_section play_area, enemy current_enemy, dyn_array *tab, 
 	{
 		for (int y = play_area.y_min; y < play_area.y_max; y++)
 		{
-			append_attack(play_area, tab, x, y, current_turn + 4, damage);
+			append_attack(play_area, tab, x, y, current_turn + 5, damage);
 		}
 	}
 }
@@ -603,7 +603,7 @@ void explosion_attack(screen_section play_area, enemy current_enemy, dyn_array *
 				{
 					if (distance_2(x, y, center_x + play_area.x_min, center_y + play_area.y_min) >= (radius - 1) * (radius - 1))
 					{
-						append_attack(play_area, tab, x, y, current_turn + radius + 4, damage);
+						append_attack(play_area, tab, x, y, current_turn + radius + 5, damage);
 					}
 				}
 			}
@@ -621,7 +621,7 @@ void explosion_attack(screen_section play_area, enemy current_enemy, dyn_array *
 			{
 				if (distance_2(x, y, center_x + play_area.x_min, center_y + play_area.y_min) >= (radius - 1) * (radius - 1))
 				{
-					append_attack(play_area, tab, x, y, current_turn + radius + 4 - 1, damage);
+					append_attack(play_area, tab, x, y, current_turn + radius + 5 - 1, damage);
 				}
 			}
 		}
@@ -629,12 +629,12 @@ void explosion_attack(screen_section play_area, enemy current_enemy, dyn_array *
 
 	for (int x = play_area.x_min; x < play_area.x_max; x++)
 	{
-		append_attack(play_area, tab, x, center_y + play_area.y_min, current_turn + radius + 4 - 1, damage);
+		append_attack(play_area, tab, x, center_y + play_area.y_min, current_turn + radius + 5 - 1, damage);
 	}
 
 	for (int y = play_area.y_min; y < play_area.y_max; y++)
 	{
-		append_attack(play_area, tab, center_x + play_area.x_min, y, current_turn + radius + 4 - 1, damage);
+		append_attack(play_area, tab, center_x + play_area.x_min, y, current_turn + radius + 5 - 1, damage);
 	}
 }
 
@@ -682,7 +682,7 @@ void tetris_fall_attack(screen_section play_area, enemy current_enemy, dyn_array
 
 				if (attack_patterns[pattern][pattern_y][pattern_x] == 1)
 				{
-					append_attack(play_area, tab, screen_x, screen_y, current_turn + 4 + step, damage);
+					append_attack(play_area, tab, screen_x, screen_y, current_turn + 5 + step, damage);
 				}
 			}
 		}
@@ -716,7 +716,7 @@ void player_circle_attack(screen_section play_area, enemy current_enemy, dyn_arr
 
 			if (attack_pattern[y][x] != 0)
 			{
-				append_attack(play_area, tab, screen_x, screen_y, current_turn + 4 + attack_pattern[y][x], damage);
+				append_attack(play_area, tab, screen_x, screen_y, current_turn + 5 + attack_pattern[y][x], damage);
 			}
 		}
 	}
@@ -732,14 +732,14 @@ void player_square_attack(screen_section play_area, enemy current_enemy, dyn_arr
 	for (int i = 0; i < 7; i++)
 	{
 
-		append_attack(play_area, tab, center_x - 3 + i, center_y - 3, current_turn + 4 + i, damage);
-		append_attack(play_area, tab, center_x - 3 + i, center_y + 3, current_turn + 4 + i, damage);
-		append_attack(play_area, tab, center_x - 3, center_y - 3 + i, current_turn + 4 + i, damage);
-		append_attack(play_area, tab, center_x - 3, center_y + 3 - i, current_turn + 4 + i, damage);
-		append_attack(play_area, tab, center_x + 3 - i, center_y - 3, current_turn + 4 + i, damage);
-		append_attack(play_area, tab, center_x + 3 - i, center_y + 3, current_turn + 4 + i, damage);
-		append_attack(play_area, tab, center_x + 3, center_y - 3 + i, current_turn + 4 + i, damage);
-		append_attack(play_area, tab, center_x + 3, center_y + 3 - i, current_turn + 4 + i, damage);
+		append_attack(play_area, tab, center_x - 3 + i, center_y - 3, current_turn + 5 + i, damage);
+		append_attack(play_area, tab, center_x - 3 + i, center_y + 3, current_turn + 5 + i, damage);
+		append_attack(play_area, tab, center_x - 3, center_y - 3 + i, current_turn + 5 + i, damage);
+		append_attack(play_area, tab, center_x - 3, center_y + 3 - i, current_turn + 5 + i, damage);
+		append_attack(play_area, tab, center_x + 3 - i, center_y - 3, current_turn + 5 + i, damage);
+		append_attack(play_area, tab, center_x + 3 - i, center_y + 3, current_turn + 5 + i, damage);
+		append_attack(play_area, tab, center_x + 3, center_y - 3 + i, current_turn + 5 + i, damage);
+		append_attack(play_area, tab, center_x + 3, center_y + 3 - i, current_turn + 5 + i, damage);
 	}
 }
 
@@ -787,7 +787,7 @@ void snake_attack(screen_section play_area, enemy current_enemy, dyn_array *tab,
 		{
 			if (play_area.x_min <= x && x < play_area.x_max && play_area.y_min <= y && y < play_area.y_max)
 			{
-				append_attack(play_area, tab, x, y, current_turn + 4 + total_steps, damage);
+				append_attack(play_area, tab, x, y, current_turn + 5 + total_steps, damage);
 				total_steps++;
 			}
 			else
