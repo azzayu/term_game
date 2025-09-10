@@ -128,6 +128,12 @@ void tutorial()
     printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
     printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
 
+    printf("%sand passing with ' ' (space or w also works) restores 3 stamina \n", WHITE);
+
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+
     printf("%spress ENTER to continue\n", WHITE);
 
     input = getchar();

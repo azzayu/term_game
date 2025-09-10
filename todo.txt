@@ -63,6 +63,10 @@ make attack being added to the queue always go through a check with play area =>
 
 change controls
 
-add enemy passing
+add enemy passing => passing attack
 
 enemy weights
+
+more to tuto ? for the heads up display and passing
+
+level change info about character change
