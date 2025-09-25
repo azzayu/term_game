@@ -219,6 +219,9 @@ int main(int argc, char **argv)
 		game.enemies_defeated++;
 		turn = 0;
 		int current_level = prota->level;
+		int current_max_health = prota->max_health;
+		int current_max_stamina = prota->max_stamina;
+		int current_attack = prota->attack;
 
 		gain_exp(prota, current_enemy.enemy_type.base_exp_reward);
 		update_exp_bar(screen, *prota, exp_bar);
@@ -227,7 +230,12 @@ int main(int argc, char **argv)
 
 		if (current_level != prota->level)
 		{
-			printf("you leveled up! level : %i -> %i\n", current_level, prota->level);
+			printf("you leveled up! level : %i -> %i \n", current_level, prota->level);
+			printf("Max health : %i -> %i \n", current_max_health, prota->max_health);
+			printf("Max stamina : %i -> %i \n", current_max_stamina, prota->max_stamina);
+			if (current_attack != prota->attack){
+				printf("Attack : %i -> %i \n", current_attack, prota->attack);
+			}
 		}
 
 		if (prota->health < prota->max_health){

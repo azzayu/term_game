@@ -69,4 +69,4 @@ enemy weights
 
 more to tuto ? for the heads up display and passing
 
-level change info about character change
+level change info about character change => displaying attack max health and max stamina changes
