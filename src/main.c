@@ -102,10 +102,12 @@ text_section **initialise_all_text(pixel **screen, int width)
 
 	for (int i = 1; i < nb_text_sections; i++)
 	{
-		screen[all_text[i]->y][all_text[i]->x_min].layer[LAYER_TEXT] = i;
+		screen[all_text[i]->y][all_text[i]->x_min].colour = i;
+		screen[all_text[i]->y][all_text[i]->x_min].pixel_type = PIXEL_START_TEXT;
 		for (int j = all_text[i]->x_min + 1; j < all_text[i]->x_max; j++)
 		{
-			screen[all_text[i]->y][j].layer[LAYER_TEXT_BEFORE] = i;
+			screen[all_text[i]->y][all_text[i]->x_min].colour = VALUE_NONE;
+			screen[all_text[i]->y][all_text[i]->x_min].pixel_type = PIXEL_TEXT;
 		}
 	}
 
@@ -161,7 +163,8 @@ int main(int argc, char **argv)
 	prota = game.prota;
 
 	pixel **screen = init_screen(width, height, play_area, enemy_locations);
-	screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+	screen[prota->y][prota->x].colour = VALUE_YELLOW;
+	screen[prota->y][prota->x].pixel_type = PIXEL_FULL_BLOCK;
 
 	screen_section health_bar = initialise_health_bar(width);
 	screen_section stamina_bar = initialise_stamina_bar(width);

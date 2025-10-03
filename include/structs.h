@@ -1,10 +1,57 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
+typedef enum display_colours_s
+{
+    VALUE_NONE = 0,
+    VALUE_BLACK = 1,
+    VALUE_RED = 2,
+    VALUE_GREEN = 3,
+    VALUE_YELLOW = 4,
+    VALUE_BLUE = 5,
+    VALUE_MAGENTA = 6,
+    VALUE_CYAN = 7,
+    VALUE_WHITE = 8,
+    VALUE_BRIGHT_BLACK = 9,
+    VALUE_BRIGHT_RED = 10,
+    VALUE_BRIGHT_GREEN = 11,
+    VALUE_BRIGHT_YELLOW = 12,
+    VALUE_BRIGHT_BLUE = 13,
+    VALUE_BRIGHT_MAGENTA = 14,
+    VALUE_BRIGHT_CYAN = 15,
+    VALUE_BRIGHT_WHITE = 16,
+    VALUE_TEXT_ID = 17
+} display_colours;
+
+typedef enum display_pixel_types_s
+{
+    PIXEL_FULL_BLOCK = 0,  
+    PIXEL_THREE_QUART_BLOCK = 1,        
+    PIXEL_HALF_BLOCK = 2,
+    PIXEL_QUART_BLOCK = 3,    
+    PIXEL_VERT_WALL_LEFT = 4,       
+    PIXEL_VERT_WALL_RIGHT = 5,
+    PIXEL_HORI_WALL = 6,
+    PIXEL_TOP_LEFT_CORNER = 7,
+    PIXEL_TOP_RIGHT_CORNER = 8,
+    PIXEL_BOTTOM_LEFT_CORNER = 9,
+    PIXEL_BOTTOM_RIGHT_CORNER = 10,
+    PIXEL_RIGHT_JUNCTION = 11,
+    PIXEL_LEFT_JUNCTION = 12,
+    PIXEL_UP_RIGHT_JUNCTION = 13,
+    PIXEL_UP_LEFT_JUNCTION = 14,
+    PIXEL_DOWN_LEFT_JUNCTION = 15,
+    PIXEL_DOWN_RIGHT_JUNCTION = 16,
+    PIXEL_LEFT_CROSS_JUNCTION = 17,
+    PIXEL_RIGHT_CROSS_JUNCTION = 18,
+    PIXEL_START_TEXT = 19,
+    PIXEL_TEXT = 20
+} display_pixel_types;
+
 typedef struct pixel_s
 {
-    int layer[100];
-    int local_damage;
+    display_colours colour;
+    display_pixel_types pixel_type;
 } pixel;
 
 typedef struct screen_section_s
@@ -51,7 +98,7 @@ typedef struct player_s
     int attack;
 } player;
 
-enum enemy_types_names
+typedef enum enemy_types_names_s
 {
     DARK_KNIGHT = 0,
     POSSESSED_TREE = 1,
@@ -62,9 +109,9 @@ enum enemy_types_names
     MYSTERY = 6,
     ARCH_MAGE = 7,
     SHAMAN = 8
-};
+} enemy_types_names;
 
-enum attack_types
+typedef enum attack_types_s
 {
     SLASH = 0,          // dark_knight,
     SPIKES = 1,         // possessed_tree, golem
@@ -89,13 +136,13 @@ enum attack_types
     PLAYER_CIRCLE = 20, // arch_mage
     PLAYER_SQUARE = 21, // shaman
     SNAKE = 22          // shaman
-};
+} attack_types;
 
 typedef struct enemy_type_s
 {
     int different_attacks;
 
-    enum attack_types attack_codes[10];
+    attack_types attack_codes[10];
     int attack_weights[10];
     int attack_damages[10];
 
@@ -103,7 +150,7 @@ typedef struct enemy_type_s
 
     int base_exp_reward;
 
-    enum enemy_types_names enemy_type_name;
+    enemy_types_names enemy_type_name;
 } enemy_type;
 
 typedef struct attack_s

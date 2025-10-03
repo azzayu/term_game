@@ -201,7 +201,7 @@ void append_attack(screen_section play_area, dyn_array *tab, int x, int y, int t
 
 void add_attack(screen_section play_area, enemy current_enemy, dyn_array *tab, player prota, int current_turn)
 {
-	enum attack_types chosen_attack = choose_attack(current_enemy.enemy_type);
+	attack_types chosen_attack = choose_attack(current_enemy.enemy_type);
 	switch (chosen_attack)
 	{
 	case SLASH:

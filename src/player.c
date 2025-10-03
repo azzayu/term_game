@@ -16,25 +16,25 @@ int move_player(pixel **screen, player *prota, char input, screen_section play_a
 			prota->charged = 0;
 			if (prota->y - 3 > play_area.y_min)
 			{
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				screen[prota->y][prota->x].colour = VALUE_BRIGHT_CYAN;
 				prota->y -= 3;
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				screen[prota->y][prota->x].colour = VALUE_YELLOW;
 				prota->stamina--;
 			}
 			else
 			{
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				screen[prota->y][prota->x].colour = VALUE_BRIGHT_CYAN;
 				prota->y = play_area.y_min;
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				screen[prota->y][prota->x].colour = VALUE_YELLOW;
 				prota->stamina--;
 			}
 			return 1;
 		}
 		else
 		{
-			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+			screen[prota->y][prota->x].colour = VALUE_BRIGHT_CYAN;
 			prota->y -= 1;
-			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+			screen[prota->y][prota->x].colour = VALUE_YELLOW;
 			prota->stamina--;
 			return 1;
 		}
@@ -47,25 +47,25 @@ int move_player(pixel **screen, player *prota, char input, screen_section play_a
 			prota->charged = 0;
 			if (prota->y + 3 < play_area.y_max - 1)
 			{
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				screen[prota->y][prota->x].colour = VALUE_BRIGHT_CYAN;
 				prota->y += 3;
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				screen[prota->y][prota->x].colour = VALUE_YELLOW;
 				prota->stamina--;
 			}
 			else
 			{
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				screen[prota->y][prota->x].colour = VALUE_BRIGHT_CYAN;
 				prota->y = play_area.y_max - 1;
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				screen[prota->y][prota->x].colour = VALUE_YELLOW;
 				prota->stamina--;
 			}
 			return 1;
 		}
 		else
 		{
-			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+			screen[prota->y][prota->x].colour = VALUE_BRIGHT_CYAN;
 			prota->y += 1;
-			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+			screen[prota->y][prota->x].colour = VALUE_YELLOW;
 			prota->stamina--;
 			return 1;
 		}
@@ -78,25 +78,25 @@ int move_player(pixel **screen, player *prota, char input, screen_section play_a
 			prota->charged = 0;
 			if (prota->x + 3 < play_area.x_max - 1)
 			{
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				screen[prota->y][prota->x].colour = VALUE_BRIGHT_CYAN;
 				prota->x += 3;
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				screen[prota->y][prota->x].colour = VALUE_YELLOW;
 				prota->stamina--;
 			}
 			else
 			{
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				screen[prota->y][prota->x].colour = VALUE_BRIGHT_CYAN;
 				prota->x = play_area.x_max - 1;
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				screen[prota->y][prota->x].colour = VALUE_YELLOW;
 				prota->stamina--;
 			}
 			return 1;
 		}
 		else
 		{
-			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+			screen[prota->y][prota->x].colour = VALUE_BRIGHT_CYAN;
 			prota->x += 1;
-			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+			screen[prota->y][prota->x].colour = VALUE_YELLOW;
 			prota->stamina--;
 			return 1;
 		}
@@ -109,25 +109,25 @@ int move_player(pixel **screen, player *prota, char input, screen_section play_a
 			prota->charged = 0;
 			if (prota->x - 3 > play_area.x_min)
 			{
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				screen[prota->y][prota->x].colour = VALUE_BRIGHT_CYAN;
 				prota->x -= 3;
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				screen[prota->y][prota->x].colour = VALUE_YELLOW;
 				prota->stamina--;
 			}
 			else
 			{
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+				screen[prota->y][prota->x].colour = VALUE_BRIGHT_CYAN;
 				prota->x = play_area.x_min + 1;
-				screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+				screen[prota->y][prota->x].colour = VALUE_YELLOW;
 				prota->stamina--;
 			}
 			return 1;
 		}
 		else
 		{
-			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 0;
+			screen[prota->y][prota->x].colour = VALUE_BRIGHT_CYAN;
 			prota->x -= 1;
-			screen[prota->y][prota->x].layer[LAYER_PLAYER] = 1;
+			screen[prota->y][prota->x].colour = VALUE_YELLOW;
 			prota->stamina--;
 			return 1;
 		}
@@ -355,12 +355,14 @@ void gain_exp(player *prota, int exp)
 
 		prota->max_health += 1;
 		prota->health += 1;
-		if (prota->health > prota->max_health){
+		if (prota->health > prota->max_health)
+		{
 			prota->health = prota->max_health;
 		}
 		prota->max_stamina += 5;
 		prota->stamina += 5;
-		if (prota->stamina > prota->max_stamina){
+		if (prota->stamina > prota->max_stamina)
+		{
 			prota->stamina = prota->max_stamina;
 		}
 

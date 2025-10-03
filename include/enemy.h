@@ -21,7 +21,7 @@ enemy create_enemy(pixel **screen, screen_section enemy_locations[3], int enemie
 
 void clear_attacks(pixel **screen, screen_section play_area, dyn_array *tab);
 
-int get_attack_damage(enemy current_enemy, enum attack_types attack);
+int get_attack_damage(enemy current_enemy, attack_types attack);
 
 void append_attack(screen_section play_area, dyn_array *tab, int x, int y, int turn, int damage);
 
