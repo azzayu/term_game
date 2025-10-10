@@ -71,4 +71,12 @@ more to tuto ? for the heads up display and passing => no?
 
 level change info about character change => displaying attack max health and max stamina changes
 
-redo display system for colours
+redo display system for colours => first implem of this is done to fix :
+
+redo the end of bar code to not colour border
+redcolour border of enemy location
+colour playscreen start the right colour
+don't draw over the player (or redraw him before display?)
+wtf did you do to the text??
+attacks are red not bright red
+border left of exp bar is on the wrong shield
