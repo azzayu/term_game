@@ -131,15 +131,15 @@ void sort(dyn_array *tab)
 void print_dyn_array(dyn_array tab)
 {
 
-    printf("%s size : %d, mem size : %d\n", WHITE, tab.size, tab.mem_size);
+    printf("%s size : %d, mem size : %d\n", STRING_WHITE, tab.size, tab.mem_size);
     for (int i = 0; i < tab.mem_size; i++)
     {
         if (tab.size == i)
         {
-            printf("%s", RED);
+            printf("%s", STRING_RED);
         }
         printf("(t: %i, d: %i)", tab.attack_queue[i].turn, tab.attack_queue[i].damage);
     }
-    printf("%s", WHITE);
+    printf("%s", STRING_WHITE);
     printf("\n \n");
 }

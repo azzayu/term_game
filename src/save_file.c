@@ -100,41 +100,41 @@ void tutorial()
 
     printf("for the bottom part of the screen you are the yellow square \n");
 
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_YELLOW,      STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
 
-    printf("%spressing 'z' then ENTER will make you go up \n", WHITE);
+    printf("%spressing 'z' then ENTER will make you go up \n", STRING_WHITE);
 
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_YELLOW,      STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
 
-    printf("%s'd'\n", WHITE);
+    printf("%s'd'\n", STRING_WHITE);
 
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK);
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_YELLOW,      STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
 
-    printf("%s's'\n", WHITE);
+    printf("%s's'\n", STRING_WHITE);
 
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK);
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_YELLOW,      STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
 
-    printf("%s'q'\n", WHITE);
+    printf("%s'q'\n", STRING_WHITE);
 
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_YELLOW,      STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
 
-    printf("%sand passing with ' ' (space or w also works) restores 3 stamina \n", WHITE);
+    printf("%sand passing with ' ' (space or w also works) restores 3 stamina \n", STRING_WHITE);
 
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, YELLOW, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
-    printf("%s%s%s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_YELLOW,      STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK);
 
-    printf("%spress ENTER to continue\n", WHITE);
+    printf("%spress ENTER to continue\n", STRING_WHITE);
 
     input = getchar();
 
@@ -145,12 +145,12 @@ void tutorial()
 
     printf("you have to use these controls in order to dodge attacks \n");
     printf("printf attacks are shown using : \n");
-    printf("%s%s%s for an iminent attack this means staying on this tile will hurt you \n", RED, FULL_BLOCK, WHITE);
-    printf("%s%s%s for an attack in 1 turn\n", RED, THREE_QUART_BLOCK, WHITE);
-    printf("%s%s%s for an attack in 2 turn \n", RED, HALF_BLOCK, WHITE);
-    printf("%s%s%s for an attack in 3 turn \n", RED, QUART_BLOCK, WHITE);
+    printf("%s%s%s for an iminent attack this means staying on this tile will hurt you \n", STRING_RED, STRING_FULL_BLOCK,        STRING_WHITE);
+    printf("%s%s%s for an attack in 1 turn\n",                                              STRING_RED, STRING_THREE_QUART_BLOCK, STRING_WHITE);
+    printf("%s%s%s for an attack in 2 turn \n",                                             STRING_RED, STRING_HALF_BLOCK,        STRING_WHITE);
+    printf("%s%s%s for an attack in 3 turn \n",                                             STRING_RED, STRING_QUART_BLOCK,       STRING_WHITE);
 
-    printf("%spress ENTER to continue\n", WHITE);
+    printf("%spress ENTER to continue\n", STRING_WHITE);
 
     input = getchar();
 
@@ -162,21 +162,21 @@ void tutorial()
     printf("finally you can use 'c' to heal (careful this costs 10 stamina and passes 3 turns)\n");
     printf("and if you find yourself in a tough position you can input 'f' to charge a dash (for 5 stamina) then dash in which ever direction\n");
 
-    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
-    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
-    printf("%s%s%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, YELLOW, FULL_BLOCK, RED, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
-    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
-    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n",     STRING_RED, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_FULL_BLOCK,  STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n",     STRING_RED, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_FULL_BLOCK,  STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s%s%s\n", STRING_RED, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_YELLOW,     STRING_FULL_BLOCK, STRING_RED,        STRING_FULL_BLOCK,  STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n",     STRING_RED, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_FULL_BLOCK,  STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n",     STRING_RED, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_FULL_BLOCK,  STRING_FULL_BLOCK);
 
-    printf("%s'fd'\n", WHITE);
+    printf("%s'fd'\n", STRING_WHITE);
 
-    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
-    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
-    printf("%s%s%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, YELLOW, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK);
-    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
-    printf("%s%s%s%s%s%s%s%s%s%s\n", RED, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK, BRIGHT_BLUE, FULL_BLOCK, FULL_BLOCK, FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n",     STRING_RED, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n",     STRING_RED, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s%s%s\n", STRING_RED, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_YELLOW,     STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n",     STRING_RED, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK);
+    printf("%s%s%s%s%s%s%s%s%s%s\n",     STRING_RED, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_FULL_BLOCK, STRING_FULL_BLOCK);
 
-    printf("%spress ENTER to continue\n", WHITE);
+    printf("%spress ENTER to continue\n", STRING_WHITE);
 
     input = getchar();
 
@@ -189,7 +189,7 @@ void tutorial()
     printf("I suggest studying carefully each enemies different attack patterns and move chances in order to better eliminate them.\n");
     printf("That and to have tons of fun!\n");
 
-    printf("%spress ENTER to finish this tutorial\n", WHITE);
+    printf("%spress ENTER to finish this tutorial\n", STRING_WHITE);
 
     input = getchar();
 

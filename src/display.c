@@ -244,7 +244,7 @@ pixel **init_screen(int width, int height, screen_section play_area, screen_sect
 		screen[enemy_locations[i].y_min][enemy_locations[i].x_min].pixel_type = PIXEL_TOP_LEFT_CORNER;
 
 		screen[enemy_locations[i].y_min][enemy_locations[i].x_max].colour = VALUE_BRIGHT_WHITE;
-		screen[enemy_locations[i].y_min][enemy_locations[i].x_max].pixel_type = TOP_RIGHT_CORNER;
+		screen[enemy_locations[i].y_min][enemy_locations[i].x_max].pixel_type = PIXEL_TOP_RIGHT_CORNER;
 
 		screen[enemy_locations[i].y_max][enemy_locations[i].x_max].colour = VALUE_BRIGHT_WHITE;
 		screen[enemy_locations[i].y_max][enemy_locations[i].x_max].pixel_type = PIXEL_BOTTOM_RIGHT_CORNER;
@@ -280,22 +280,22 @@ pixel **init_screen(int width, int height, screen_section play_area, screen_sect
 
 void default_test_screen()
 {
-	printf("%s %s%s%s%s\n", BLACK, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", RED, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", GREEN, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", YELLOW, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", BLUE, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", MAGENTA, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", CYAN, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", WHITE, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", BRIGHT_BLACK, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", BRIGHT_RED, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", BRIGHT_GREEN, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", BRIGHT_YELLOW, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", BRIGHT_BLUE, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", BRIGHT_MAGENTA, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", BRIGHT_CYAN, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
-	printf("%s %s%s%s%s\n", BRIGHT_WHITE, FULL_BLOCK, THREE_QUART_BLOCK, HALF_BLOCK, QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_BLACK, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_RED, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_GREEN, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_YELLOW, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_BLUE, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_MAGENTA, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_CYAN, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_WHITE, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_BRIGHT_BLACK, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_BRIGHT_RED, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_BRIGHT_GREEN, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_BRIGHT_YELLOW, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_BRIGHT_BLUE, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_BRIGHT_MAGENTA, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_BRIGHT_CYAN, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
+	printf("%s %s%s%s%s\n", STRING_BRIGHT_WHITE, STRING_FULL_BLOCK, STRING_THREE_QUART_BLOCK, STRING_HALF_BLOCK, STRING_QUART_BLOCK);
 
 	fflush(stdout);
 }
@@ -311,14 +311,14 @@ void free_screen(pixel **pixel_mat, int height)
 
 void print_text_section(text_section *text)
 {
-	printf("%s", BRIGHT_WHITE);
+	printf("%s", STRING_BRIGHT_WHITE);
 	for (int i = 0; i < text->length; i++)
 	{
 		printf("%c", text->text[i]);
 	}
 	for (int i = 0; i < 2 * text->width - text->length; i++)
 	{
-		printf("%s█", BLACK);
+		printf("%s█", STRING_BLACK);
 	}
 }
 
@@ -329,52 +329,52 @@ void display_colour(display_colours pixel_to_display)
 	case VALUE_NONE:
 		break;
 	case VALUE_BLACK:
-		printf("%s", BLACK);
+		printf("%s", STRING_BLACK);
 		break;
 	case VALUE_RED:
-		printf("%s", RED);
+		printf("%s", STRING_RED);
 		break;
 	case VALUE_GREEN:
-		printf("%s", GREEN);
+		printf("%s", STRING_GREEN);
 		break;
 	case VALUE_YELLOW:
-		printf("%s", YELLOW);
+		printf("%s", STRING_YELLOW);
 		break;
 	case VALUE_BLUE:
-		printf("%s", BLUE);
+		printf("%s", STRING_BLUE);
 		break;
 	case VALUE_MAGENTA:
-		printf("%s", MAGENTA);
+		printf("%s", STRING_MAGENTA);
 		break;
 	case VALUE_CYAN:
-		printf("%s", CYAN);
+		printf("%s", STRING_CYAN);
 		break;
 	case VALUE_WHITE:
-		printf("%s", WHITE);
+		printf("%s", STRING_WHITE);
 		break;
 	case VALUE_BRIGHT_BLACK:
-		printf("%s", BRIGHT_BLACK);
+		printf("%s", STRING_BRIGHT_BLACK);
 		break;
 	case VALUE_BRIGHT_RED:
-		printf("%s", BRIGHT_RED);
+		printf("%s", STRING_BRIGHT_RED);
 		break;
 	case VALUE_BRIGHT_GREEN:
-		printf("%s", BRIGHT_GREEN);
+		printf("%s", STRING_BRIGHT_GREEN);
 		break;
 	case VALUE_BRIGHT_YELLOW:
-		printf("%s", BRIGHT_YELLOW);
+		printf("%s", STRING_BRIGHT_YELLOW);
 		break;
 	case VALUE_BRIGHT_BLUE:
-		printf("%s", BRIGHT_BLUE);
+		printf("%s", STRING_BRIGHT_BLUE);
 		break;
 	case VALUE_BRIGHT_MAGENTA:
-		printf("%s", BRIGHT_MAGENTA);
+		printf("%s", STRING_BRIGHT_MAGENTA);
 		break;
 	case VALUE_BRIGHT_CYAN:
-		printf("%s", BRIGHT_CYAN);
+		printf("%s", STRING_BRIGHT_CYAN);
 		break;
 	case VALUE_BRIGHT_WHITE:
-		printf("%s", BRIGHT_WHITE);
+		printf("%s", STRING_BRIGHT_WHITE);
 		break;
 	}
 }
@@ -395,61 +395,61 @@ void display_pixel(pixel pixel_to_display, text_section **all_text)
 	switch (pixel_to_display.pixel_type)
 	{
 	case PIXEL_FULL_BLOCK:
-		printf("%s", FULL_BLOCK);
+		printf("%s", STRING_FULL_BLOCK);
 		break;
 	case PIXEL_THREE_QUART_BLOCK:
-		printf("%s", THREE_QUART_BLOCK);
+		printf("%s", STRING_THREE_QUART_BLOCK);
 		break;
 	case PIXEL_HALF_BLOCK:
-		printf("%s", HALF_BLOCK);
+		printf("%s", STRING_HALF_BLOCK);
 		break;
 	case PIXEL_QUART_BLOCK:
-		printf("%s", QUART_BLOCK);
+		printf("%s", STRING_QUART_BLOCK);
 		break;
 	case PIXEL_VERT_WALL_LEFT:
-		printf("%s", VERT_WALL_LEFT);
+		printf("%s", STRING_VERT_WALL_LEFT);
 		break;
 	case PIXEL_VERT_WALL_RIGHT:
-		printf("%s", VERT_WALL_RIGHT);
+		printf("%s", STRING_VERT_WALL_RIGHT);
 		break;
 	case PIXEL_HORI_WALL:
-		printf("%s", HORI_WALL);
+		printf("%s", STRING_HORI_WALL);
 		break;
 	case PIXEL_TOP_LEFT_CORNER:
-		printf("%s", TOP_LEFT_CORNER);
+		printf("%s", STRING_TOP_LEFT_CORNER);
 		break;
 	case PIXEL_TOP_RIGHT_CORNER:
-		printf("%s", TOP_RIGHT_CORNER);
+		printf("%s", STRING_TOP_RIGHT_CORNER);
 		break;
 	case PIXEL_BOTTOM_LEFT_CORNER:
-		printf("%s", BOTTOM_LEFT_CORNER);
+		printf("%s", STRING_BOTTOM_LEFT_CORNER);
 		break;
 	case PIXEL_BOTTOM_RIGHT_CORNER:
-		printf("%s", BOTTOM_RIGHT_CORNER);
+		printf("%s", STRING_BOTTOM_RIGHT_CORNER);
 		break;
 	case PIXEL_RIGHT_JUNCTION:
-		printf("%s", RIGHT_JUNCTION);
+		printf("%s", STRING_RIGHT_JUNCTION);
 		break;
 	case PIXEL_LEFT_JUNCTION:
-		printf("%s", LEFT_JUNCTION);
+		printf("%s", STRING_LEFT_JUNCTION);
 		break;
 	case PIXEL_UP_RIGHT_JUNCTION:
-		printf("%s", UP_RIGHT_JUNCTION);
+		printf("%s", STRING_UP_RIGHT_JUNCTION);
 		break;
 	case PIXEL_UP_LEFT_JUNCTION:
-		printf("%s", UP_LEFT_JUNCTION);
+		printf("%s", STRING_UP_LEFT_JUNCTION);
 		break;
 	case PIXEL_DOWN_LEFT_JUNCTION:
-		printf("%s", DOWN_LEFT_JUNCTION);
+		printf("%s", STRING_DOWN_LEFT_JUNCTION);
 		break;
 	case PIXEL_DOWN_RIGHT_JUNCTION:
-		printf("%s", DOWN_RIGHT_JUNCTION);
+		printf("%s", STRING_DOWN_RIGHT_JUNCTION);
 		break;
 	case PIXEL_LEFT_CROSS_JUNCTION:
-		printf("%s", LEFT_CROSS_JUNCTION);
+		printf("%s", STRING_LEFT_CROSS_JUNCTION);
 		break;
 	case PIXEL_RIGHT_CROSS_JUNCTION:
-		printf("%s", RIGHT_CROSS_JUNCTION);
+		printf("%s", STRING_RIGHT_CROSS_JUNCTION);
 		break;
 	}
 }

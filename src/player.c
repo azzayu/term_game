@@ -185,30 +185,32 @@ void update_health_bar(pixel **screen, player prota, screen_section health_bar)
 
 	for (int j = 0; j < health_bar.width; j++)
 	{
-		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_FULL] = 0;
-		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_THREE_QUART] = 0;
-		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_HALF] = 0;
-		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_QUART] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].colour = VALUE_BLACK;
+		screen[health_bar.y_min][health_bar.x_min + j].pixel_type = PIXEL_FULL_BLOCK;
 	}
 
 	int i = 0;
 	while ((i + 1) * health_per_block <= prota.health)
 	{
-		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_FULL] = 1;
+		screen[health_bar.y_min][health_bar.x_min + i].colour = VALUE_RED;
 		i++;
 	}
 
+	screen[health_bar.y_min][health_bar.x_min + i].colour = VALUE_RED;
+
+	// displays the last partial bar
 	if ((i + 0.75) * health_per_block <= prota.health)
-	{
-		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_THREE_QUART] = 1;
+	{	
+		screen[health_bar.y_min][health_bar.x_min + i].pixel_type = PIXEL_THREE_QUART_BLOCK;
 	}
 	else if ((i + 0.5) * health_per_block <= prota.health)
-	{
-		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_HALF] = 1;
+	{	
+		
+		screen[health_bar.y_min][health_bar.x_min + i].pixel_type = PIXEL_HALF_BLOCK;
 	}
-	else if ((i + 0.25) * health_per_block * 0.25 <= prota.health)
+	else if ((i + 0.25) * health_per_block <= prota.health)
 	{
-		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_QUART] = 1;
+		screen[health_bar.y_min][health_bar.x_min + i].pixel_type = PIXEL_QUART_BLOCK;
 	}
 }
 
@@ -218,31 +220,32 @@ void update_exp_bar(pixel **screen, player prota, screen_section exp_bar)
 
 	for (int j = 0; j < exp_bar.width; j++)
 	{
-		screen[exp_bar.y_min][exp_bar.x_min + j].layer[LAYER_EXP_FULL] = 0;
-		screen[exp_bar.y_min][exp_bar.x_min + j].layer[LAYER_EXP_THREE_QUART] = 0;
-		screen[exp_bar.y_min][exp_bar.x_min + j].layer[LAYER_EXP_HALF] = 0;
-		screen[exp_bar.y_min][exp_bar.x_min + j].layer[LAYER_EXP_QUART] = 0;
+		screen[exp_bar.y_min][exp_bar.x_min + j].colour = VALUE_BLACK;
+		screen[exp_bar.y_min][exp_bar.x_min + j].pixel_type = PIXEL_FULL_BLOCK;
 	}
 
 	int i = 0;
 	while ((i + 1) * exp_per_block <= prota.exp)
 	{
-		screen[exp_bar.y_min][exp_bar.x_min + i].layer[LAYER_EXP_FULL] = 1;
-		// printf("%i\n", i);
+		screen[exp_bar.y_min][exp_bar.x_min + i].colour = VALUE_BRIGHT_YELLOW;
 		i++;
 	}
 
+	screen[exp_bar.y_min][exp_bar.x_min + i].colour = VALUE_BRIGHT_YELLOW;
+
+	// displays the last partial bar
 	if ((i + 0.75) * exp_per_block <= prota.exp)
-	{
-		screen[exp_bar.y_min][exp_bar.x_min + i].layer[LAYER_EXP_THREE_QUART] = 1;
+	{	
+		screen[exp_bar.y_min][exp_bar.x_min + i].pixel_type = PIXEL_THREE_QUART_BLOCK;
 	}
 	else if ((i + 0.5) * exp_per_block <= prota.exp)
-	{
-		screen[exp_bar.y_min][exp_bar.x_min + i].layer[LAYER_EXP_HALF] = 1;
+	{	
+		
+		screen[exp_bar.y_min][exp_bar.x_min + i].pixel_type = PIXEL_HALF_BLOCK;
 	}
-	else if ((i + 0.25) * exp_per_block * 0.25 <= prota.exp)
+	else if ((i + 0.25) * exp_per_block <= prota.exp)
 	{
-		screen[exp_bar.y_min][exp_bar.x_min + i].layer[LAYER_EXP_QUART] = 1;
+		screen[exp_bar.y_min][exp_bar.x_min + i].pixel_type = PIXEL_QUART_BLOCK;
 	}
 }
 
@@ -252,30 +255,32 @@ void update_stamina_bar(pixel **screen, player prota, screen_section stamina_bar
 
 	for (int j = 0; j < stamina_bar.width; j++)
 	{
-		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[LAYER_STAMINA_FULL] = 0;
-		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[LAYER_STAMINA_THREE_QUART] = 0;
-		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[LAYER_STAMINA_HALF] = 0;
-		screen[stamina_bar.y_min][stamina_bar.x_min + j].layer[LAYER_STAMINA_QUART] = 0;
+		screen[stamina_bar.y_min][stamina_bar.x_min + j].colour = VALUE_BLACK;
+		screen[stamina_bar.y_min][stamina_bar.x_min + j].pixel_type = PIXEL_FULL_BLOCK;
 	}
 
 	int i = 0;
 	while ((i + 1) * stamina_per_block <= prota.stamina)
 	{
-		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[LAYER_STAMINA_FULL] = 1;
+		screen[stamina_bar.y_min][stamina_bar.x_min + i].colour = VALUE_BLUE;
 		i++;
 	}
 
+	screen[stamina_bar.y_min][stamina_bar.x_min + i].colour = VALUE_BLUE;
+
+	// displays the last partial bar
 	if ((i + 0.75) * stamina_per_block <= prota.stamina)
-	{
-		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[LAYER_STAMINA_THREE_QUART] = 1;
+	{	
+		screen[stamina_bar.y_min][stamina_bar.x_min + i].pixel_type = PIXEL_THREE_QUART_BLOCK;
 	}
 	else if ((i + 0.5) * stamina_per_block <= prota.stamina)
-	{
-		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[LAYER_STAMINA_HALF] = 1;
+	{	
+		
+		screen[stamina_bar.y_min][stamina_bar.x_min + i].pixel_type = PIXEL_HALF_BLOCK;
 	}
-	else if ((i + 0.25) * stamina_per_block * 0.25 <= prota.stamina)
+	else if ((i + 0.25) * stamina_per_block <= prota.stamina)
 	{
-		screen[stamina_bar.y_min][stamina_bar.x_min + i].layer[LAYER_STAMINA_QUART] = 1;
+		screen[stamina_bar.y_min][stamina_bar.x_min + i].pixel_type = PIXEL_QUART_BLOCK;
 	}
 }
 
@@ -322,21 +327,21 @@ void change_aim(pixel **screen, player *prota, screen_section enemy_locations[3]
 			is_selected = 1;
 		}
 
-		screen[enemy_locations[i].y_min][enemy_locations[i].x_min].layer[LAYER_TOP_LEFT_CORNER] = 1 + is_selected;
-		screen[enemy_locations[i].y_min][enemy_locations[i].x_max].layer[LAYER_TOP_RIGHT_CORNER] = 1 + is_selected;
-		screen[enemy_locations[i].y_max][enemy_locations[i].x_max].layer[LAYER_BOTTOM_RIGHT_CORNER] = 1 + is_selected;
-		screen[enemy_locations[i].y_max][enemy_locations[i].x_min].layer[LAYER_BOTTOM_LEFT_CORNER] = 1 + is_selected;
+		screen[enemy_locations[i].y_min][enemy_locations[i].x_min].colour = 1 + is_selected * (VALUE_YELLOW - VALUE_BRIGHT_WHITE);
+		screen[enemy_locations[i].y_min][enemy_locations[i].x_max].colour = 1 + is_selected * (VALUE_YELLOW - VALUE_BRIGHT_WHITE);
+		screen[enemy_locations[i].y_max][enemy_locations[i].x_max].colour = 1 + is_selected * (VALUE_YELLOW - VALUE_BRIGHT_WHITE);
+		screen[enemy_locations[i].y_max][enemy_locations[i].x_min].colour = 1 + is_selected * (VALUE_YELLOW - VALUE_BRIGHT_WHITE);
 
 		for (int j = 1; j < enemy_locations[i].width; j++)
 		{
-			screen[enemy_locations[i].y_min][enemy_locations[i].x_min + j].layer[LAYER_HORI_WALL] = 1 + is_selected;
-			screen[enemy_locations[i].y_max][enemy_locations[i].x_min + j].layer[LAYER_HORI_WALL] = 1 + is_selected;
+			screen[enemy_locations[i].y_min][enemy_locations[i].x_min + j].colour = 1 + is_selected * (VALUE_YELLOW - VALUE_BRIGHT_WHITE);
+			screen[enemy_locations[i].y_max][enemy_locations[i].x_min + j].colour = 1 + is_selected * (VALUE_YELLOW - VALUE_BRIGHT_WHITE);
 		}
 
 		for (int j = 1; j < enemy_locations[i].height; j++)
 		{
-			screen[enemy_locations[i].y_min + j][enemy_locations[i].x_min].layer[LAYER_VERT_WALL_RIGHT] = 1 + is_selected;
-			screen[enemy_locations[i].y_min + j][enemy_locations[i].x_max].layer[LAYER_VERT_WALL_LEFT] = 1 + is_selected;
+		 	screen[enemy_locations[i].y_min + j][enemy_locations[i].x_min].colour = 1 + is_selected * (VALUE_YELLOW - VALUE_BRIGHT_WHITE);
+			screen[enemy_locations[i].y_min + j][enemy_locations[i].x_max].colour = 1 + is_selected * (VALUE_YELLOW - VALUE_BRIGHT_WHITE);
 		}
 	}
 }

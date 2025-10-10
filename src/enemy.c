@@ -17,10 +17,8 @@ void update_attacks(pixel **screen, player *prota, screen_section play_area, dyn
 	{
 		for (int x = play_area.x_min; x < play_area.x_max; x++)
 		{
-			screen[y][x].layer[LAYER_ATTACK_IN0] = 0;
-			screen[y][x].layer[LAYER_ATTACK_IN1] = 0;
-			screen[y][x].layer[LAYER_ATTACK_IN2] = 0;
-			screen[y][x].layer[LAYER_ATTACK_IN3] = 0;
+			screen[y][x].colour = VALUE_BRIGHT_BLUE;
+			screen[y][x].pixel_type = PIXEL_FULL_BLOCK;
 		}
 	}
 
@@ -55,7 +53,21 @@ void update_attacks(pixel **screen, player *prota, screen_section play_area, dyn
 
 	while (tab->attack_queue[i].turn - current_turn < 5 && i >= 0)
 	{
-		screen[tab->attack_queue[i].y][tab->attack_queue[i].x].layer[LAYER_ATTACK_IN0 - 1 + tab->attack_queue[i].turn - current_turn] = 1;
+		screen[tab->attack_queue[i].y][tab->attack_queue[i].x].colour = VALUE_BRIGHT_RED;
+		switch (tab->attack_queue[i].turn - current_turn){
+			case 1:
+				screen[tab->attack_queue[i].y][tab->attack_queue[i].x].pixel_type = PIXEL_FULL_BLOCK;
+				break;
+			case 2:
+				screen[tab->attack_queue[i].y][tab->attack_queue[i].x].pixel_type = PIXEL_THREE_QUART_BLOCK;
+				break;
+			case 3:
+				screen[tab->attack_queue[i].y][tab->attack_queue[i].x].pixel_type = PIXEL_HALF_BLOCK;
+				break;
+			case 4:
+				screen[tab->attack_queue[i].y][tab->attack_queue[i].x].pixel_type = PIXEL_QUART_BLOCK;
+				break;
+		}
 		i--;
 	}
 }
@@ -67,32 +79,33 @@ void update_enemy_health_bar(pixel **screen, enemy monster, screen_section healt
 	// resets the bar to empty
 	for (int j = 0; j <= health_bar.width; j++)
 	{
-		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_FULL] = 0;
-		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_THREE_QUART] = 0;
-		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_HALF] = 0;
-		screen[health_bar.y_min][health_bar.x_min + j].layer[LAYER_HEALTH_QUART] = 0;
+		screen[health_bar.y_min][health_bar.x_min + j].colour = VALUE_BLACK;
+		screen[health_bar.y_min][health_bar.x_min + j].pixel_type = PIXEL_FULL_BLOCK;
 	}
 
 	// displays the full blocks
 	int i = 0;
 	while ((i + 1) * health_per_block <= monster.health)
 	{
-		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_FULL] = 1;
+		screen[health_bar.y_min][health_bar.x_min + i].colour = VALUE_RED;
 		i++;
 	}
 
+	screen[health_bar.y_min][health_bar.x_min + i].colour = VALUE_RED;
+
 	// displays the last partial bar
 	if ((i + 0.75) * health_per_block <= monster.health)
-	{
-		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_THREE_QUART] = 1;
+	{	
+		screen[health_bar.y_min][health_bar.x_min + i].pixel_type = PIXEL_THREE_QUART_BLOCK;
 	}
 	else if ((i + 0.5) * health_per_block <= monster.health)
-	{
-		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_HALF] = 1;
+	{	
+		
+		screen[health_bar.y_min][health_bar.x_min + i].pixel_type = PIXEL_HALF_BLOCK;
 	}
 	else if ((i + 0.25) * health_per_block <= monster.health)
 	{
-		screen[health_bar.y_min][health_bar.x_min + i].layer[LAYER_HEALTH_QUART] = 1;
+		screen[health_bar.y_min][health_bar.x_min + i].pixel_type = PIXEL_QUART_BLOCK;
 	}
 }
 
@@ -151,7 +164,7 @@ void update_enemy_name(text_section *name_place, enemy monster)
 	}
 }
 
-enum attack_types choose_attack(enemy_type type)
+attack_types choose_attack(enemy_type type)
 {
 	int total_weight = 1;
 
@@ -174,7 +187,7 @@ enum attack_types choose_attack(enemy_type type)
 	return type.attack_codes[type.different_attacks - 1];
 }
 
-int get_attack_damage(enemy current_enemy, enum attack_types attack)
+int get_attack_damage(enemy current_enemy, attack_types attack)
 {
 	for (int i = 0; i < current_enemy.enemy_type.different_attacks; i++)
 	{
@@ -286,26 +299,15 @@ void reset_enemy_location(pixel **screen, screen_section *enemy_location)
 	{
 		for (int y = enemy_location->y_min + 1; y < enemy_location->y_max; y++)
 		{
-			screen[y][x].layer[LAYER_HORI_WALL] = 0;
-			screen[y][x].layer[LAYER_VERT_WALL_LEFT] = 0;
-			screen[y][x].layer[LAYER_VERT_WALL_RIGHT] = 0;
-			screen[y][x].layer[LAYER_TOP_LEFT_CORNER] = 0;
-			screen[y][x].layer[LAYER_TOP_RIGHT_CORNER] = 0;
-			screen[y][x].layer[LAYER_BOTTOM_LEFT_CORNER] = 0;
-			screen[y][x].layer[LAYER_BOTTOM_RIGHT_CORNER] = 0;
-			screen[y][x].layer[LAYER_UP_LEFT_JUNCTION] = 0;
-			screen[y][x].layer[LAYER_UP_RIGHT_JUNCTION] = 0;
-			screen[y][x].layer[LAYER_DOWN_LEFT_JUNCTION] = 0;
-			screen[y][x].layer[LAYER_DOWN_RIGHT_JUNCTION] = 0;
-			screen[y][x].layer[LAYER_LEFT_JUNCTION] = 0;
-			screen[y][x].layer[LAYER_RIGHT_JUNCTION] = 0;
+			screen[y][x].pixel_type = PIXEL_FULL_BLOCK;
+			screen[y][x].colour = VALUE_BLACK;
 		}
 	}
 }
 
 enemy create_enemy(pixel **screen, screen_section enemy_locations[3], int enemies_defeated)
 {
-	enum enemy_types_names new_enemy_type = rand() % NB_ENEMY_TYPES;
+	enemy_types_names new_enemy_type = rand() % NB_ENEMY_TYPES;
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -317,18 +319,31 @@ enemy create_enemy(pixel **screen, screen_section enemy_locations[3], int enemie
 	int center_x = (enemy_locations[1].x_min + enemy_locations[1].x_max) / 2;
 	int center_y = (enemy_locations[1].y_min + enemy_locations[1].y_max) / 2;
 
-	screen[center_y][center_x].layer[LAYER_HORI_WALL] = 1;
-	screen[center_y - 1][center_x].layer[LAYER_HORI_WALL] = 1;
-	screen[center_y + 1][center_x].layer[LAYER_HORI_WALL] = 1;
-	screen[center_y][center_x + 1].layer[LAYER_HORI_WALL] = 1;
-	screen[center_y - 1][center_x + 1].layer[LAYER_HORI_WALL] = 1;
-	screen[center_y + 1][center_x + 1].layer[LAYER_HORI_WALL] = 1;
-	screen[center_y][center_x + 2].layer[LAYER_LEFT_JUNCTION] = 1;
-	screen[center_y][center_x - 1].layer[LAYER_RIGHT_JUNCTION] = 1;
-	screen[center_y - 1][center_x - 1].layer[LAYER_TOP_LEFT_CORNER] = 1;
-	screen[center_y - 1][center_x + 2].layer[LAYER_TOP_RIGHT_CORNER] = 1;
-	screen[center_y + 1][center_x - 1].layer[LAYER_BOTTOM_LEFT_CORNER] = 1;
-	screen[center_y + 1][center_x + 2].layer[LAYER_BOTTOM_RIGHT_CORNER] = 1;
+	screen[center_y][center_x].colour = VALUE_BRIGHT_WHITE;
+	screen[center_y - 1][center_x].colour = VALUE_BRIGHT_WHITE;
+	screen[center_y + 1][center_x].colour = VALUE_BRIGHT_WHITE;
+	screen[center_y][center_x + 1].colour = VALUE_BRIGHT_WHITE;
+	screen[center_y - 1][center_x + 1].colour = VALUE_BRIGHT_WHITE;
+	screen[center_y + 1][center_x + 1].colour = VALUE_BRIGHT_WHITE;
+	screen[center_y][center_x + 2].colour = VALUE_BRIGHT_WHITE;
+	screen[center_y][center_x - 1].colour = VALUE_BRIGHT_WHITE;
+	screen[center_y - 1][center_x - 1].colour = VALUE_BRIGHT_WHITE;
+	screen[center_y - 1][center_x + 2].colour = VALUE_BRIGHT_WHITE;
+	screen[center_y + 1][center_x - 1].colour = VALUE_BRIGHT_WHITE;
+	screen[center_y + 1][center_x + 2].colour = VALUE_BRIGHT_WHITE;
+
+	screen[center_y][center_x].pixel_type = PIXEL_HORI_WALL;
+	screen[center_y - 1][center_x].pixel_type = PIXEL_HORI_WALL;
+	screen[center_y + 1][center_x].pixel_type = PIXEL_HORI_WALL;
+	screen[center_y][center_x + 1].pixel_type = PIXEL_HORI_WALL;
+	screen[center_y - 1][center_x + 1].pixel_type = PIXEL_HORI_WALL;
+	screen[center_y + 1][center_x + 1].pixel_type = PIXEL_HORI_WALL;
+	screen[center_y][center_x + 2].pixel_type = PIXEL_LEFT_JUNCTION;
+	screen[center_y][center_x - 1].pixel_type = PIXEL_RIGHT_JUNCTION;
+	screen[center_y - 1][center_x - 1].pixel_type = PIXEL_TOP_LEFT_CORNER;
+	screen[center_y - 1][center_x + 2].pixel_type = PIXEL_TOP_RIGHT_CORNER;
+	screen[center_y + 1][center_x - 1].pixel_type = PIXEL_BOTTOM_LEFT_CORNER;
+	screen[center_y + 1][center_x + 2].pixel_type = PIXEL_BOTTOM_RIGHT_CORNER;
 
 	switch (new_enemy_type)
 	{
@@ -393,18 +408,31 @@ void update_enemy_location(pixel **screen, enemy *current_enemy, screen_section 
 		int center_x = (enemy_locations[enemy_location].x_min + enemy_locations[enemy_location].x_max) / 2;
 		int center_y = (enemy_locations[enemy_location].y_min + enemy_locations[enemy_location].y_max) / 2;
 
-		screen[center_y][center_x].layer[LAYER_HORI_WALL] = 1;
-		screen[center_y - 1][center_x].layer[LAYER_HORI_WALL] = 1;
-		screen[center_y + 1][center_x].layer[LAYER_HORI_WALL] = 1;
-		screen[center_y][center_x + 1].layer[LAYER_HORI_WALL] = 1;
-		screen[center_y - 1][center_x + 1].layer[LAYER_HORI_WALL] = 1;
-		screen[center_y + 1][center_x + 1].layer[LAYER_HORI_WALL] = 1;
-		screen[center_y][center_x + 2].layer[LAYER_LEFT_JUNCTION] = 1;
-		screen[center_y][center_x - 1].layer[LAYER_RIGHT_JUNCTION] = 1;
-		screen[center_y - 1][center_x - 1].layer[LAYER_TOP_LEFT_CORNER] = 1;
-		screen[center_y - 1][center_x + 2].layer[LAYER_TOP_RIGHT_CORNER] = 1;
-		screen[center_y + 1][center_x - 1].layer[LAYER_BOTTOM_LEFT_CORNER] = 1;
-		screen[center_y + 1][center_x + 2].layer[LAYER_BOTTOM_RIGHT_CORNER] = 1;
+		screen[center_y][center_x].colour = VALUE_BRIGHT_WHITE;
+		screen[center_y - 1][center_x].colour = VALUE_BRIGHT_WHITE;
+		screen[center_y + 1][center_x].colour = VALUE_BRIGHT_WHITE;
+		screen[center_y][center_x + 1].colour = VALUE_BRIGHT_WHITE;
+		screen[center_y - 1][center_x + 1].colour = VALUE_BRIGHT_WHITE;
+		screen[center_y + 1][center_x + 1].colour = VALUE_BRIGHT_WHITE;
+		screen[center_y][center_x + 2].colour = VALUE_BRIGHT_WHITE;
+		screen[center_y][center_x - 1].colour = VALUE_BRIGHT_WHITE;
+		screen[center_y - 1][center_x - 1].colour = VALUE_BRIGHT_WHITE;
+		screen[center_y - 1][center_x + 2].colour = VALUE_BRIGHT_WHITE;
+		screen[center_y + 1][center_x - 1].colour = VALUE_BRIGHT_WHITE;
+		screen[center_y + 1][center_x + 2].colour = VALUE_BRIGHT_WHITE;
+		
+		screen[center_y][center_x].pixel_type = PIXEL_HORI_WALL;
+		screen[center_y - 1][center_x].pixel_type = PIXEL_HORI_WALL;
+		screen[center_y + 1][center_x].pixel_type = PIXEL_HORI_WALL;
+		screen[center_y][center_x + 1].pixel_type = PIXEL_HORI_WALL;
+		screen[center_y - 1][center_x + 1].pixel_type = PIXEL_HORI_WALL;
+		screen[center_y + 1][center_x + 1].pixel_type = PIXEL_HORI_WALL;
+		screen[center_y][center_x + 2].pixel_type = PIXEL_LEFT_JUNCTION;
+		screen[center_y][center_x - 1].pixel_type = PIXEL_RIGHT_JUNCTION;
+		screen[center_y - 1][center_x - 1].pixel_type = PIXEL_TOP_LEFT_CORNER;
+		screen[center_y - 1][center_x + 2].pixel_type = PIXEL_TOP_RIGHT_CORNER;
+		screen[center_y + 1][center_x - 1].pixel_type = PIXEL_BOTTOM_LEFT_CORNER;
+		screen[center_y + 1][center_x + 2].pixel_type = PIXEL_BOTTOM_RIGHT_CORNER;
 	}
 }
 
@@ -419,10 +447,8 @@ void clear_attacks(pixel **screen, screen_section play_area, dyn_array *tab)
 	{
 		for (int y = play_area.y_min; y < play_area.y_max; y++)
 		{
-			screen[y][x].layer[LAYER_ATTACK_IN0] = 0;
-			screen[y][x].layer[LAYER_ATTACK_IN1] = 0;
-			screen[y][x].layer[LAYER_ATTACK_IN2] = 0;
-			screen[y][x].layer[LAYER_ATTACK_IN3] = 0;
+			screen[y][x].colour = VALUE_BRIGHT_BLUE;
+			screen[y][x].pixel_type = PIXEL_FULL_BLOCK;
 		}
 	}
 }
